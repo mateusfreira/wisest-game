@@ -25,7 +25,9 @@ var UserSchema = new Schema({
 	}]
 });
 UserSchema.methods.getThemeScore = function(theme) {
+	console.log(theme);
 	this.scores = this.scores || [];
+
 	var themeScore = this.scores.filter(function(score) {
 		return score.theme === theme;
 	})[0];
@@ -34,12 +36,14 @@ UserSchema.methods.getThemeScore = function(theme) {
 			theme: theme,
 			score: 0
 		};
-		user.scores.push(themeScore);
+		this.scores.push(themeScore);
 	}
 	return themeScore;
 };
 UserSchema.methods.scoreTheme = function(theme, question, score) {
+	
 	const user = this;
+	console.log("scoreTheme");
 	var themeScore = user.getThemeScore(theme);
 	var scoreBefore;
 	var scoreAfter;

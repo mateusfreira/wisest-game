@@ -9,15 +9,17 @@ module.exports = {
     });
   },
   start: function(req, res, next) {
+    console.log("Request", req.session);
     GameService.start(req.session, {
       player: {
-        _id : "56c892ce283c617e7c8b0ed4",
+        _id: "56c892ce283c617e7c8b0ed4",
         name: "Jon due!",
       },
       theme: req.body.theme,
       mode: req.body.mode
     });
     res.status(200).send({});
+    console.log(req.session);
   },
   next: function(req, res, next) {
     Question.some(req.session.gameContext).then(function(question) {

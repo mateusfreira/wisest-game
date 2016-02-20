@@ -14,8 +14,8 @@ const GameService = function() {
 	};
 
 	this.score = function(context, theme, question) {
-
 		return User.findById(context.player._id).then(function(user) {
+			console.log(user);
 			return user.scoreTheme(theme, question, 1);
 		}).then(function() {
 			return {

@@ -4,7 +4,6 @@
   const session = require('express-session');
   const cookieParser = require('cookie-parser');
   const bodyParser = require('body-parser');
-  var flash    = require('connect-flash');
   const db = require('./model').connection;
   const mongoSession = require('connect-mongodb-session')(session);
 
@@ -14,9 +13,12 @@
   app.strategies = require('./configs/passport')(app.passport);
 
   const allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
+
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    
     next();
   }
   app
@@ -25,7 +27,7 @@
       httpOnly: true,
       maxAge: 10000,
       store: new mongoSession({ 
-        uri: 'mongodb://localhost/wisest-game',
+        uri: 'mongodb://192.168.1.10/wisest-game',
         collection: 'wisest-sessions'
       }),
       saveUninitialized: false,
@@ -39,9 +41,8 @@
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({extended: true}))
     .use(app.passport.initialize())
-    .use(app.passport.session())
-    .use(flash())    
-    .use(cookieParser());
+    .use(app.passport.session());
+    //.use(cookieParser());
     app.passport.serializeUser(function(user, done) {
     done(null, user);
     });
