@@ -1,0 +1,11 @@
+{
+  "name": "rest-wisest-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mateus Freira dos Santso <mateus.freira@gmail.com> (http://www.github.com/mateusfreira)",
+  "license": "ISC"
+}
