@@ -24,37 +24,40 @@ var UserSchema = new Schema({
 		score: Number
 	}]
 });
+
 UserSchema.methods.getThemeScore = function(theme) {
 	this.scores = this.scores || [];
-
-	var themeScore = this.scores.filter(function(score) {
-		return score.theme === theme;
+	return this.scores.filter(function(score) {
+		return score.theme.toString() === theme.toString();
 	})[0];
-	if (!themeScore) {
-		themeScore = {
-			theme: theme,
-			score: 0
-		};
-		this.scores.push(themeScore);
-	}
-	return themeScore;
 };
 UserSchema.methods.scoreTheme = function(themeId, question, score) {
+	try{
 	const user = this;
-	var themeScore = user.getThemeScore(themeId);
-	var scoreBefore;
+	var scoreBefore = 0;
 	var scoreAfter;
-	scoreBefore = themeScore.score;
-	themeScore.score += score;
+	var themeScore = user.getThemeScore(themeId);
+	if (!themeScore) {
+		themeScore = {
+			theme: themeId,
+			score: score
+		};
+		user.scores.push(themeScore);
+	}else{
+		scoreBefore = themeScore.score;
+		themeScore.score += score;	
+	}
 	scoreAfter = themeScore.score;
 	return user.save().then(function() {
 		new Score({
 			user: user._id,
+			hit : true,
 			questions: question,
 			scoreBefore: scoreBefore,
 			scoreAfter: scoreAfter
 		}).save();
 	});
+}catch(e){console.log(e)}
 };
 UserSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
