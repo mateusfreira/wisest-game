@@ -2,7 +2,7 @@ const requireModule = require('../model/index').requireModule,
 	  Question = requireModule("Question"),
 	  User = requireModule("User"),
 	  Score = requireModule("Score");
-function GameService(){
+function GameService() {
 	var self = this;
 
 	this.nextQuestion = function(gameContext) {
@@ -20,15 +20,15 @@ function GameService(){
 			theme: theme,
 			mode: mode
 		};
-		return {};
+		return contextContainer.gameContext;
 	};
 
 	this.score = function(context, questionId) {
 		return Question.findById(questionId)
 			.then(function(question) {
-				return User.findById(context.player).then(function(user) {
-					return user.scoreTheme(question.theme.toString(), question, 1);
-				});
+				return User.findById(context.player);
+			}).then(function(user) {
+				return user.scoreTheme(question.theme.toString(), question, 1);
 			}).then(function() {
 				return {
 					success: true,
