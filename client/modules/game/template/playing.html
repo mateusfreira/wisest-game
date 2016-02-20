@@ -3,9 +3,14 @@
 		<span ng-bind="gameCtrl.currentQuestion.description"></span>
 		<ul>
 			<li ng-repeat="option in gameCtrl.currentQuestion.options">
-				<input type="radio" ng-model="gameCtrl.currentQuestion.answer" ng-value="option"><span ng-bind="option"></span>
+				<input type="radio" ng-model="gameCtrl.currentQuestion.answer" ng-value="option" ng-disabled="!gameCtrl.pendingAnswer"><span ng-bind="option"></span>
 			</li>
 		</ul>
-		<button ng-click="gameCtrl.checkAnswer();">Send answer</button>
-	</span>
+		<button ng-if="gameCtrl.pendingAnswer" ng-click="gameCtrl.checkAnswer();">Send answer</button>
+
+		<div ng-if="gameCtrl.currentResponse">
+			<span ng-bind="gameCtrl.currentResponse.message" ng-class="{'success': gameCtrl.currentResponse.success, 'error': !gameCtrl.currentResponse.success}"></span>
+			<button ng-click="gameCtrl.nextQuestion();">Next question</button>
+		</div>
+	</div>
 </section>

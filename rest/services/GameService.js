@@ -14,7 +14,7 @@ const GameService = function() {
 	};
 
 	this.score = function(context, questionId) {
-		Question.findById(questionId)
+		return Question.findById(questionId)
 		.then(function(question){
 			return User.findById(context.player._id).then(function(user) {
 				return user.scoreTheme(question.theme._id, question, 1);
@@ -40,7 +40,7 @@ const GameService = function() {
 			.then(function(isItRight) {
 				var result;
 				if (isItRight) {
-					result = self.score(context, question);
+					result =  self.score(context, question);
 				} else {
 					result = self.lose(context, question, answer);
 				}
