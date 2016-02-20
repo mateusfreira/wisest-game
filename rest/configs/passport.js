@@ -1,5 +1,4 @@
-var requireModule = require('../model/index').requireModule;
- 
+var requireModule = require('../model/index').requireModule; 
 const User = requireModule("User");
 const configAuth = require("./auth");
 var FacebookStrategy = require('passport-facebook').Strategy;
