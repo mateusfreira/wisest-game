@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mateus Freira dos Santso <mateus.freira@gmail.com> (http://www.github.com/mateusfreira)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "express-load": "^1.1.15"
+  }
 }
