@@ -37,8 +37,16 @@
     .use(allowCrossDomain)
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({extended: true}))
+    .use(app.passport.initialize())
+    .use(app.passport.session());
     //.use(cookieParser());
+    app.passport.serializeUser(function(user, done) {
+    done(null, user);
+    });
 
+    app.passport.deserializeUser(function(user, done) {
+    done(null, user);
+    });
   app.get('/', function(req, res) {
     res.send('!');
   });
