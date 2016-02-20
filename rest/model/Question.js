@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 var QuestionSchema = new Schema({
 	description	: String,
+	code    	: String,
 	theme  		: { type: Schema.ObjectId, ref: 'Theme' },
 	options		: Array,
 	answer 		: String,

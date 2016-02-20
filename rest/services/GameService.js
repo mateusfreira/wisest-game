@@ -2,6 +2,7 @@ const requireModule = require('../model/index').requireModule,
 	  Question = requireModule("Question"),
 	  User = requireModule("User"),
 	  Score = requireModule("Score");
+
 function GameService() {
 	var self = this;
 
@@ -10,6 +11,7 @@ function GameService() {
 			return {
 				_id: question._id,
 				description: question.description,
+				code: question.code,
 				options: question.options
 			};
 		});
@@ -60,4 +62,5 @@ function GameService() {
 			});
 	};
 };
+
 module.exports = new GameService();
