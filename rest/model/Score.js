@@ -5,13 +5,11 @@ var ScoreSchema = new Schema({
 	theme  		: [{ type: Schema.ObjectId, ref: 'Theme' }],
 	question  	: [{ type: Schema.ObjectId, ref: 'Question' }],
 	user 		: [{ type: Schema.ObjectId, ref: 'User' }], 
-	answer 		: String,
-	hit 		: Boolean,
-	scoreBefore	: Number,
-	scoreAfter	: Number,
-	created_at	: Date
+	answer 		: { type: String, required: true },
+	hit 		: { type: Boolean, required: true },
+	scoreBefore	: { type: Number, required: true },
+	scoreAfter	: { type: Number, required: true },
+	created_at	: { type: Number, default: Date.now }
 });
 
-
-var Score = mongoose.model('Score', ScoreSchema);
-module.exports = Score;
+module.exports = mongoose.model('Score', ScoreSchema);

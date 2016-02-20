@@ -2,13 +2,13 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var QuestionSchema = new Schema({
-	description	: String,
+	description	: { type: String, required: true },
 	code    	: String,
-	theme  		: { type: Schema.ObjectId, ref: 'Theme' },
-	options		: Array,
-	answer 		: String,
-	status		: Number,
-	created_at	: Date,
+	theme  		: { type: Schema.ObjectId, ref: 'Theme', required: true },
+	options		: { type: Array, required: true },
+	answer 		: { type: String, required: true },
+	status		: { type: Number, default: 1 },
+	created_at	: { type: Number, default: Date.now },
 	updated_at	: Date
 });
 
@@ -18,11 +18,9 @@ QuestionSchema.methods.checkAnswer = function(answer) {
 
 QuestionSchema.statics.some = function(context) {
 	var self = this;
-	return self
-		.count()
+	return self.count()
 		.then(function(count) {
-			var random = Math.floor(Math.random() * count);
-			return self.findOne().skip(random);
+			return self.findOne().skip(Math.floor(Math.random() * count));
 		});
 };
 
@@ -34,5 +32,4 @@ QuestionSchema.statics.checkAnswerById = function(id, answer) {
 		});
 }
 
-var Question = mongoose.model('Question', QuestionSchema);
-module.exports = Question;
+module.exports = mongoose.model('Question', QuestionSchema);

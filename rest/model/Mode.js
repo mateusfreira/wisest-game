@@ -2,10 +2,8 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var ModeSchema = new Schema({
-	name: String,
-	created_at: Date
+	name: { type: String, required: true },
+	created_at: { type: Date, default: Date.now }
 });
 
-var Mode = mongoose.model('Mode', ModeSchema);
-
-module.exports = Mode;
+module.exports = mongoose.model('Mode', ModeSchema);

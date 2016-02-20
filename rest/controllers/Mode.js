@@ -1,13 +1,9 @@
-const requireModule = require('../model/index').requireModule;
-const Mode = requireModule("Mode");
+const requireModule = require('../model/index').requireModule,
+      Mode = requireModule("Mode"),
+      reponseWithPromise = require('./Utility').reponseWithPromise;
+
 module.exports = {
-	findAll: function(req, res, next) {
-		Mode.find({}, "_id, name").then(function(modes) {
-			res.status(200).send(modes);
-		}).catch(function(err) {
-			res.status(500).send({
-				error: err
-			});
-		});
+	findAll: function(req, res) {
+		reponseWithPromise(Mode.find({}, "_id, name"), res);
 	}
 };
