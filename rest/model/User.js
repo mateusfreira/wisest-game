@@ -33,35 +33,36 @@ UserSchema.methods.getThemeScore = function(theme) {
 };
 
 UserSchema.methods.scoreTheme = function(themeId, question, score) {
-	try{
-		var user = this;
-		var scoreBefore = 0;
-		var scoreAfter;
-		var themeScore = user.getThemeScore(themeId);
-		if (!themeScore) {
-			themeScore = {
-				theme: themeId,
-				score: score
-			};
-			user.scores.push(themeScore);
-		}else{
-			scoreBefore = themeScore.score;
-			themeScore.score += score;	
-		}
-		scoreAfter = themeScore.score;
-		return user.save().then(function() {
-			new Score({
-				user: user._id,
-				hit : true,
-				questions: question,
-				scoreBefore: scoreBefore,
-				scoreAfter: scoreAfter
-			}).save();
-		});
-	} catch(e){
-		console.log(e)
-	}
+	var user = this;
+	var themeScore = user.getThemeScore(themeId);
+
+	var scoreBefore = themeScore ? themeScore.score : 0;
+	themeScore = incrementScore(themeScore, user, themeId, score)
+	var scoreAfter = themeScore.score;
+
+	return user.save().then(function() {
+		new Score({
+			user: user._id,
+			hit : true,
+			questions: question,
+			scoreBefore: scoreBefore,
+			scoreAfter: scoreAfter
+		}).save();
+	});
 };
+
+function incrementScore(themeScore, user, themeId, score) {
+	if (!themeScore) {
+		themeScore = {
+			theme: themeId,
+			score: score
+		};
+		user.scores.push(themeScore);
+	}else{
+		themeScore.score += score;	
+	}
+	return themeScore;
+}
 
 UserSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
