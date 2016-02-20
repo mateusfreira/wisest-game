@@ -3,4 +3,9 @@ module.exports = function(app) {
   app.get('/question/some',
     Question.some
   );
+
+  app.get('/question/check',
+    Question.check
+  );
+  
 };
