@@ -1,4 +1,11 @@
 <section ng-controller="GameController as gameCtrl">
-	
-	
+	<div ng-if="gameCtrl.currentQuestion">
+		<span ng-bind="gameCtrl.currentQuestion.description"></span>
+		<ul>
+			<li ng-repeat="option in gameCtrl.currentQuestion.options">
+				<input type="radio" ng-model="gameCtrl.currentQuestion.answer" ng-value="option"><span ng-bind="option"></span>
+			</li>
+		</ul>
+		<button ng-click="gameCtrl.checkAnswer();">Send answer</button>
+	</span>
 </section>

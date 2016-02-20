@@ -5,5 +5,11 @@ module.exports = function(app) {
   );
   app.get('/game/session',
     Game.session
-  );  
+  );
+  app.post('/game/next',
+    Game.next
+  );
+  app.post('/game/checkAnswer',
+    Game.checkAnswer
+  );
 };
