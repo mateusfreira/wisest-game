@@ -5,9 +5,6 @@ module.exports = function(app) {
   );
   app.post('/game/start',
     Game.start
-  );  
-  app.get('/game/session',
-    Game.session
   );
   app.post('/game/next',
     Game.next

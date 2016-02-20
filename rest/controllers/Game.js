@@ -1,45 +1,18 @@
-const requireModule = require('../model/index').requireModule;
-const User = requireModule("User");
-const GameService = require('../services/GameService');
-const Question = requireModule("Question");
+const requireModule = require('../model/index').requireModule,
+      User = requireModule("User"),
+      GameService = require('../services/GameService'),
+      Question = requireModule("Question"),
+      reponseWithPromise = require('./Utility').reponseWithPromise;
+      
 module.exports = {
-  session: function(req, res, next) {
-    req.session.regenerate(function(err) {
-      res.status(200).send({});
-    });
+  start: function(req, res) {
+    var result = GameService.start(req.session, "56c892ce283c617e7c8b0ed4", req.body.mode, req.body.theme);
+    res.status(200).send(result);
   },
-  start: function(req, res, next) {
-    GameService.start(req.session, {
-      player: {
-        _id: "56c892ce283c617e7c8b0ed4",
-        name: "Jon due!",
-      },
-      theme: req.body.theme,
-      mode: req.body.mode
-    });
-    res.status(200).send({});
+  next: function(req, res) {
+    reponseWithPromise(GameService.nextQuestion(req.session.gameContext), res);
   },
-  next: function(req, res, next) {
-    Question.some(req.session.gameContext).then(function(question) {
-      res.status(200).send({
-        _id: question._id,
-        description: question.description,
-        options: question.options
-      });
-    }).catch(function(e) {
-      res.status(500).send({
-        e: "Error!"
-      });
-    });
-  },
-  checkAnswer: function(req, res, next) {
-    var question = req.body.question;
-    var answer = req.body.answer;
-    return GameService.answerQuestion(req.session.gameContext, question, answer)
-      .then(function(r) {
-        res.status(200).send(r);
-      }).catch(function(e) {
-        res.status(500).send(["sd", e]);
-      });
+  checkAnswer: function(req, res) {
+    reponseWithPromise(GameService.answerQuestion(req.session.gameContext, req.body.question, req.body.answer), res);
   }
 };
