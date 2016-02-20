@@ -13,6 +13,10 @@ angular.module("WisestGame").controller('SidebarController', [function() {
 			"href": "#/user/signup"
 		},
 		{
+			"label": "Login",
+			"href": "#/user/login"
+		},
+		{
 			"label": "Start game",
 			"href": "#/game/start"
 		}

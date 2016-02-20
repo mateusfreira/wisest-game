@@ -10,29 +10,20 @@ module.exports = function(app,passport) {
             failureRedirect : '/error',
             scope:['email']
         })); 
-        
+      
    app.post('/user/signup', 
-        app.passport.authenticate('local-signup',
-            {
-                successRedirect : '/success', 
-                failureRedirect : '/failure', 
-                failureFlash : true 
-            }
-    ));
+        app.passport.authenticate('local-signup'),
+            function(req,res){
+              res.json({status: 'success'});
+            }            
+    );
 
    app.post('/user/login', 
-      app.passport.authenticate('local-login',
-       {
-        successRedirect : '/success',
-        failureRedirect : '/failure', 
-        failureFlash : true 
+      app.passport.authenticate('local-login'),
+       function(req,res){
+        res.json({status: 'success'});
        }
-    ));
-
-    
-    app.get('/success',function(req,res) { res.json({satus:'success'}) });
-
-    app.get('/failure',function(req,res) { res.json({satus:'failure'}); });
+    );
       
    
 };
