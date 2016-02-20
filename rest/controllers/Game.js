@@ -11,7 +11,7 @@ module.exports = {
   start: function(req, res, next) {
     GameService.start(req.session, {
       player: {
-        _id : "56c892ce283c617e7c8b0ed4",
+        _id: "56c892ce283c617e7c8b0ed4",
         name: "Jon due!",
       },
       theme: req.body.theme,
