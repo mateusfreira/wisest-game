@@ -43,30 +43,28 @@ function Passport(passport) {
     };
     const localCallback = function(req, email, password, done) {
 
-            process.nextTick(function() {
-
-                User.findOne({
-                    'email': email
-                }).then(function(user) {
-                    if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-                    } else {
-                        var newUser = new User();
-                        newUser.email = email;
-                        console.log(req.body);
-                        newUser.password = newUser.generateHash(password);
-                        newUser.first_name = req.body.first_name;
-                        newUser.last_name = req.body.last_name;
-                        return newUser.save().then(function() {
-                            return done(null, newUser);
-                        });
-                    }
-                }).catch(function() {
-                    throw err;
-                });
-
+        process.nextTick(function() {
+            User.findOne({
+                'email': email
+            }).then(function(user) {
+                if (user) {
+                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                } else {
+                    var newUser = new User();
+                    newUser.email = email;
+                    newUser.password = newUser.generateHash(password);
+                    newUser.first_name = req.body.first_name;
+                    newUser.last_name = req.body.last_name;
+                    return newUser.save().then(function() {
+                        return done(null, newUser);
+                    });
+                }
+            }).catch(function() {
+                throw err;
             });
-        };
+
+        });
+    };
     passport.use(new FacebookStrategy({
             // pull in our app id and secret from our auth.js file
             clientID: configAuth.facebookAuth.clientID,
@@ -77,10 +75,10 @@ function Passport(passport) {
         facebookCallback
     ));
     passport.use('local-signup', new LocalStrategy({
-            usernameField: 'email',
-            passwordField: 'password',
-            passReqToCallback: true
-        }, localCallback));
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    }, localCallback));
 
     passport.use('local-login', new LocalStrategy({
             usernameField: 'email',
@@ -88,15 +86,19 @@ function Passport(passport) {
             passReqToCallback: true
         },
         function(req, email, password, done) {
+            console.log('Jose');
             User.findOne({
                 'email': email
             }).then(function(user) {
-                if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.'));
-                if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-                return done(null, user);
-            }).catch(function(err){
+                console.log(user);
+                if (!user) {
+                    done('Incorrect username.', false);
+                } else if (!user.validPassword(password)) {
+                    done('Oops! Wrong  password.', false);
+                } else {
+                    done(null, user);
+                }
+            }).catch(function(err) {
                 return done(err);
             });
 

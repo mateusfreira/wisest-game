@@ -24,12 +24,12 @@ module.exports = function(app, passport) {
 
   app.post('/user/login',
     app.passport.authenticate('local-login'),
-    function(req, res) {
+    function(req, res, user) {
       res.json({
-        status: 'success'
+        status: 'success',
+        scores: req.user.scores,
+        first_name: req.user.first_name
       });
     }
   );
-
-
 };
