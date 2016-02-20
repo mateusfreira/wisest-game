@@ -2,9 +2,9 @@ var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 
 var QuestionSchema = new Schema({
-  title: String,
   description: String,
   options: Array,
+  answer : Number,
   status: Number,
   created_at: Date,
   updated_at: Date
