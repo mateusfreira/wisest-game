@@ -13,17 +13,10 @@ const GameService = function() {
 		};
 	};
 
-	this.score = function(context, question) {
+	this.score = function(context, theme, question) {
 
 		return User.findById(context.player._id).then(function(user) {
-			var scoreBefore = 1;
-			var scoreAfter = 1;
-			return new Score({
-				user: user._id,
-				questions: question,
-				scoreBefore: scoreBefore,
-				scoreAfter: scoreAfter
-			}).save();
+			return user.scoreTheme(theme, question, 1);
 		}).then(function() {
 			return {
 				success: true,
