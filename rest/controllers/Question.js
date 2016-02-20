@@ -1,14 +1,13 @@
 const requireModule = require('../model/index').requireModule;
 const GameService = require('../services/GameService');
 const Question = requireModule("Question");
-const QuestionController = function(){
-
-};
 module.exports = {
   some : function(req, res, next) {
   	Question.some().then(function(question){
-  		res.status(200).send(question);	
-  	});
+  		res.status(200).send(question); 
+  	}).catch(function(e){
+      res.status(500).send({ e : "Error!" }); 
+    });
   },
   check : function(req, res, next) {
 
