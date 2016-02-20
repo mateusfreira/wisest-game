@@ -20,7 +20,7 @@ const GameService = function() {
 		}).then(function() {
 			return {
 				success: true,
-				value: "You are the best!"
+				message: "You are the best!"
 			};
 		});
 	};
@@ -29,7 +29,7 @@ const GameService = function() {
 		console.log("Not implemented yet!");
 		return {
 			success: false,
-			value: "You can do it better!"
+			message: "You can do it better!"
 		};
 	};
 
