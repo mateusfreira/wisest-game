@@ -13,10 +13,12 @@ const GameService = function() {
 		};
 	};
 
-	this.score = function(context, theme, question) {
-		return User.findById(context.player._id).then(function(user) {
-			console.log(user);
-			return user.scoreTheme(theme, question, 1);
+	this.score = function(context, questionId) {
+		Question.findById(questionId)
+		.then(function(question){
+			return User.findById(context.player._id).then(function(user) {
+				return user.scoreTheme(question.theme._id, question, 1);
+			});
 		}).then(function() {
 			return {
 				success: true,
@@ -38,7 +40,7 @@ const GameService = function() {
 			.then(function(isItRight) {
 				var result;
 				if (isItRight) {
-					result = self.score(context);
+					result = self.score(context, question);
 				} else {
 					result = self.lose(context, question, answer);
 				}

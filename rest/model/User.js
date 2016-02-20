@@ -24,7 +24,6 @@ var UserSchema = new Schema({
 	}]
 });
 UserSchema.methods.getThemeScore = function(theme) {
-	console.log(theme);
 	this.scores = this.scores || [];
 
 	var themeScore = this.scores.filter(function(score) {
@@ -39,11 +38,9 @@ UserSchema.methods.getThemeScore = function(theme) {
 	}
 	return themeScore;
 };
-UserSchema.methods.scoreTheme = function(theme, question, score) {
-	
+UserSchema.methods.scoreTheme = function(themeId, question, score) {
 	const user = this;
-	console.log("scoreTheme");
-	var themeScore = user.getThemeScore(theme);
+	var themeScore = user.getThemeScore(themeId);
 	var scoreBefore;
 	var scoreAfter;
 	scoreBefore = themeScore.score;
