@@ -1,0 +1,7 @@
+<section ng-controller="SidebarController as sidebarCtrl">
+    <ul >
+        <li ng-repeat="menu in sidebarCtrl.menus">
+            <a href="{{menu.href}}" ng-bind="menu.label"></a>
+        </li>
+    </ul>
+</div>  
