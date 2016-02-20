@@ -1,39 +1,49 @@
-const requireModule = require('../model/index').requireModule;
-const Question = requireModule("Question");
-const User = requireModule("User");
-const Score = requireModule("Score");
-const GameService = function() {
+const requireModule = require('../model/index').requireModule,
+	  Question = requireModule("Question"),
+	  User = requireModule("User"),
+	  Score = requireModule("Score");
+function GameService() {
 	var self = this;
 
-	this.start = function(contextContainer, contextStart) {
+	this.nextQuestion = function(gameContext) {
+		return Question.some(gameContext).then(function(question) {
+			return {
+				_id: question._id,
+				description: question.description,
+				options: question.options
+			};
+		});
+	};
+	this.start = function(contextContainer, player, mode, theme) {
 		contextContainer.gameContext = {
-			player: contextStart.player,
-			theme: contextStart.theme,
-			mode: contextStart.mode
+			player: player,
+			theme: theme,
+			mode: mode
 		};
+		return contextContainer.gameContext;
 	};
 
 	this.score = function(context, questionId) {
 		return Question.findById(questionId)
-		.then(function(question){
-			return User.findById(context.player._id).then(function(user) {
+			.then(function(question) {
+				return User.findById(context.player);
+			}).then(function(user) {
 				return user.scoreTheme(question.theme.toString(), question, 1);
+			}).then(function() {
+				return {
+					success: true,
+					message: "You are the best!"
+				};
 			});
-		}).then(function() {
-			return {
-				success: true,
-				message: "You are the best!"
-			};
-		});
 	};
 
 	this.miss = function(context, questionId, answer) {
 		console.log("Not implemented yet!");
-		return Question.findById(questionId).then(function(question){
+		return Question.findById(questionId).then(function(question) {
 			return {
 				success: false,
 				message: question.answer
-			};			
+			};
 		});
 	};
 
@@ -42,7 +52,7 @@ const GameService = function() {
 			.then(function(isItRight) {
 				var result;
 				if (isItRight) {
-					result =  self.score(context, question, answer);
+					result = self.score(context, question, answer);
 				} else {
 					result = self.miss(context, question, answer);
 				}

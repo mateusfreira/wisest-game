@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "Fipps";
+  src: url(../fonts/Fipps.otf); }
+@font-face {
+  font-family: "Free Pixels";
+  src: url(../fonts/FreePixel.ttf); }
+@font-face {
+  font-family: "Blocko";
+  src: url(../fonts/Blocko.ttf); }
+.font-bold {
+  font-family: "Fipps", Monaco, consolas, sans-serif; }
+
+.font-light {
+  font-family: "Free Pixel", Monaco, consolas, sans-serif; }
+
+.font-block {
+  font-family: "Blocko", Monaco, consolas, sans-serif; }
+
+.text-purple {
+  color: #f1c40f; }
+
+.text-purple {
+  color: #960086; }
+
+/*# sourceMappingURL=typography.css.map */

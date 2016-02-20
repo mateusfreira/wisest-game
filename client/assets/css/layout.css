@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  color: #ffffff;
+  font-size: 24px;
+  font-family: "Free Pixel", Monaco, consolas, sans-serif;
+  background-color: #000000; }
+
+header {
+  padding: 15px;
+  font-family: "Fipps", Monaco, consolas, sans-serif;
+  font-size: 36px;
+  color: white;
+  text-align: center; }
+
+main {
+  position: fixed;
+  top: 100px;
+  left: 250px;
+  right: 250px;
+  bottom: 0; }
+  main .timer {
+    margin: 20px 20px 60px 20px;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Blocko", Monaco, consolas, sans-serif;
+    color: #ffff00; }
+  main .question-text {
+    margin: 20px 35px;
+    min-height: 500px; }
+  main .question-code {
+    display: block;
+    margin: 15px 0;
+    font-family: "Free Pixel", Monaco, consolas, sans-serif; }
+  main .question-options {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center; }
+    main .question-options button {
+      display: inline-block;
+      width: calc(50% - 40px);
+      height: 45px;
+      margin: 10px 5px;
+      padding: 0;
+      border: none;
+      background-color: #ffffff;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      cursor: pointer;
+      color: black;
+      font-size: 22px;
+      font-family: "Free Pixel", Monaco, consolas, sans-serif; }
+      main .question-options button.active {
+        background-color: #ffff00; }
+
+aside[class^="team-"] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  height: auto;
+  padding: 15px;
+  white-space: nowrap; }
+  aside[class^="team-"] .team-info {
+    margin-bottom: 30px; }
+    aside[class^="team-"] .team-info span {
+      display: block; }
+    aside[class^="team-"] .team-info .team-score {
+      font-family: "Blocko", Monaco, consolas, sans-serif;
+      font-size: 45px; }
+  aside[class^="team-"] [class^="player player-"] {
+    margin-bottom: 30px; }
+    aside[class^="team-"] [class^="player player-"] .player-image {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      vertical-align: middle; }
+    aside[class^="team-"] [class^="player player-"] .player-info {
+      display: inline-block;
+      width: 180px;
+      height: 45px;
+      margin-left: 15px;
+      vertical-align: middle; }
+    aside[class^="team-"] [class^="player player-"] .player-name,
+    aside[class^="team-"] [class^="player player-"] .player-level {
+      display: block;
+      font-size: 18px;
+      line-height: 22px; }
+
+aside.team-two {
+  left: initial;
+  right: 0;
+  text-align: right; }
+  aside.team-two [class^="player player-"] .player-image {
+    margin-right: 15px; }
+  aside.team-two [class^="player player-"] .player-info {
+    margin-left: 0;
+    margin-right: 15px; }
+
+/*# sourceMappingURL=layout.css.map */

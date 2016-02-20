@@ -1,0 +1,91 @@
+<section ng-controller="GameController as GameCtrl">
+
+	<header> The Wisest Game </header>
+
+	<aside class="team-one">
+
+		<div class="team-info">
+			<span class="team-name"> Single player </span>
+			<span class="team-score"> 32768 </span>
+		</div>
+
+		<div class="player player-1">
+			<img class="player-image" src="./assets/images/airtoncbr.png"><!-- Inline block issue
+			--><div class="player-info">
+				<span class="player-name"> airtoncbr </span>
+				<span class="player-level"> Lvl. 27 </span>
+			</div>
+		</div>
+
+		<div class="player player-2" ng-if="false">
+			<img class="player-image" src="./assets/images/bbagins.png"><!-- Inline block issue
+			--><div class="player-info">
+				<span class="player-name"> bbagins </span>
+				<span class="player-level"> Lvl. 99+ </span>
+			</div>
+		</div>
+	</aside>
+
+	<aside class="team-two" ng-if="false">
+
+		<div class="team-info">
+			<span class="team-name"> The New Fellowship </span>
+			<span class="team-score"> 32768 </span>
+		</div>
+
+		<div class="player player-1">
+			<div class="player-info">
+				<span class="player-name"> airtoncbr </span>
+				<span class="player-level"> Lvl. 27 </span>
+			</div><!-- Inline-block issue
+			--><img class="player-image" src="./assets/images/airtoncbr.png">
+		</div>
+
+		<div class="player player-2">
+			<div class="player-info">
+				<span class="player-name"> bbagins </span>
+				<span class="player-level"> Lvl. 99+ </span>
+			</div><!-- Inline-block issue
+			--><img class="player-image" src="./assets/images/bbagins.png">
+		</div>
+	</aside>
+
+	<main>
+		<div class="timer"> 00:05 </div>
+
+		<div class="question-text">
+			Whats the return of the following Javascript code:
+			<code class="question-code">
+				var a = {}; <br>
+				var b = []; <br>
+				<br>
+				return a || b;
+			</code>
+		</div>
+
+		<div class="question-options">
+			<button class="active"> false </button>
+			<button> true </button>
+			<button> {} </button>
+			<button> [] </button>
+		</div>
+
+	</main>
+
+</section>
+<!-- <section ng-controller="GameController as gameCtrl">
+	<div ng-if="gameCtrl.currentQuestion">
+		<span ng-bind="gameCtrl.currentQuestion.description"></span>
+		<ul>
+			<li ng-repeat="option in gameCtrl.currentQuestion.options">
+				<input type="radio" ng-model="gameCtrl.currentQuestion.answer" ng-value="option" ng-disabled="!gameCtrl.pendingAnswer"><span ng-bind="option"></span>
+			</li>
+		</ul>
+		<button ng-if="gameCtrl.pendingAnswer" ng-click="gameCtrl.checkAnswer();">Send answer</button>
+
+		<div ng-if="gameCtrl.currentResponse">
+			<span ng-bind="gameCtrl.currentResponse.message" ng-class="{'success': gameCtrl.currentResponse.success, 'error': !gameCtrl.currentResponse.success}"></span>
+			<button ng-click="gameCtrl.nextQuestion();">Next question</button>
+		</div>
+	</div>
+</section> -->
