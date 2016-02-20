@@ -4,7 +4,6 @@ const Question = requireModule("Question");
 module.exports = {
 
   some: function(req, res, next) {
-
     Question.some(req.gameContext).then(function(question) {
       res.status(200).send(question);
     }).catch(function(e) {
