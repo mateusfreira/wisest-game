@@ -1,8 +1,8 @@
-var requireModule = require('../model/index').requireModule; 
-const User = requireModule("User");
-const configAuth = require("./auth");
-var FacebookStrategy = require('passport-facebook').Strategy;
-var LocalStrategy   = require('passport-local').Strategy;
+const requireModule = require('../model/index').requireModule, 
+      User = requireModule("User"),
+      configAuth = require("./auth"),
+      FacebookStrategy = require('passport-facebook').Strategy,
+      LocalStrategy   = require('passport-local').Strategy;
 
 module.exports = function(passport){
     
@@ -22,7 +22,7 @@ module.exports = function(passport){
         clientID        : configAuth.facebookAuth.clientID,
         clientSecret    : configAuth.facebookAuth.clientSecret,
         callbackURL     : configAuth.facebookAuth.callbackURL,
-        profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
+        profileFields   : ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
 
     },
 
@@ -34,20 +34,20 @@ module.exports = function(passport){
 
             User.findOne({ 'id' : profile.id }, function(err, user) {
                 
-                if (err)
+                if (err){
                     return done(err);
+                }
 
                 
                 if (user) {
-                    
                     return done(null, user); 
                 } else {
 
-                    var newUser   = new User();                    
-                    newUser.fb_id    = profile.id; 
+                    var newUser = new User();                    
+                    newUser.fb_id = profile.id; 
                     newUser.token = token; 
-                    newUser.first_name  = profile._json.first_name;
-                    newUser.last_name  = profile._json.last_name;
+                    newUser.first_name = profile._json.first_name;
+                    newUser.last_name = profile._json.last_name;
                     newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
                     console.log(profile);                    
 
@@ -98,27 +98,27 @@ module.exports = function(passport){
     }));
 
     passport.use('local-login', new LocalStrategy({
-        
         usernameField : 'email',
         passwordField : 'password',
         passReqToCallback : true 
     },
+
     function(req, email, password, done) { 
 
         
         User.findOne({ 'email' :  email }, function(err, user) {
         
-            if (err)
+            if (err){
                 return done(err);
+            }
 
-        
-            if (!user)
+            if (!user){
                 return done(null, false, req.flash('loginMessage', 'No user found.')); 
-
+            }
         
-            if (!user.validPassword(password))
+            if (!user.validPassword(password)){
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-
+            }
             
             return done(null, user);
         });
