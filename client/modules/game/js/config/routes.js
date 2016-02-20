@@ -1,12 +1,12 @@
 /* Setup Rounting */
 angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    
+
     $stateProvider
 
         // startGame
         .state('startGame', {
             url: "/game/start",
-            templateUrl: "modules/game/template/startGame.html",
+            templateUrl: "modules/game/template/start-menu.html",
             data: {pageTitle: 'Start game'},
             controller: "StartGameController"
         })
@@ -14,7 +14,7 @@ angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', fun
          // Play game
         .state('playGame', {
             url: "/game/play",
-            templateUrl: "modules/game/template/playing.html",
+            templateUrl: "modules/game/template/single-player.html",
             data: {pageTitle: 'Game'},
             controller: "GameController"
         });
