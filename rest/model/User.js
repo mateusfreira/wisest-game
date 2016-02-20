@@ -8,6 +8,7 @@ var UserSchema = new Schema({
     email        : String,
     name         : String,
     password     : String,
+    score     	 : Number,
     created_at: Date,
     updated_at: Date
 });
