@@ -1,9 +1,12 @@
 const requireModule = require('../model/index').requireModule;
 const GameService = require('../services/GameService');
 const Question = requireModule("Question");
+const QuestionController = function(){
+
+};
 module.exports = {
   some : function(req, res, next) {
-  	Question.find().then(function(question){
+  	Question.some().then(function(question){
   		res.status(200).send(question);	
   	});
   },

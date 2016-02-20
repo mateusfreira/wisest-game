@@ -13,5 +13,10 @@ var QuestionSchema = new Schema({
 QuestionSchema.methods.checkAnswer = function(answer){
 	return this.answer === answer;
 };
+
+QuestionSchema.statics.some = function(context){
+	return this.find();
+};
+
 var Question = mongoose.model('Question', QuestionSchema);
 module.exports = Question;
