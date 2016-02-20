@@ -9,8 +9,12 @@
   "author": "Mateus Freira dos Santso <mateus.freira@gmail.com> (http://www.github.com/mateusfreira)",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.0",
+    "connect-mongodb-session": "^1.1.1",
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "express-load": "^1.1.15",
+    "express-session": "^1.13.0",
     "mongoose": "^4.4.4",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.0"
