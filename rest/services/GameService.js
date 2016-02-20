@@ -1,6 +1,7 @@
 const requireModule = require('../model/index').requireModule;
 const Question = requireModule("Question");
 const User = requireModule("User");
+const Score = requireModule("Score");
 const GameService = function() {
 	var self = this;
 
@@ -15,11 +16,17 @@ const GameService = function() {
 	this.score = function(context, question) {
 
 		return User.findById(context.player._id).then(function(user) {
-			user.score = (user.score || 0) + 1;
-			return user.save();
+			var scoreBefore = 1;
+			var scoreAfter = 1;
+			return new Score({
+				user: user._id,
+				questions: question,
+				scoreBefore: scoreBefore,
+				scoreAfter: scoreAfter
+			}).save();
 		}).then(function() {
 			return {
-				success : true,
+				success: true,
 				value: "You are the best!"
 			};
 		});
@@ -28,7 +35,7 @@ const GameService = function() {
 	this.lose = function(context, question, answer) {
 		console.log("Not implemented yet!");
 		return {
-			success : false,
+			success: false,
 			value: "You can do it better!"
 		};
 	};
