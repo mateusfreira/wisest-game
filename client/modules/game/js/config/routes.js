@@ -8,7 +8,7 @@ angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', fun
             url: "/game/start",
             templateUrl: "modules/game/template/startGame.html",
             data: {pageTitle: 'Start game'},
-            controller: "GameController"
+            controller: "StartGameController"
         })
 
          // Play game

@@ -1,20 +1,34 @@
-angular.module("WisestGame").controller('GameController', ['$scope', 'Themes', 'Modes', 'Game', function($scope, Themes, Modes, Game) {
+angular.module("WisestGame").controller('GameController', ['Game', function(Game) {
 
-	this.modes = Modes.query();
-	this.themes = Themes.query();
-	this.gameContext = {};
+	var self = this;
 
-	this.startGame = function() {
-		Game.startGame.query({
-			mode: this.gameContext.mode._id,
-			theme: this.gameContext.theme._id
-		}).$promise
+	this.currentQuestion = {};
+
+	this.nextQuestion = function() {
+		Game.nextQuestion.query()
+			.$promise
+			.then(function(question) {
+				self.currentQuestion = question;
+			})
+			.catch(function(err) {
+				console.error(err);
+			});
+	};
+
+	this.checkAnswer = function() {
+		Game.checkAnswer.query({
+			question: this.currentQuestion._id,
+			answer: this.currentQuestion.answer
+		})
+		.$promise
 		.then(function(response) {
 			console.log(response);
 		})
-		.catch(function(err){
+		.catch(function(err) {
 			console.log(err);
 		});
 	};
+
+	this.nextQuestion();
 
 }]);
