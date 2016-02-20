@@ -7,13 +7,12 @@ module.exports = {
     });
   },
   start: function(req, res, next) {
-
     GameService.start(req.session, {
       player: {
-        name: "Jon due!",
+        name: "Jon due!", // req.user._id,
       },
-      theme: "javascript",
-      mode: "begining"
+      theme: req.body.theme,
+      mode: req.body.mode
     });
     console.log('Last', req.session);
     res.status(200).send({});
