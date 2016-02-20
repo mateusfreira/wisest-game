@@ -3,8 +3,8 @@ angular.module("WisestGame").controller('GameController', ['Game', function(Game
 	var self = this;
 
 	this.pendingAnswer = false;
-	this.currentQuestion;
-	this.currentResponse;
+	this.currentQuestion = undefined;
+	this.currentResponse = undefined;
 
 	this.nextQuestion = function() {
 		this.pendingAnswer = false;
