@@ -17,7 +17,7 @@ const GameService = function() {
 		return Question.findById(questionId)
 		.then(function(question){
 			return User.findById(context.player._id).then(function(user) {
-				return user.scoreTheme(question.theme._id, question, 1);
+				return user.scoreTheme(question.theme.toString(), question, 1);
 			});
 		}).then(function() {
 			return {
@@ -27,12 +27,14 @@ const GameService = function() {
 		});
 	};
 
-	this.lose = function(context, question, answer) {
+	this.miss = function(context, questionId, answer) {
 		console.log("Not implemented yet!");
-		return {
-			success: false,
-			message: "You can do it better!"
-		};
+		return Question.findById(questionId).then(function(question){
+			return {
+				success: false,
+				message: question.answer
+			};			
+		});
 	};
 
 	this.answerQuestion = function(context, question, answer) {
@@ -40,9 +42,9 @@ const GameService = function() {
 			.then(function(isItRight) {
 				var result;
 				if (isItRight) {
-					result =  self.score(context, question);
+					result =  self.score(context, question, answer);
 				} else {
-					result = self.lose(context, question, answer);
+					result = self.miss(context, question, answer);
 				}
 				return result;
 			});
