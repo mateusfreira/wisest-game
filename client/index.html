@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="WisestGame">
 	<head>
-		<title ng-bind="'Wisest game | ' + $state.current.data.pageTitle"></title>
+		<title ng-bind="'Wisest Game | ' + $state.current.data.pageTitle"></title>
 
 		<!-- Meta tags -->
 		<meta charset="utf-8"/>
@@ -10,14 +10,12 @@
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="./assets/css/typography.css">
 		<link rel="stylesheet" href="./assets/css/layout.css">
-	</head>
-	<body>
-		<div ng-include=" 'modules/main/template/sidebar.html' "></div>
 
-		<article ui-view>
-
-		</article>
-
+		<!-- Javascript -->
 		<script src="dist/wisestGame.js" type="text/javascript"></script>
+	</head>
+	<body ui-view>
+		<!-- <div ng-include=" 'modules/main/template/sidebar.html' "></div> -->
+		<!-- <article ui-view></article> -->
 	</body>
 </html>
