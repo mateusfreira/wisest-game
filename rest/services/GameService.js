@@ -7,7 +7,7 @@ function GameService() {
 	var self = this;
 
 	this.nextQuestion = function(gameContext) {
-		return Question.some(gameContext).then(function(question) {
+		return Question.some(gameContext.player, gameContext.theme).then(function(question) {
 			return {
 				_id: question._id,
 				description: question.description,

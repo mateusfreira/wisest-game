@@ -16,11 +16,14 @@ QuestionSchema.methods.checkAnswer = function(answer) {
 	return this.answer === answer;
 };
 
-QuestionSchema.statics.some = function(context) {
+QuestionSchema.statics.some = function(user, theme) {
 	var self = this;
 	return self.count()
 		.then(function(count) {
-			return self.findOne().skip(Math.floor(Math.random() * count));
+			return self.findOne({
+							theme : theme
+						})	
+					   .skip(Math.floor(Math.random() * count));
 		});
 };
 
