@@ -63,3 +63,9 @@ bower_components
 client/modules/app.js
 client/dist/*
 client/_SpecRunner.html
+
+### security Configs ###
+rest/config/auth.js
+
+# Mac files
+.DS_Store
