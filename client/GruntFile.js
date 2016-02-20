@@ -9,9 +9,7 @@ module.exports = function(grunt) {
     var mainPath =  "modules/main/**/*.js";
     
     var dependenciesPath = [
-        // CORE PLUGINS
-        // CORE ANGULAR PLUGINS
-        // APP LEVEL JQUERY SCRIPTS
+        "bower_components/angular/angular.min.js"
     ];
 
     var helperPath = 'modules/*/specs/helpers/**/*.js';
@@ -45,7 +43,7 @@ module.exports = function(grunt) {
         },
         jasmine: {
             pivotal: {
-                src: [configPath, srcPath],
+                src: [configPath, mainPath, srcPath],
                 options: {
                     vendor: [dependenciesPath, specsLibPath],
                     specs: specsPath,
@@ -61,6 +59,14 @@ module.exports = function(grunt) {
                             functions: 100
                         }
                     }
+                }
+            },
+            watch: {
+                src: [configPath, mainPath, srcPath],
+                options: {
+                    vendor: [dependenciesPath, specsLibPath],
+                    specs: specsPath,
+                    helpers: helperPath
                 }
             }
         },
@@ -85,7 +91,7 @@ module.exports = function(grunt) {
             },
             test: {
                 files: [specsPath, srcPath],
-                tasks: ['jasmine']
+                tasks: ['jasmine:watch']
             }
         }
     });

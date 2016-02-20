@@ -55,11 +55,13 @@ sftp-config.json
 
 
 ### Bower ###
-bower_components
-.bower-cache
-.bower-registry
-.bower-tmp
+client/bower_components
+client/.bower-cache
+client/.bower-registry
+client/.bower-tmp
 
 client/modules/app.js
 client/dist/*
 client/_SpecRunner.html
+
+client/node_modules
