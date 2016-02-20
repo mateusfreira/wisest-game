@@ -4,10 +4,11 @@ module.exports = function(app,passport) {
     app.passport.authenticate('facebook', { scope : 'email' })
   );
   
-  app.get('/auth/facebook/callback',
+  app.get('/user/auth/facebook/callback',
     app.passport.authenticate('facebook', {
             successRedirect : '/profile',
-            failureRedirect : '/error'
+            failureRedirect : '/error',
+            scope:['email']
         })); 
         
    app.post('/user/signup', 
