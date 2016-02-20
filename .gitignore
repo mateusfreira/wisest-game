@@ -62,3 +62,4 @@ bower_components
 
 client/modules/app.js
 client/dist/*
+client/_SpecRunner.html
