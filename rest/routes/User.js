@@ -18,6 +18,16 @@ module.exports = function(app,passport) {
                 failureFlash : true 
             }
     ));
+
+   app.post('/user/login', 
+      app.passport.authenticate('local-login',
+       {
+        successRedirect : '/success',
+        failureRedirect : '/failure', 
+        failureFlash : true 
+       }
+    ));
+
     
     app.get('/success',function(req,res) { res.json({satus:'success'}) });
 
