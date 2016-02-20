@@ -46,8 +46,8 @@ module.exports = function(passport){
                     var newUser   = new User();                    
                     newUser.fb_id    = profile.id; 
                     newUser.token = token; 
-                    newUser.first_name  = profile.first_name;
-                    newUser.last_name  = profile.last_name;
+                    newUser.first_name  = profile._json.first_name;
+                    newUser.last_name  = profile._json.last_name;
                     newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
                     console.log(profile);                    
 
@@ -79,10 +79,13 @@ module.exports = function(passport){
             if (user) {                    
                 return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
             } else {
-                
+                //chao
                 var newUser  = new User();                
                 newUser.email    = email;
+                console.log(req.body);
                 newUser.password = newUser.generateHash(password);
+                newUser.first_name = req.body.first_name;
+                newUser.last_name = req.body.last_name;
                 newUser.save(function(err) {
                     if (err)
                         throw err;                        
