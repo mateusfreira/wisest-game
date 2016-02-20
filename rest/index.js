@@ -4,6 +4,7 @@
   const session = require('express-session');
   const cookieParser = require('cookie-parser');
   const bodyParser = require('body-parser');
+  var flash    = require('connect-flash');
   const db = require('./model').connection;
   const mongoSession = require('connect-mongodb-session')(session);
 
@@ -38,8 +39,9 @@
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({extended: true}))
     .use(app.passport.initialize())
-    .use(app.passport.session());
-    //.use(cookieParser());
+    .use(app.passport.session())
+    .use(flash())    
+    .use(cookieParser());
     app.passport.serializeUser(function(user, done) {
     done(null, user);
     });
