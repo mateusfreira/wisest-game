@@ -2,6 +2,15 @@ const requireModule = require('../model/index').requireModule;
 const Question = requireModule("Question");
 const GameService = function() {
 	var self = this;
+
+	this.start = function(contextContainer, contextStart) {
+		contextContainer.gameContext = {
+			player : contextStart.player,
+			theme  : contextStart.theme,
+			mode : contextStart.mode
+		};
+	};
+
 	this.score = function(context, question) {
 		console.log("Not implemented yet!");
 		return {
