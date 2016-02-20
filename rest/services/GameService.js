@@ -1,8 +1,8 @@
-const requireModule = require('../model/index').requireModule;
-const Question = requireModule("Question");
-const User = requireModule("User");
-const Score = requireModule("Score");
-const GameService = function() {
+const requireModule = require('../model/index').requireModule,
+	  Question = requireModule("Question"),
+	  User = requireModule("User"),
+	  Score = requireModule("Score");
+function GameService(){
 	var self = this;
 
 	this.nextQuestion = function(gameContext) {
