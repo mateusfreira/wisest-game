@@ -21,10 +21,9 @@ var UserSchema = new Schema({
 		score: Number
 	}]
 });
-UserSchema.methods.scoreTheme = function(theme, question, score) {
-	const user = this;
-	user.scores = user.scores || [];
-	var themeScore = user.scores.filter(function(score) {
+UserSchema.methods.getThemeScore = function(theme) {
+	this.scores = this.scores || [];
+	var themeScore = this.scores.filter(function(score) {
 		return score.theme === theme;
 	})[0];
 	if (!themeScore) {
@@ -34,6 +33,12 @@ UserSchema.methods.scoreTheme = function(theme, question, score) {
 		};
 		user.scores.push(themeScore);
 	}
+	return themeScore;
+};
+
+UserSchema.methods.scoreTheme = function(theme, question, score) {
+	const user = this;
+	var themeScore = user.getThemeScore(theme);
 	var scoreBefore;
 	var scoreAfter;
 	scoreBefore = themeScore.score;
