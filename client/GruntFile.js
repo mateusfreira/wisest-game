@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
     var specsPath = 'modules/*/specs/**/*.spec.js';
-    var srcPath = ["modules/*/**/*.js", "!"+specsPath];
+    var srcPath = ["modules/*/factory/**/*.js", "modules/*/**/*.js", "!"+specsPath];
     var configPath = [
         "modules/main/js/config/app.js",
         "modules/main/js/config/**/*.js",
@@ -9,8 +9,9 @@ module.exports = function(grunt) {
     var mainPath =  "modules/main/**/*.js";
     
     var dependenciesPath = [
-        "bower_components/angular/angular.min.js",
-        "bower_components/angular-ui-router/release/angular-ui-router.min.js"
+        "bower_components/angular/angular.js",
+        "bower_components/angular-ui-router/release/angular-ui-router.min.js",
+        "bower_components/angular-resource/angular-resource.min.js"
     ];
 
     var helperPath = 'modules/*/specs/helpers/**/*.js';

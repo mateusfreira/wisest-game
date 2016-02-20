@@ -18,7 +18,7 @@ module.exports = function(passport){
     function(token, refreshToken, profile, done) {
 
         // asynchronous
-        // process.nextTick(function() {
+        process.nextTick(function() {
 
             User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
                 
@@ -32,10 +32,11 @@ module.exports = function(passport){
                 } else {
                     var newUser            = new User();
                     
-                    newUser.id    = profile.id; // set the users id
-                    newUser.token = token; // we will save the token that provides to the user
-                    // newUser.name  = profile.name.displayname
-                    // newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first                    
+                    newUser.id    = profile.id; 
+                    newUser.token = token; 
+                    newUser.name  = profile.displayName;
+                    // newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+                    console.log(profile);                    
 
                     newUser.save(function(err) {
                         if (err)
@@ -45,7 +46,7 @@ module.exports = function(passport){
                 }
 
             });
-        // });
+        });
 
     }));
 }

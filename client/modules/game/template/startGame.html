@@ -1,3 +1,19 @@
 <section ng-controller="GameController as gameCtrl">
-	<h1 ng-bind="gameCtrl.helloWorld"></h1>
+	<form>
+		<div>
+			<span>Mode</span>
+			<select name="mode" id="mode"
+		      ng-options="mode.name for mode in gameCtrl.modes track by mode._id"
+		      ng-model="gameCtrl.gameContext.mode"></select>
+		</div>
+		<div>
+			<span>Theme</span>
+			<select name="theme" id="theme"
+		      ng-options="theme.name for theme in gameCtrl.themes track by theme._id"
+		      ng-model="gameCtrl.gameContext.theme"></select>
+		</div>
+		<div>
+			<button ng-click="gameCtrl.startGame();">Start game!</button>
+		</div>
+	</form>
 </section>
