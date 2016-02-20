@@ -19,7 +19,6 @@ module.exports = {
       mode: req.body.mode
     });
     res.status(200).send({});
-    console.log(req.session);
   },
   next: function(req, res, next) {
     Question.some(req.session.gameContext).then(function(question) {
