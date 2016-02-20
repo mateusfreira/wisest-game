@@ -1,4 +1,4 @@
-<section ng-controller="GameController as GameCtrl">
+<section ng-controller="GameController as gameCtrl">
 
 	<header> The Wisest Game </header>
 
@@ -50,42 +50,24 @@
 		</div>
 	</aside>
 
-	<main>
+	<main ng-if="gameCtrl.currentQuestion">
 		<div class="timer"> 00:05 </div>
 
-		<div class="question-text">
-			Whats the return of the following Javascript code:
-			<code class="question-code">
-				var a = {}; <br>
-				var b = []; <br>
-				<br>
-				return a || b;
-			</code>
+		<div class="question-text" ng-cloak>
+			{{gameCtrl.currentQuestion.description}}
+			<code class="question-code" ng-if="gameCtrl.currentQuestion.code" ng-bind="gameCtrl.currentQuestion.code"></code>
 		</div>
 
 		<div class="question-options">
-			<button class="active"> false </button>
-			<button> true </button>
-			<button> {} </button>
-			<button> [] </button>
+			<button ng-repeat="option in gameCtrl.currentQuestion.options" ng-bind="option" ng-click="gameCtrl.sendAnswer(option);" ng-disabled="!gameCtrl.pendingAnswer"></button>
+		</div>
+
+		<!-- TO REFACTORY THIS FUCKING SHIT -->
+		<div ng-if="gameCtrl.currentResponse">
+			<span ng-bind="gameCtrl.currentResponse.message" ng-class="{'success': gameCtrl.currentResponse.success, 'error': !gameCtrl.currentResponse.success}"></span>
+			<button ng-click="gameCtrl.nextQuestion();">Next question</button>
 		</div>
 
 	</main>
 
 </section>
-<!-- <section ng-controller="GameController as gameCtrl">
-	<div ng-if="gameCtrl.currentQuestion">
-		<span ng-bind="gameCtrl.currentQuestion.description"></span>
-		<ul>
-			<li ng-repeat="option in gameCtrl.currentQuestion.options">
-				<input type="radio" ng-model="gameCtrl.currentQuestion.answer" ng-value="option" ng-disabled="!gameCtrl.pendingAnswer"><span ng-bind="option"></span>
-			</li>
-		</ul>
-		<button ng-if="gameCtrl.pendingAnswer" ng-click="gameCtrl.checkAnswer();">Send answer</button>
-
-		<div ng-if="gameCtrl.currentResponse">
-			<span ng-bind="gameCtrl.currentResponse.message" ng-class="{'success': gameCtrl.currentResponse.success, 'error': !gameCtrl.currentResponse.success}"></span>
-			<button ng-click="gameCtrl.nextQuestion();">Next question</button>
-		</div>
-	</div>
-</section> -->

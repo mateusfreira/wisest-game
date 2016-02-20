@@ -21,12 +21,12 @@ angular.module("WisestGame").controller('GameController', ['Game', function(Game
 			});
 	};
 
-	this.checkAnswer = function() {
+	this.sendAnswer = function(option) {
 		this.pendingAnswer = false;
 
 		Game.checkAnswer.query({
 			question: this.currentQuestion._id,
-			answer: this.currentQuestion.answer
+			answer: option
 		})
 		.$promise
 		.then(function(response) {
