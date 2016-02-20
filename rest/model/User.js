@@ -7,10 +7,11 @@ const mongoose = require('mongoose'),
 
 var UserSchema = new Schema({
 
-	id: String,
+	fb_id: String,
 	token: String,
 	email: String,
-	name: String,
+	first_name: String,
+	last_name: String,
 	password: String,
 	score: Number,
 	created_at: Date,

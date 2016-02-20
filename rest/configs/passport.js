@@ -21,7 +21,8 @@ module.exports = function(passport){
         // pull in our app id and secret from our auth.js file
         clientID        : configAuth.facebookAuth.clientID,
         clientSecret    : configAuth.facebookAuth.clientSecret,
-        callbackURL     : configAuth.facebookAuth.callbackURL
+        callbackURL     : configAuth.facebookAuth.callbackURL,
+        profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
 
     },
 
@@ -31,7 +32,7 @@ module.exports = function(passport){
         // asynchronous
         process.nextTick(function() {
 
-            User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
+            User.findOne({ 'id' : profile.id }, function(err, user) {
                 
                 if (err)
                     return done(err);
@@ -41,12 +42,13 @@ module.exports = function(passport){
                     
                     return done(null, user); 
                 } else {
-                    var newUser            = new User();
-                    
-                    newUser.id    = profile.id; 
+
+                    var newUser   = new User();                    
+                    newUser.fb_id    = profile.id; 
                     newUser.token = token; 
-                    newUser.name  = profile.displayName;
-                    // newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+                    newUser.first_name  = profile.first_name;
+                    newUser.last_name  = profile.last_name;
+                    newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
                     console.log(profile);                    
 
                     newUser.save(function(err) {
