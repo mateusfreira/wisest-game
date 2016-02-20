@@ -1,0 +1,19 @@
+<section ng-controller="StartGameController as startGameCtrl">
+	<form>
+		<div>
+			<span>Mode</span>
+			<select name="mode" id="mode"
+		      ng-options="mode.name for mode in startGameCtrl.modes track by mode._id"
+		      ng-model="startGameCtrl.gameContext.mode"></select>
+		</div>
+		<div>
+			<span>Theme</span>
+			<select name="theme" id="theme"
+		      ng-options="theme.name for theme in startGameCtrl.themes track by theme._id"
+		      ng-model="startGameCtrl.gameContext.theme"></select>
+		</div>
+		<div>
+			<button ng-click="startGameCtrl.startGame();">Start game!</button>
+		</div>
+	</form>
+</section>

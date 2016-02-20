@@ -1,0 +1,142 @@
+@import "variables.scss";
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	color: $white;
+	font-size: 24px;
+	font-family: $font-light;
+	background-color: $black;
+}
+
+header {
+	padding: 15px;
+	font-family: $font-bold;
+	font-size: 36px;
+	color: white;
+	text-align: center;
+}
+
+main {
+	position: fixed;
+	top: 100px;
+	left: 250px;
+	right: 250px;
+	bottom: 0;
+
+	.timer {
+		margin: 20px 20px 60px 20px;
+		text-align: center;
+		font-size: 40px;
+		font-family: $font-block;
+		color: $yellow;
+	}
+
+	.question-text {
+		margin: 20px 35px;
+		min-height: 500px;
+	}
+
+	.question-code {
+		display: block;
+		margin: 15px 0;
+		font-family: $font-light;
+	}
+
+	.question-options {
+		position: absolute;
+		bottom: 15px;
+		width: 100%;
+		text-align: center;
+
+		button {
+			display: inline-block;
+			width: calc(50% - 40px);
+			height: 45px;
+			margin: 10px 5px;
+			padding: 0;
+
+			border: none;
+			background-color: $white;
+			border-left: 15px solid transparent;
+			border-right: 15px solid transparent;
+
+			cursor: pointer;
+			color: black;
+			font-size: 22px;
+			font-family: $font-light;
+
+			&.active {
+				background-color: $yellow;
+			}
+		}
+	}
+}
+
+aside[class^="team-"] {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 250px;
+	height: auto;
+	padding: 15px;
+	white-space: nowrap;
+
+	.team-info {
+		margin-bottom: 30px;
+
+		span { display:  block; }
+
+		.team-score {
+			font-family: $font-block;
+			font-size: 45px;
+		}
+	}
+
+	[class^="player player-"] {
+		margin-bottom: 30px;
+
+		.player-image {
+			display: inline-block;
+			width: 45px;
+			height: 45px;
+			vertical-align: middle;
+		}
+
+		.player-info {
+			display: inline-block;
+			width: 180px;
+			height: 45px;
+			margin-left: 15px;
+			vertical-align: middle;
+		}
+
+		.player-name,
+		.player-level {
+			display: block;
+			font-size: 18px;
+			line-height: 22px;
+		}
+	}
+}
+
+aside.team-two {
+	left: initial;
+	right: 0;
+	text-align: right;
+
+	[class^="player player-"] {
+
+		.player-image {
+			margin-right: 15px;
+		}
+
+		.player-info {
+			margin-left: 0;
+			margin-right: 15px;
+		}
+	}
+}
