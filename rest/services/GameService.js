@@ -26,12 +26,16 @@ function GameService() {
 	};
 
 	this.score = function(context, questionId) {
-		return Question.findById(questionId)
-			.then(function(question) {
-				return User.findById(context.player);
-			}).then(function(user) {
+		return Promise.all([
+				User.findById(context.player),
+				Question.findById(questionId)
+			])
+			.then(function(responses){
+				var user = responses[0];
+				var question = responses[1];
 				return user.scoreTheme(question.theme.toString(), question, 1);
-			}).then(function() {
+			})
+			.then(function() {
 				return {
 					success: true,
 					message: "You are the best!"
