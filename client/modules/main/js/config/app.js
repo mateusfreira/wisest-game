@@ -10,7 +10,7 @@ WisestGame.run(["$rootScope", "settings", "$state", function($rootScope, setting
 		function($q, $location) {
 			return {
 				responseError: function(rejection) {
-					if (rejection.status == 401) {
+					if (rejection.status == 403) {
 						$location.path('user/login');
 					}
 					return $q.reject(rejection);
