@@ -1,18 +1,18 @@
-angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Question', function($location, $stateParams, Themes, Question) {
-	
+angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Question', 'Game', function($location, $stateParams, Themes, Question, Game) {
+
 	var requiredProperties = ["description", "options", "answer", "level", "difficulty", "theme"];
 	var self = this;
 
 	this.themes = [];
 	this.questions = [];
 	this.question = {
-		options:[]
+		options: []
 	};
 
 	function isValid(question) {
 		return requiredProperties.every(function(property) {
 			if (Array.isArray(question[property]))
-				return question[property].length >= 2;	
+				return question[property].length >= 2;
 			else
 				return question[property];
 		});
@@ -49,7 +49,20 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 			});
 		}
 	};
+	this.checkSomeQuestion = function() {
+		this.pendingAnswer = false;
+		this.currentResponse = undefined;
 
+		Game.nextQuestion.query()
+			.$promise
+			.then(function(question) {
+				self.currentQuestion = question;
+				self.pendingAnswer = true;
+			})
+			.catch(function(err) {
+				console.error(err);
+			});
+	};
 	this.backOrCancel = function() {
 		$location.path('questions');
 	};

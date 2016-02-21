@@ -10,7 +10,12 @@ angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', fun
             data: {pageTitle: 'Create a question'},
             controller: "QuestionController"
         })
-
+        .state('correctQuestion', {
+            url: "/questions/correct",
+            templateUrl: "modules/question/template/correctQuestion.html",
+            data: {pageTitle: 'Correct Question'},
+            controller: "QuestionController"
+        })        
         .state('viewQuestion', {
             url: "/questions/:questionId",
             templateUrl: "modules/question/template/viewQuestion.html",
