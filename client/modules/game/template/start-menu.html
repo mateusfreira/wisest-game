@@ -20,10 +20,10 @@
 		border-bottom: 2px solid #ffffff;
 	}
 	select option {
-		 margin:40px;
-    	background: rgba(0,0,0,1);
-    	color:#fff;
-    	text-shadow:0 1px 0 rgba(0,0,0,1);
+		margin:40px;
+		background: rgba(0,0,0,1);
+		color:#fff;
+		text-shadow:0 1px 0 rgba(0,0,0,1);
 	}	
 </style>
 <section class="login dashboard" ng-controller="StartGameController as startGameCtrl">
@@ -49,17 +49,17 @@
 		</aside>
 	</form>
 	<form class="login-form">
-	<header class="dashboard-header"> The Wisest Game </header>
+		<header class="dashboard-header"> The Wisest Game </header>
 		<span class='arcade formElemet'> Mode </span>
 		<select class='arcade formElemet border' name="mode" id="mode"
 		ng-options="mode.name for mode in startGameCtrl.modes track by mode._id"
 		ng-model="startGameCtrl.gameContext.mode">
 	</select>
 	<span class='arcade formElemet'>Theme  </span>
-		<select class='arcade formElemet border' name="theme" id="theme"
-		ng-options="theme.name for theme in startGameCtrl.themes track by theme._id"
-		ng-model="startGameCtrl.gameContext.theme">
-		</select>			
+	<select class='arcade formElemet border' name="theme" id="theme"
+	ng-options="theme.name for theme in startGameCtrl.themes track by theme._id"
+	ng-model="startGameCtrl.gameContext.theme">
+</select>			
 <button class="dashboard-button" ng-click="startGameCtrl.startGame();">
 	Start game!
 </button>
