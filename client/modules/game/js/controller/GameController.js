@@ -12,6 +12,7 @@ angular.module("WisestGame").controller('GameController', ['Game','User', '$wind
 			.query()
 			.$promise
 			.then(function(currentUser){
+				currentUser.icon = new Identicon(currentUser.id.toString(), 320).toString();
 				self.currentUser = currentUser;
 			});
 	};
