@@ -9,6 +9,7 @@
 		position: absolute;
 		display: block;
 		min-width: 620px;
+		max-width: 700px;
 		top: 50%;
 		left: 50%;
 		text-align: center;
@@ -87,6 +88,11 @@
 			font-family: $font-light;
 
 			cursor: pointer;
+
+			&::before {
+				content: " ";
+				display: block;
+			}
 
 			&:focus {
 				color: $yellow;
