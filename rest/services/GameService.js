@@ -18,6 +18,7 @@ function GameService() {
 	this.nextQuestion = function(gameContext) {
 		var questionPromise;
 		if (gameContext.currentQuestion) {
+			gameContext.currentQuestion.spentTime = new Date().getTime() - gameContext.currentQuestion.start;
 			questionPromise = Promise.resolve(gameContext.currentQuestion);
 		} else {
 			questionPromise = Question.some(gameContext.player, gameContext.theme).then(function(question) {
@@ -26,12 +27,14 @@ function GameService() {
 					description: question.description,
 					code: question.code,
 					duration: question.duration,
+					start : new Date().getTime(),
+					spentTime : 0,
 					options: question.options
 				};
 				return gameContext.currentQuestion;
 			});
 		}
-		return question;
+		return questionPromise;
 	};
 
 	this.score = function(context, questionId, timeLeft) {

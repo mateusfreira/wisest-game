@@ -25,7 +25,7 @@ angular.module("WisestGame").controller('GameController', ['Game','User', '$wind
 		Game.nextQuestion.query()
 			.$promise
 			.then(function(question) {
-				question.timer = question.duration;
+				question.timer = question.duration - question.spentTime;
 				self.currentQuestion = question;
 
 				interval = setInterval(descrementTimer, 1000);
@@ -56,17 +56,21 @@ angular.module("WisestGame").controller('GameController', ['Game','User', '$wind
 	};
 
 	this.getTimerValue = function() {
-		return $window.moment(this.currentQuestion.timer).format("mm:ss");
+		var timeAsString;
+		if(this.currentQuestion.timer < 0){
+			timeAsString = "0:00";
+		}else{
+			timeAsString = $window.moment(this.currentQuestion.timer).format("mm:ss");
+		}
+		return timeAsString;
 	};
 
 	function descrementTimer() {
 		self.currentQuestion.timer -= 1000;
-
-		if (!$scope.$$phase) $scope.$apply();
-
 		if (self.currentQuestion.timer <= 0) {
 			questionTimeout();
 		}
+		if (!$scope.$$phase) $scope.$apply();
 	}
 
 	function questionTimeout() {
