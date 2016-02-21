@@ -41,7 +41,7 @@ UserSchema.methods.scoreTheme = function(themeId, question, score) {
 	var scoreAfter = themeScore.score;
 
 	return user.save().then(function() {
-		new Score({
+		return new Score({
 			user: user._id,
 			hit : true,
 			questions: question,

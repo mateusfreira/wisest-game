@@ -2,9 +2,9 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var ScoreSchema = new Schema({
-	theme  		: [{ type: Schema.ObjectId, ref: 'Theme' }],
-	question  	: [{ type: Schema.ObjectId, ref: 'Question' }],
-	user 		: [{ type: Schema.ObjectId, ref: 'User' }], 
+	theme  		: { type: Schema.ObjectId, ref: 'Theme' },
+	question  	: { type: Schema.ObjectId, ref: 'Question' },
+	user 		: { type: Schema.ObjectId, ref: 'User' },
 	answer 		: String,
 	hit 		: { type: Boolean, required: true },
 	scoreBefore	: { type: Number, required: true },
