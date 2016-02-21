@@ -7,22 +7,22 @@ const mongoose = require('mongoose'),
 
 var UserSchema = new Schema({
 
-	fb_id: String,
-	token: String,
-	email: { type: String, required: true },
-	first_name: { type: String, required: true },
-	last_name: { type: String, required: true },
-	password: { type: String, required: true },
-	score: Number,
-	created_at: { type: Date, default: Date.now },
-	updated_at: { type: Date, default: null },
-	scores: [{
-		theme: {
-			type: Schema.ObjectId,
-			ref: 'Theme'
-		},
-		score: Number
-	}]
+	fb_id			: String,
+	token			: String,
+	email			: { type: String, required: true },
+	first_name 		: { type: String, required: true },
+	last_name 		: { type: String, required: true },
+	password 		: { type: String, required: true },
+	score 			: Number,
+	created_at 		: { type: Date, default: Date.now },
+	updated_at 		: { type: Date, default: null },
+	scores 			: [{
+						theme: {
+							type: Schema.ObjectId,
+							ref: 'Theme'
+						},
+						score: Number
+					  }]
 });
 
 UserSchema.methods.getThemeScore = function(theme) {
@@ -40,8 +40,12 @@ UserSchema.methods.scoreTheme = function(themeId, question, mode, score) {
 	themeScore = incrementScore(themeScore, user, themeId, score)
 	var scoreAfter = themeScore.score;
 
-	return user.save().then(function() {
-		return user.scoreLog(question._id, themeId, mode, true, scoreBefore, scoreAfter)
+	return user.save()
+	.then(function() {
+		return user.scoreLog(question._id, themeId, mode, true, scoreBefore, scoreAfter);
+	})
+	.then(function() {
+		return themeScore.score;
 	});
 };
 
@@ -67,9 +71,7 @@ UserSchema.methods.scoreLog = function(questionId, themeId, mode, hit, scoreBefo
 		hit : hit,
 		scoreBefore: scoreBefore,
 		scoreAfter: scoreAfter
-	}).save().then(null, function(err) {
-		console.log(err);
-	});
+	}).save();
 };
 
 UserSchema.methods.generateHash = function(password) {
