@@ -10,7 +10,6 @@
 					ng-bind="controller.currentQuestion.code"
 				></code>
 			<div>
-			
 				Options:
 			</div>
 			<ul>
@@ -20,7 +19,10 @@
 					ng-click="controller.sendAnswer(option);"
 					ng-disabled="!controller.pendingAnswer"
 				></li>
-			</ul>							
+			</ul>
+			Time : <span>{{controller.currentQuestion.duration}}</span>
+			Leveu : <span>{{controller.currentQuestion.level}}</span>
+			Theme : <span>{{controller.currentQuestion.theme}}</span>
 			</div>
 	
 			<div class="question-options" ng-if="!controller.currentResponse">
@@ -34,7 +36,7 @@
 						'error': !controller.currentResponse.success
 					}"></span>
 				<button ng-click="controller.nextQuestion();"> Everything  is ok! </button>
-				<button ng-click="controller.nextQuestion();"> There are something wrong! </button>
+				<button ng-click="controller.nextQuestion();"> There is something wrong! </button>
 			</div>
 		</main>
 	</span>

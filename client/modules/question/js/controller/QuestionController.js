@@ -18,7 +18,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 		});
 	}
 
-	this.inCreateMode = function() {
+	this.inEditMode = function() {
 		if (!this.themes.length) {
 			this.themes = Themes.query();
 		}
@@ -28,10 +28,35 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 		this.questions = Question.query();
 	};
 
-	this.save = function() {
+	this.findOne = function() {
+		this.question = Question.get({
+			questionId: $stateParams.questionId
+		});
+	};
+	
+	this.checkSomeQuestion = function() {
+
+		this.pendingAnswer = false;
+		this.currentResponse = undefined;
+		Game.nextQuestion.query()
+			.$promise
+			.then(function(question) {
+				console.log(question);
+				self.currentQuestion = question;
+				self.pendingAnswer = true;
+			})
+			.catch(function(err) {
+				console.error(err);
+			});
+	};
+
+	this.persist = function(method) {
 		if (isValid(this.question)) {
-			var question = new Question(this.question);
-			question.$save(function(response) {
+			var question;
+			if (!this.question._id){
+				this.question = new Question(this.question);
+			}
+			this.question[method](function(response) {
 				self.question = response;
 				$location.path('questions/' + response._id);
 			}, function(error) {
@@ -42,28 +67,21 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 		}
 	};
 
-	this.findOne = function() {
-		if (!this.question._id) {
-			this.question = Question.get({
-				questionId: $stateParams.questionId
-			});
-		}
+	this.view = function(question) {
+		$location.path('questions/' + question);
 	};
-	this.checkSomeQuestion = function() {
-		this.pendingAnswer = false;
-		this.currentResponse = undefined;
 
-		Game.nextQuestion.query()
-			.$promise
-			.then(function(question) {
-				self.currentQuestion = question;
-				self.pendingAnswer = true;
-			})
-			.catch(function(err) {
-				console.error(err);
-			});
+	this.edit = function() {
+		$location.path('questions/' + this.question._id + "/edit");
 	};
-	this.backOrCancel = function() {
+
+	this.backToView = function() {
+		$location.path('questions/' + $stateParams.questionId);
+	};
+
+
+
+	this.backToList = function() {
 		$location.path('questions');
 	};
 
