@@ -23,7 +23,13 @@ var UserSchema = new Schema({
 						},
 						score: Number
 					  }],
-    level 			: { type: Schema.ObjectId, ref: 'Level' },
+	levels 			: [{
+						theme: {
+							type: Schema.ObjectId,
+							ref: 'Theme'
+						},
+						level: String
+					  }],    
     badges 			: [{badge:{type: Schema.ObjectId,ref: 'Badge'}}],
 });
 
@@ -49,6 +55,33 @@ UserSchema.methods.scoreTheme = function(themeId, question, mode, score) {
 	.then(function() {
 		return themeScore.score;
 	});
+};
+
+UserSchema.methods.getThemeLevel = function(theme) {
+
+	this.levels = this.levels || [];
+	return this.level;
+	return this.levels.filter(function(level) {
+		return level.theme.toString() === theme.toString();
+	}).shift();
+};
+
+UserSchema.methods.upLevel = function(themeId, question, mode, score) {
+
+	var user = this;
+	var level = this.level;
+
+	// var scoreBefore = themeScore ? themeScore.score : 0;
+	// themeScore = incrementScore(themeScore, user, themeId, score)
+	// var scoreAfter = themeScore.score;
+
+	// return user.save()
+	// .then(function() {
+	// 	return user.scoreLog(question._id, themeId, mode, true, scoreBefore, scoreAfter);
+	// })
+	// .then(function() {
+	// 	return themeScore.score;
+	// });
 };
 
 function incrementScore(themeScore, user, themeId, score) {

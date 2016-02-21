@@ -28,6 +28,14 @@ angular.module('WisestGame').factory("Game", ['$resource', 'settings',
           params: {},
           isArray: false
         }
+      }),
+
+      getThemeLevel: $resource(settings.serverUrl + '/game/getThemeLevel', {}, {
+        query: {
+          method: 'GET',
+          params: {},
+          isArray: false
+        }
       })
     };
   }

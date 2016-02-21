@@ -38,13 +38,7 @@ function GameService() {
 			var score = Math.round(Math.pow(2, question.difficulty) / question.duration * timeLeft);
 			return user.scoreTheme(question.theme.toString(), question, context.mode, score);
 		})
-		.then(function(updatedScore) {
-			return {
-				score: updatedScore,
-				success: true,
-				message: "You are the best!"
-			};
-		});
+			
 	};
 
 	this.miss = function(context, questionId, answer) {
