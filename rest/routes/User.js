@@ -1,7 +1,8 @@
 module.exports = function(app, passport) {
   var User = app.controllers.User;
 
-  app.route('/user/current').get(User.current);
+  app.get('/user/current', User.current)
+     .get('/user/logout', User.logout);
   
   app
     .publicRoute('/user/auth/facebook')

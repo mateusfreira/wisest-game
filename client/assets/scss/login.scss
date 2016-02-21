@@ -9,6 +9,7 @@
 		position: absolute;
 		display: block;
 		min-width: 620px;
+		max-width: 700px;
 		top: 50%;
 		left: 50%;
 		text-align: center;
@@ -47,7 +48,24 @@
 					background-color: $white;
 					color: $black;
 				}
+
+				&.invalid {
+					border-bottom: 2px solid $red;
+					color: $white;
+				}
 			}
+		}
+
+		.validation-hint {
+			text-align: left;
+			font-size: 16px;
+			color: $red;
+			margin-top: 5px;
+			display: none;
+		}
+
+		input.invalid + .validation-hint {
+			display: block;
 		}
 
 		.login-button {
@@ -88,10 +106,32 @@
 
 			cursor: pointer;
 
+			&::before {
+				content: " ";
+				display: block;
+			}
+
 			&:focus {
 				color: $yellow;
 				border: 2px solid $yellow;
 			}
+		}
+
+		.facebook-button {
+			background-color: $blue;
+			color: $white;
+
+			&:focus {
+				background-color: #000093;
+				border: 5px solid $blue;
+			}
+		}
+
+		.sign-up-description {
+			display: inline-block;
+			width: 400px;
+			font-size: 16px;
+			text-align: left;
 		}
 
 	}

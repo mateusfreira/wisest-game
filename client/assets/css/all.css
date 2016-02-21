@@ -116,6 +116,7 @@ aside.team-two {
   position: absolute;
   display: block;
   min-width: 620px;
+  max-width: 700px;
   top: 50%;
   left: 50%;
   text-align: center;
@@ -145,6 +146,17 @@ aside.team-two {
       .login .login-form .login-field input::selection {
         background-color: #ffffff;
         color: #000000; }
+      .login .login-form .login-field input.invalid {
+        border-bottom: 2px solid #ff0000;
+        color: #ffffff; }
+  .login .login-form .validation-hint {
+    text-align: left;
+    font-size: 16px;
+    color: #ff0000;
+    margin-top: 5px;
+    display: none; }
+  .login .login-form input.invalid + .validation-hint {
+    display: block; }
   .login .login-form .login-button {
     position: relative;
     width: 400px;
@@ -170,8 +182,70 @@ aside.team-two {
     font-size: 20px;
     font-family: "Free Pixel", Monaco, consolas, sans-serif;
     cursor: pointer; }
+    .login .login-form .forgot-button::before {
+      content: " ";
+      display: block; }
     .login .login-form .forgot-button:focus {
       color: #ffff00;
       border: 2px solid #ffff00; }
+  .login .login-form .facebook-button {
+    background-color: #1d2ccb;
+    color: #ffffff; }
+    .login .login-form .facebook-button:focus {
+      background-color: #000093;
+      border: 5px solid #1d2ccb; }
+  .login .login-form .sign-up-description {
+    display: inline-block;
+    width: 400px;
+    font-size: 16px;
+    text-align: left; }
+
+.dashboard .player {
+  margin-bottom: 20px !important; }
+.dashboard .dashboard-header {
+  font-size: 75px;
+  margin-bottom: 80px; }
+.dashboard .dashboard-button {
+  position: relative;
+  width: 400px;
+  height: 50px;
+  margin-bottom: 25px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 40px;
+  font-family: "Blocko", Monaco, consolas, sans-serif;
+  cursor: pointer; }
+  .dashboard .dashboard-button:focus {
+    font-family: "Arcade", Monaco, consolas, sans-serif;
+    font-size: 40px; }
+  .dashboard .dashboard-button.logout-button {
+    margin-top: 90px;
+    color: #ffff00; }
+
+.level-bar {
+  position: relative;
+  width: 200px;
+  height: 6px;
+  background-color: transparent; }
+  .level-bar .xp-text {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 16px; }
+  .level-bar .current-xp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 45px;
+    bottom: 0;
+    background-color: #ff00ff; }
+  .level-bar .needed-xp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #b300b3; }
 
 /*# sourceMappingURL=all.css.map */

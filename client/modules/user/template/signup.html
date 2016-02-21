@@ -1,24 +1,47 @@
-<section ng-controller="SignupController as signupCtrl">
-	 <form>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" ng-model="signupCtrl.userContext.email" class="form-control" name="email">
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" ng-model="signupCtrl.userContext.password" class="form-control" name="password">
-        </div>
-        <div class="form-group">
-            <label>First Name</label>
-            <input type="text" class="form-control" ng-model="signupCtrl.userContext.first_name" name="first_name">
-        </div>
-        <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" class="form-control" ng-model="signupCtrl.userContext.last_name" name="last_name">
-        </div>
+<section class="login dashboard" ng-controller="SignupController as signupCtrl">
+	<form class="login-form" autocomplete="off">
+		<header class="login-header"> The Wisest Game </header>
 
-        <button type="button" ng-click="signupCtrl.signup();" class="btn btn-warning btn-lg">Login</button>
-        <button type="button" ng-click="this.teste()" class="btn btn-warning btn-lg">FACEBOOK</button>
-    </form>
+		<div class="login-field" game-login-field>
+			<label>First name</label>
+			<input
+				type="text"
+				name="first_name"
+				ng-model="loginCtrl.userContext.first_name"
+				autocomplete="off">
+			<div class="validation-hint"> Field cannot be blank </div>
+		</div>
 
+		<div class="login-field" game-login-field>
+			<label>Last name</label>
+			<input
+				type="text"
+				name="first_name"
+				ng-model="loginCtrl.userContext.last_name"
+				autocomplete="off">
+			<div class="validation-hint"> Field cannot be blank </div>
+		</div>
+
+		<div class="login-field" game-login-field>
+			<label>Email</label>
+			<input
+				type="text"
+				name="email"
+				ng-model="loginCtrl.userContext.email"
+				autocomplete="off">
+			<div class="validation-hint"> Invalid email address </div>
+		</div>
+
+		<div class="login-field" game-login-field>
+			<label> Password </label>
+			<input
+				type="password"
+				name="password"
+				ng-model="loginCtrl.userContext.password">
+			<div class="validation-hint"> Password must have at least six characters </div>
+		</div>
+
+		<button class="login-button" ng-click="signupCtrl.signup();" > Sign Up </button>
+		<button class="login-button facebook-button" ng-click="this.teste()" > facebook </button>
+	</form>
 </section>
