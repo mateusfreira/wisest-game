@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         "modules/*/js/config/**/*.js"
     ];
     var mainPath =  "modules/main/**/*.js";
-    
+
     var dependenciesPath = [
         "bower_components/angular/angular.js",
         "bower_components/angular-ui-router/release/angular-ui-router.min.js",
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
             }
         }
     });
-    
+
     require('load-grunt-tasks')(grunt, {
       pattern: ['grunt-*', '!grunt-template-jasmine-istanbul']
     });

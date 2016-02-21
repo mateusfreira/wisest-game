@@ -1,0 +1,177 @@
+@font-face {
+  font-family: "Arcade";
+  src: url(../fonts/Arcade.ttf); }
+@font-face {
+  font-family: "Free Pixels";
+  src: url(../fonts/FreePixel.ttf); }
+@font-face {
+  font-family: "Blocko";
+  src: url(../fonts/Blocko.ttf); }
+* {
+  box-sizing: border-box; }
+
+body {
+  color: #ffffff;
+  font-size: 24px;
+  font-family: "Free Pixel", Monaco, consolas, sans-serif;
+  background-color: #000000; }
+
+header {
+  padding: 15px;
+  font-family: "Arcade", Monaco, consolas, sans-serif;
+  font-size: 50px;
+  color: white;
+  text-align: center; }
+
+main {
+  position: fixed;
+  top: 100px;
+  left: 250px;
+  right: 250px;
+  bottom: 0; }
+  main .timer {
+    margin: 20px 20px 60px 20px;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Blocko", Monaco, consolas, sans-serif;
+    color: #ffff00; }
+  main .question-text {
+    margin: 20px 35px;
+    min-height: 500px; }
+  main .question-code {
+    display: block;
+    margin: 15px 0;
+    font-family: "Free Pixel", Monaco, consolas, sans-serif; }
+  main .question-options {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center; }
+    main .question-options button {
+      display: inline-block;
+      width: calc(50% - 40px);
+      height: 45px;
+      margin: 10px 5px;
+      padding: 0;
+      border: none;
+      background-color: #ffffff;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      cursor: pointer;
+      color: black;
+      font-size: 22px;
+      font-family: "Free Pixel", Monaco, consolas, sans-serif; }
+      main .question-options button.active {
+        background-color: #ffff00; }
+
+aside[class^="team-"] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  height: auto;
+  padding: 15px;
+  white-space: nowrap; }
+  aside[class^="team-"] .team-info {
+    margin-bottom: 30px; }
+    aside[class^="team-"] .team-info span {
+      display: block; }
+    aside[class^="team-"] .team-info .team-score {
+      font-family: "Blocko", Monaco, consolas, sans-serif;
+      font-size: 45px; }
+  aside[class^="team-"] [class^="player player-"] {
+    margin-bottom: 30px; }
+    aside[class^="team-"] [class^="player player-"] .player-image {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      vertical-align: middle; }
+    aside[class^="team-"] [class^="player player-"] .player-info {
+      display: inline-block;
+      width: 180px;
+      height: 45px;
+      margin-left: 15px;
+      vertical-align: middle; }
+    aside[class^="team-"] [class^="player player-"] .player-name,
+    aside[class^="team-"] [class^="player player-"] .player-level {
+      display: block;
+      font-size: 18px;
+      line-height: 22px; }
+
+aside.team-two {
+  left: initial;
+  right: 0;
+  text-align: right; }
+  aside.team-two [class^="player player-"] .player-image {
+    margin-right: 15px; }
+  aside.team-two [class^="player player-"] .player-info {
+    margin-left: 0;
+    margin-right: 15px; }
+
+.login .login-header {
+  font-size: 75px;
+  margin-bottom: 50px; }
+.login .login-form {
+  position: absolute;
+  display: block;
+  min-width: 620px;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%); }
+  .login .login-form .login-field {
+    position: relative;
+    display: inline-block;
+    width: 400px;
+    height: 50px;
+    margin-bottom: 40px; }
+    .login .login-form .login-field label {
+      position: absolute;
+      bottom: 10px;
+      left: 0; }
+    .login .login-form .login-field input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      background-color: #000000;
+      border-bottom: 2px solid #ffffff;
+      color: #ffff00;
+      font-size: 24px;
+      font-family: "Free Pixel", Monaco, consolas, sans-serif; }
+      .login .login-form .login-field input:focus {
+        border-bottom: 2px solid #ffff00; }
+      .login .login-form .login-field input::selection {
+        background-color: #ffffff;
+        color: #000000; }
+  .login .login-form .login-button {
+    position: relative;
+    width: 400px;
+    height: 50px;
+    margin-bottom: 20px;
+    outline: none;
+    border: none;
+    background-color: #ffffff;
+    font-size: 20px;
+    font-family: "Free Pixel", Monaco, consolas, sans-serif;
+    cursor: pointer; }
+    .login .login-form .login-button:focus {
+      background-color: #ffff00; }
+  .login .login-form .forgot-button {
+    position: relative;
+    width: 400px;
+    height: 50px;
+    margin-bottom: 20px;
+    outline: none;
+    border: 2px solid #ffffff;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: "Free Pixel", Monaco, consolas, sans-serif;
+    cursor: pointer; }
+    .login .login-form .forgot-button:focus {
+      color: #ffff00;
+      border: 2px solid #ffff00; }
+
+/*# sourceMappingURL=all.css.map */

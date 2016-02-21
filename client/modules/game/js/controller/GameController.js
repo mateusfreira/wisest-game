@@ -6,7 +6,7 @@ angular.module("WisestGame").controller('GameController', ['Game', function(Game
 	this.currentQuestion = undefined;
 	this.currentResponse = undefined;
 
-	this.getQuestion = function() {
+	this.nextQuestion = function() {
 		this.pendingAnswer = false;
 		this.currentResponse = undefined;
 

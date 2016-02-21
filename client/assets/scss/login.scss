@@ -1,0 +1,99 @@
+.login {
+
+	.login-header {
+		font-size: 75px;
+		margin-bottom: 50px;
+	}
+
+	.login-form {
+		position: absolute;
+		display: block;
+		min-width: 620px;
+		top: 50%;
+		left: 50%;
+		text-align: center;
+		transform: translate(-50%, -50%);
+
+		.login-field {
+			position: relative;
+			display: inline-block;
+			width: 400px;
+			height: 50px;
+			margin-bottom: 40px;
+
+			label {
+				position: absolute;
+				bottom: 10px;
+				left: 0;
+			}
+
+			input {
+				width: 100%;
+				height: 100%;
+				border: none;
+				outline: none;
+				background-color: $black;
+				border-bottom: 2px solid $white;
+
+				color: $yellow;
+				font-size: 24px;
+				font-family: $font-light;
+
+				&:focus {
+					border-bottom: 2px solid $yellow;
+				}
+
+				&::selection {
+					background-color: $white;
+					color: $black;
+				}
+			}
+		}
+
+		.login-button {
+			position: relative;
+
+			width: 400px;
+			height: 50px;
+			margin-bottom: 20px;
+
+			outline: none;
+			border: none;
+			background-color: $white;
+
+			font-size: 20px;
+			font-family: $font-light;
+
+			cursor: pointer;
+
+			&:focus {
+				background-color: $yellow;
+			}
+		}
+
+		.forgot-button {
+			position: relative;
+
+			width: 400px;
+			height: 50px;
+			margin-bottom: 20px;
+
+			outline: none;
+			border: 2px solid $white;
+			background-color: $black;
+
+			color: $white;
+			font-size: 20px;
+			font-family: $font-light;
+
+			cursor: pointer;
+
+			&:focus {
+				color: $yellow;
+				border: 2px solid $yellow;
+			}
+		}
+
+	}
+
+}
