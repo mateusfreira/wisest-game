@@ -1,0 +1,28 @@
+<section class="login dashboard" ng-controller="LoginController as loginCtrl">
+	<aside class="team-one">
+
+		<div class="player player-1">
+			<img class="player-image" src="./assets/images/airtoncbr.png"><!-- Inline block issue
+			--><div class="player-info">
+				<span class="player-name"> airtoncbr </span>
+				<span class="player-level"> Lvl. 27 </span>
+			</div>
+		</div>
+
+		<div class="level-bar">
+			<div class="xp-text">( 198 / 256 )</div>
+			<div class="needed-xp"></div>
+			<div class="current-xp"></div>
+		</div>
+
+	</aside>
+
+	<form class="login-form">
+		<header class="dashboard-header"> The Wisest Game </header>
+
+		<button class="dashboard-button" ng-click="loginCtrl.login();" > Start </button>
+		<button class="dashboard-button" ng-click="loginCtrl.login();" > Ranking </button>
+		<button class="dashboard-button" ng-click="loginCtrl.login();" > Options </button>
+		<button class="dashboard-button logout-button" ng-click="loginCtrl.login();" > Log Out </button>
+	</form>
+</section>
