@@ -30,7 +30,8 @@
   }
 
   const hasAccess = function(req, res, next) {
-    if (req.user || app.publicRoutes.indexOf(req.url) !== -1) {
+    console.log();
+    if (req.user || app.publicRoutes.indexOf(req.url) !== -1  || req.method === 'OPTIONS') {
       next();
     } else {
       res.status(403).send({ error: "Access denied." });
