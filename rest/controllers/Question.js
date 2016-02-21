@@ -6,18 +6,22 @@ module.exports = {
 	findAll: function(req, res) {
 		reponseWithPromise(QuestionService.findAll(req.user), res);
 	},
-	findOne: function(req, res, next, id) {
-		res.status(200).send({});
+	findOne: function(req, res) {
+		res.status(200).send(QuestionService.extractPublicAPI(req.question));
 	},
 	findById: function(req, res, next, id) {
-		reponseWithPromise(QuestionService.findById(id, req.user), res);
+		QuestionService.findById(id, req.user).then(function(question) {
+			req.question = question;
+			next();
+		});
 	},
 	create: function(req, res) {
 		delete req.body.level;
 		reponseWithPromise(QuestionService.create(req.body, req.user), res);
 	},
 	update: function(req, res) {
-		res.status(200).send({});
+		delete req.body.level;
+		reponseWithPromise(QuestionService.update(req.question, req.body), res);
 	},
 	delete: function(req, res) {
 		res.status(200).send({});
