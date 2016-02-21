@@ -3,8 +3,8 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 	var requiredProperties = ["description", "options", "answer", "level", "difficulty", "theme"];
 	var self = this;
 
-	this.themes = Themes.query();
-
+	this.themes = [];
+	this.questions = [];
 	this.question = {
 		options:[]
 	};
@@ -17,6 +17,16 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 				return question[property];
 		});
 	}
+
+	this.inCreateMode = function() {
+		if (!this.themes.length) {
+			this.themes = Themes.query();
+		}
+	};
+
+	this.inListMode = function() {
+		this.questions = Question.query();
+	};
 
 	this.save = function() {
 		if (isValid(this.question)) {
