@@ -6,7 +6,7 @@ const requireModule = require('../model/index').requireModule,
       
 module.exports = {
   start: function(req, res) {
-    var result = GameService.start(req.session, "56c892ce283c617e7c8b0ed4", req.body.mode, req.body.theme);
+    var result = GameService.start(req.session, req.session.gameContext.player, req.body.mode, req.body.theme);
     res.status(200).send(result);
   },
   next: function(req, res) {
