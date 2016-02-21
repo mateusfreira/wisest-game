@@ -6,6 +6,15 @@ const requireModule = require('../model/index').requireModule,
 function GameService() {
 	var self = this;
 
+	this.start = function(contextContainer, player, mode, theme) {
+		contextContainer.gameContext = {
+			player: player,
+			theme: theme,
+			mode: mode
+		};
+		return contextContainer.gameContext;
+	};
+
 	this.nextQuestion = function(gameContext) {
 		return Question.some(gameContext.player, gameContext.theme).then(function(question) {
 			return {
@@ -16,54 +25,54 @@ function GameService() {
 			};
 		});
 	};
-	this.start = function(contextContainer, player, mode, theme) {
-		contextContainer.gameContext = {
-			player: player,
-			theme: theme,
-			mode: mode
-		};
-		return contextContainer.gameContext;
-	};
-
+	
 	this.score = function(context, questionId) {
 		return Promise.all([
-				User.findById(context.player),
-				Question.findById(questionId)
-			])
-			.then(function(responses){
-				var user = responses[0];
-				var question = responses[1];
-				return user.scoreTheme(question.theme.toString(), question, 1);
-			})
-			.then(function() {
-				return {
-					success: true,
-					message: "You are the best!"
-				};
-			});
+			User.findById(context.player),
+			Question.findById(questionId)
+		])
+		.then(function(responses){
+			var user = responses[0];
+			var question = responses[1];
+			return user.scoreTheme(question.theme.toString(), question, context.mode, 1);
+		})
+		.then(function() {
+			return {
+				success: true,
+				message: "You are the best!"
+			};
+		});
 	};
 
 	this.miss = function(context, questionId, answer) {
-		console.log("Not implemented yet!");
-		return Question.findById(questionId).then(function(question) {
-			return {
-				success: false,
-				message: question.answer
-			};
+		var questionAnswer;
+		return Promise.all([
+			User.findById(context.player),
+			Question.findById(questionId),
+		])
+		.then(function(responses) {
+			var user = responses[0];
+			var themeScore = user.getThemeScore(context.theme);
+			var score = themeScore ? themeScore.score : 0;
+			questionAnswer = responses[1].answer;
+			return user.scoreLog(questionId, context.theme, context.mode, false, score, score);
+		})
+		.then(function() {
+			return { success: false, message: questionAnswer };
 		});
 	};
 
 	this.answerQuestion = function(context, question, answer) {
 		return Question.checkAnswerById(question, answer)
-			.then(function(isItRight) {
-				var result;
-				if (isItRight) {
-					result = self.score(context, question, answer);
-				} else {
-					result = self.miss(context, question, answer);
-				}
-				return result;
-			});
+		.then(function(isItRight) {
+			var result;
+			if (isItRight) {
+				result = self.score(context, question, answer);
+			} else {
+				result = self.miss(context, question, answer);
+			}
+			return result;
+		});
 	};
 };
 
