@@ -26,22 +26,6 @@ angular.module("WisestGame").controller('GameController', ['Game', '$window', '$
 			});
 	};
 
-	function descrementTimer() {
-		self.currentQuestion.timer -= 1000;
-
-		if (!$scope.$$phase) $scope.$apply();
-		
-		if (self.currentQuestion.timer <= 0) {
-			questionTimeout();
-		}
-	}
-
-	function questionTimeout(argument) {
-		self.sendAnswer().then(function() {
-			self.currentResponse.message = "Timeout! " + self.currentResponse.message;
-		});
-	}
-
 	this.sendAnswer = function(option) {
 		this.pendingAnswer = false;
 		clearInterval(interval);
@@ -49,11 +33,12 @@ angular.module("WisestGame").controller('GameController', ['Game', '$window', '$
 		return Game.checkAnswer.query({
 			question: this.currentQuestion._id,
 			answer: option,
-			spentTime: 15000
+			timeLeft: this.currentQuestion.timer
 		})
 		.$promise
 		.then(function(response) {
 			self.currentResponse = response;
+			updateScore();
 		})
 		.catch(function(err) {
 			console.log(err);
@@ -61,8 +46,30 @@ angular.module("WisestGame").controller('GameController', ['Game', '$window', '$
 	};
 
 	this.getTimerValue = function() {
-		return $window.moment(this.currentQuestion.timer).format("mm:ss")
+		return $window.moment(this.currentQuestion.timer).format("mm:ss");
 	};
+
+	function descrementTimer() {
+		self.currentQuestion.timer -= 1000;
+
+		if (!$scope.$$phase) $scope.$apply();
+
+		if (self.currentQuestion.timer <= 0) {
+			questionTimeout();
+		}
+	}
+
+	function questionTimeout() {
+		self.sendAnswer().then(function() {
+			self.currentResponse.message = "Timeout! " + self.currentResponse.message;
+		});
+	}
+
+	function updateScore() {
+		if (self.currentResponse.score) {
+			self.score = self.currentResponse.score;
+		}
+	}
 
 	this.nextQuestion();
 
