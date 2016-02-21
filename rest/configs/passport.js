@@ -59,7 +59,7 @@ function Passport(passport) {
                         return done(null, newUser);
                     });
                 }
-            }).catch(function() {
+            }).catch(function(err) {
                 throw err;
             });
 
