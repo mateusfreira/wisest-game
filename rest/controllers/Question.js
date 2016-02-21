@@ -29,7 +29,7 @@ module.exports = {
 	update: function(req, res) {
 		console.log(req.question);
 		delete req.body.level;
-		reponseWithPromise(QuestionService.update(req.question, req.body), res);
+		reponseWithPromise(QuestionService.update(req.question, req.body, req.user), res);
 	},
 	delete: function(req, res) {
 		res.status(200).send({});

@@ -25,11 +25,11 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 	};
 
 	this.inListMode = function() {
-		this.questions = Question.query();
+		this.questions = Question.crud.query();
 	};
 
 	this.findOne = function() {
-		this.question = Question.get({
+		this.question = Question.crud.get({
 			questionId: $stateParams.questionId
 		});
 	};
