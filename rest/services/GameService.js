@@ -87,6 +87,7 @@ function GameService() {
 	};
 
 	this.getThemeScore = function(user, theme) {
+
 		var themeScore = user.getThemeScore(theme);
 		return {
 			score: (themeScore ? themeScore.score : 0)
@@ -95,15 +96,13 @@ function GameService() {
 
 	this.getThemeLevel = function(user, theme) {
 
-		var themeLevel = user.getUserLevel(theme);
+		var themeLevel = user.scores.level;
 		var defaultLevel = {
 			xp_level: 1,
 			next_level: 100,
 			name: "trainee"
 		};
-		return {
-			level: (themeLevel ? themeLevel : defaultLevel)
-		};
+		return {level:defaultLevel};
 	};
 };
 
