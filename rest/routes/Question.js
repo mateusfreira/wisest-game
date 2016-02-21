@@ -10,5 +10,12 @@ module.exports = function(app) {
        .put(Question.update)
        .delete(Question.delete);
 
+    app
+       .route('/questions/:questionId/ideverythingOk')
+       .get(Question.ideverythingOk);
+    app
+       .route('/questions/nextToApprove')
+       .post(Question.nextToApprove);
+
     app.param('questionId', Question.findById);
 };

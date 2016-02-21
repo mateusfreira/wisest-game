@@ -1,33 +1,67 @@
 const requireModule = require('../model/index').requireModule,
-	  Question = requireModule("Question"),
-	  questionSchema = require('mongoose').model("Question").schema,
-	  _ = require('lodash');
+	Question = requireModule("Question"),
+	questionSchema = require('mongoose').model("Question").schema,
+	_ = require('lodash');
 
 function QuestionService() {
 	var self = this;
 	var questionPublicAPI = ["_id", "duration", "theme", "level", "difficulty", "answer", "description", "code", "options"];
 
+
+	this.nextQuestion = function(user) {
+		return Question.someToApprove(user._id)
+			.then(function(question) {
+				return {
+					_id: question._id,
+					description: question.description,
+					code: question.code,
+					duration: question.duration,
+					options: question.options
+				};
+			});
+	};
+	this.ideverythingOk = function(id, user) {
+		console.log(id);
+		return Question.findOne({
+			_id: id
+		}).then(function(question) {
+			question.addReviewer(user, true);
+		}).then(function() {
+			return {
+				status: "Ok"
+			};
+		});
+	};
+
 	this.findById = function(id, user) {
-		return Question.findOne({ _id: id, user: user._id});
+		return Question.findOne({
+			_id: id
+		});
 	};
 
 	this.findAll = function(user) {
-		return Question.find({user : user._id}, questionPublicAPI.join(" "));
+		return Question.find({
+			user: user._id
+		}, questionPublicAPI.join(" "));
 	}
 
 	this.create = function(question, user) {
 		var question = new Question(factoryQuestion(question));
 		question.user = user;
-		return question.save().then(function(){
+		return question.save().then(function() {
 			return self.extractPublicAPI(question);
 		});
 	};
 
-	this.update = function(question, data) {
-		question = _.extend(question , data);
-		return question.save().then(function(){
-			return self.extractPublicAPI(question);
-		});
+	this.update = function(question, data, user) {
+		question = _.extend(question, data);
+		if (user._id.toString() == question.user.toString()) {
+			return question.save().then(function() {
+				return self.extractPublicAPI(question);
+			});
+		} else {
+			return Promise.reject("This user can't edit this question!");
+		}
 	};
 
 	this.extractPublicAPI = function(question) {
@@ -49,7 +83,7 @@ function QuestionService() {
 			options: question.options
 		};
 	}
-	
+
 };
 
 module.exports = new QuestionService();

@@ -22,6 +22,7 @@ function GameService() {
 			questionPromise = Promise.resolve(gameContext.currentQuestion);
 		} else {
 			questionPromise = Question.some(gameContext.player, gameContext.theme).then(function(question) {
+				console.log('Here');
 				gameContext.currentQuestion = {
 					_id: question._id,
 					description: question.description,
