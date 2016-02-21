@@ -27,9 +27,9 @@ var UserSchema = new Schema({
 	levels 			: [{
 						theme: {
 							type: Schema.ObjectId,
-							ref: 'Theme'
+							ref: 'Level'
 						},
-						level: String
+						// level: String
 					  }],    
     badges 			: [{badge:{type: Schema.ObjectId,ref: 'Badge'}}],
 });
@@ -46,6 +46,7 @@ UserSchema.methods.scoreTheme = function(themeId, question, mode, score) {
 	var themeScore = user.getThemeScore(themeId);
 
 	var scoreBefore = themeScore ? themeScore.score : 0;
+	incrementLevel(themeLevel, user, themeId, score);
 	themeScore = incrementScore(themeScore, user, themeId, score)
 	var scoreAfter = themeScore.score;
 
@@ -75,17 +76,18 @@ UserSchema.methods.getUserLevel = function(theme) {
 
 		if(score.theme == theme ){
 			return Level.find( "Level")
-				.where({xp_level	: {$lte: score.score}})
-				.where({next_level	: {$gt: score.score}})
-					.then(function(currentLevel) {															
-							console.log(this.scores);
-							this.levels.push(currentLevel);							
+				.where({xp_level	: {$lte: 200}})
+				.where({next_level	: {$gte: 200}})
+					.then(function(currentLevel) {																						
+							return currentLevel;							
 					})
 					.catch(function(e) {
 						console.log(e);
 					});	
 		}
-		return this.levels;
+
+		return
+		
 	});	
 };
 
@@ -118,6 +120,22 @@ function incrementScore(themeScore, user, themeId, score) {
 		themeScore.score += score;	
 	}
 	return themeScore;
+}
+
+function incrementLevel(themeLevel, user, themeId, score) {
+
+	if (!themeLevel) {//{xp_level : 1,next_level : 100,name : "trainee"};
+
+		themeLevel = {
+			xp_level: 1,
+			next_level: 100,
+			name : "trainee"
+		};
+		user.leves.push(themeLevel);
+	}else{
+		// levelTheme.score += score;	
+	}
+	return themeLevel;	
 }
 
 UserSchema.methods.scoreLog = function(questionId, themeId, mode, hit, scoreBefore, scoreAfter) {
