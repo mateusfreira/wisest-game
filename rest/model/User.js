@@ -40,8 +40,12 @@ UserSchema.methods.scoreTheme = function(themeId, question, mode, score) {
 	themeScore = incrementScore(themeScore, user, themeId, score)
 	var scoreAfter = themeScore.score;
 
-	return user.save().then(function() {
-		return user.scoreLog(question._id, themeId, mode, true, scoreBefore, scoreAfter)
+	return user.save()
+	.then(function() {
+		return user.scoreLog(question._id, themeId, mode, true, scoreBefore, scoreAfter);
+	})
+	.then(function() {
+		return themeScore.score;
 	});
 };
 
@@ -67,9 +71,7 @@ UserSchema.methods.scoreLog = function(questionId, themeId, mode, hit, scoreBefo
 		hit : hit,
 		scoreBefore: scoreBefore,
 		scoreAfter: scoreAfter
-	}).save().then(null, function(err) {
-		console.log(err);
-	});
+	}).save();
 };
 
 UserSchema.methods.generateHash = function(password) {

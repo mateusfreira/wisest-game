@@ -13,6 +13,6 @@ module.exports = {
     reponseWithPromise(GameService.nextQuestion(req.session.gameContext), res);
   },
   checkAnswer: function(req, res) {
-    reponseWithPromise(GameService.answerQuestion(req.session.gameContext, req.body.question, req.body.answer, req.body.spentTime), res);
+    reponseWithPromise(GameService.answerQuestion(req.session.gameContext, req.body.question, req.body.answer, req.body.timeLeft), res);
   }
 };
