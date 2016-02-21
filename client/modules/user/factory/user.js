@@ -1,6 +1,16 @@
 angular.module('WisestGame').factory("User", ['$resource', 'settings',
   function($resource, settings) {
     return {
+      doLogout: $resource(settings.serverUrl + '/user/logout', {}, {
+        query: {
+          method: 'GET',
+          params: {},
+          isArray: false
+        }
+      }),      
+      logOut : function(){
+          return this.doLogout.query().$promise;
+      },
       current: function() {
         return this.getCurrent
           .query()

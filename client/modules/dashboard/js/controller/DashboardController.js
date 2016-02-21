@@ -8,4 +8,10 @@ angular.module("WisestGame").controller('DashboardController', ["User", "$locati
 	this.startGame = function(){
 		$location.path('game/start');
 	};
+
+	this.logOut = function(){
+		User.logOut().then(function(){
+			$location.path('user/login');
+		});
+	};
 }]);
