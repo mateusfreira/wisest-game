@@ -1,0 +1,47 @@
+<section ng-controller="QuestionController as questionCtrl">
+	 <form ng-init="questionCtrl.findOne();">
+        <div class="form-group">
+            <label>Description</label>
+            <label ng-bind="questionCtrl.question.description"></label>
+        </div>
+        <div class="form-group">
+            <label>Code</label>
+            <label ng-bind="questionCtrl.question.code"></label>
+        </div>
+        <div class="form-group">
+            <label>Options</label>
+            <label ng-bind="questionCtrl.question.options"></label>
+        </div>
+
+        <div class="form-group">
+        	<label>Answer</label>
+        	<label ng-bind="questionCtrl.question.answer"></label>
+		</div>
+
+		<div class="form-group">
+            <label>Level</label>
+            <label ng-bind="questionCtrl.question.level"></label>
+        </div>
+
+        <div class="form-group">
+            <label>Difficulty</label>
+            <label ng-bind="questionCtrl.question.difficulty"></label>
+        </div>
+
+        <div class="form-group">
+            <label>Duration</label>
+            <label ng-bind="questionCtrl.question.duration"></label>
+        </div>
+
+        <div class="form-group">
+            <label>Theme</label>
+            <label ng-bind="questionCtrl.question.theme"></label>
+        </div>
+
+        <div class="form-group">
+        	<button type="button" ng-click="questionCtrl.backOrCancel();">Back</button>
+            <button type="button" ng-click="questionCtrl.edit();">Edit</button>
+        </div>
+    </form>
+
+</section>

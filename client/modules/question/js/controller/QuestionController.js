@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('QuestionController', ['$location', 'Themes', 'Question', function($location, Themes, Question) {
+angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Question', function($location, $stateParams, Themes, Question) {
 	
 	var requiredProperties = ["description", "options", "answer", "level", "difficulty", "theme"];
 	var self = this;
@@ -22,7 +22,8 @@ angular.module("WisestGame").controller('QuestionController', ['$location', 'The
 		if (isValid(this.question)) {
 			var question = new Question(this.question);
 			question.$save(function(response) {
-				self.question = {};
+				self.question = response;
+				$location.path('questions/' + response._id);
 			}, function(error) {
 				console.error(error);
 			});
@@ -31,7 +32,15 @@ angular.module("WisestGame").controller('QuestionController', ['$location', 'The
 		}
 	};
 
-	this.cancel = function() {
+	this.findOne = function() {
+		if (!this.question._id) {
+			this.question = Question.get({
+				questionId: $stateParams.questionId
+			});
+		}
+	};
+
+	this.backOrCancel = function() {
 		$location.path('questions');
 	};
 
