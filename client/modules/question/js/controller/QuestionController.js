@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Question', 'Game', function($location, $stateParams, Themes, Question, Game) {
+angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Question', function($location, $stateParams, Themes, Question) {
 
 	var requiredProperties = ["description", "options", "answer", "level", "difficulty", "theme"];
 	var self = this;
@@ -25,23 +25,31 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 	};
 
 	this.inListMode = function() {
-		this.questions = Question.query();
+		this.questions = Question.crud.query();
 	};
 
 	this.findOne = function() {
-		this.question = Question.get({
+		this.question = Question.crud.get({
 			questionId: $stateParams.questionId
 		});
 	};
-	
+
+	this.everyThingIsOk = function(question) {
+		//everyThingIsOk			
+		Question.everythingOk(question).then(function() {
+			alert("Thank you!");
+			self.checkSomeQuestion();
+		}).catch(function() {
+			alert("Some problem happened trying to approve, Please try again!");
+		});
+	};
+
 	this.checkSomeQuestion = function() {
 
 		this.pendingAnswer = false;
 		this.currentResponse = undefined;
-		Game.nextQuestion.query()
-			.$promise
+		Question.nextQuestion()
 			.then(function(question) {
-				console.log(question);
 				self.currentQuestion = question;
 				self.pendingAnswer = true;
 			})
@@ -53,7 +61,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 	this.persist = function(method) {
 		if (isValid(this.question)) {
 			var question;
-			if (!this.question._id){
+			if (!this.question._id) {
 				this.question = new Question(this.question);
 			}
 			this.question[method](function(response) {
