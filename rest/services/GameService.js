@@ -77,6 +77,11 @@ function GameService() {
 			return result;
 		});
 	};
+
+	this.getThemeScore = function(user, theme) {
+		var themeScore = user.getThemeScore(theme);
+		return { score: (themeScore ? themeScore.score : 0) };
+	};
 };
 
 module.exports = new GameService();

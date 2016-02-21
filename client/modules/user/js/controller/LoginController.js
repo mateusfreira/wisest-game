@@ -3,7 +3,7 @@ angular.module("WisestGame").controller('LoginController', ['$state', 'User', 's
 	this.userContext = {};
 	
 	this.login = function (){
-		User.login.query({			
+		User.login.query({
 			email: this.userContext.email,
 			password: this.userContext.password			
 		}).$promise
@@ -13,6 +13,7 @@ angular.module("WisestGame").controller('LoginController', ['$state', 'User', 's
 		})
 		.catch(function(err){
 			console.error(err);
+			alert(err.data);
 		});
 	};
 	

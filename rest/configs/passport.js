@@ -89,10 +89,11 @@ function Passport(passport) {
             User.findOne({
                 'email': email
             }).then(function(user) {
+                console.log(email, user);
                 if (!user) {
                     done('Incorrect username.', false);
                 } else if (!user.validPassword(password)) {
-                    done('Oops! Wrong  password.', false);
+                    done('Oops! Incorrect password.', false);
                 } else {
                     done(null, user);
                 }

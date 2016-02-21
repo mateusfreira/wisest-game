@@ -32,7 +32,6 @@ QuestionSchema.statics.some = function(user, theme) {
 		})
 		.then(function(_questionToNotDisplay) {
 			questionToNotDisplay = _questionToNotDisplay;
-			console.log(questionToNotDisplay);
 			return self.count({
 				theme: theme,
 				"_id": {
@@ -41,7 +40,6 @@ QuestionSchema.statics.some = function(user, theme) {
 			});
 		})
 		.then(function(count) {
-			console.log(count);
 			return self.findOne({
 					theme: theme,
 					"_id": {

@@ -1,5 +1,6 @@
 module.exports = function(app, passport) {
   var User = app.controllers.User;
+  app.get('/user/current', User.current);
   app.get('/user/auth/facebook',
     app.passport.authenticate('facebook', {
       scope: 'email'
