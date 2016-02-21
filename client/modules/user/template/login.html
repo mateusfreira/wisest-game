@@ -1,23 +1,21 @@
 <section class="login" ng-controller="LoginController as loginCtrl">
-	 <form class="login-form" autocomplete="off">
-
+	<form class="login-form" autocomplete="off">
 		<header class="login-header"> The Wisest Game </header>
-
 		<div class="login-field" game-login-field>
 			<label>Email</label>
 			<input
-				type="text"
-				name="email"
-				ng-model="loginCtrl.userContext.email"
-				autocomplete="off">
+			type="text"
+			name="email"
+			ng-model="loginCtrl.userContext.email"
+			autocomplete="off">
 		</div>
 
 		<div class="login-field" game-login-field>
 			<label> Password </label>
 			<input
-				type="password"
-				name="password"
-				ng-model="loginCtrl.userContext.password">
+			type="password"
+			name="password"
+			ng-model="loginCtrl.userContext.password">
 		</div>
 
 		<button class="login-button" ng-click="loginCtrl.login();" >Sign In</button>
