@@ -48,7 +48,24 @@
 					background-color: $white;
 					color: $black;
 				}
+
+				&.invalid {
+					border-bottom: 2px solid $red;
+					color: $white;
+				}
 			}
+		}
+
+		.validation-hint {
+			text-align: left;
+			font-size: 16px;
+			color: $red;
+			margin-top: 5px;
+			display: none;
+		}
+
+		input.invalid + .validation-hint {
+			display: block;
 		}
 
 		.login-button {
@@ -98,6 +115,23 @@
 				color: $yellow;
 				border: 2px solid $yellow;
 			}
+		}
+
+		.facebook-button {
+			background-color: $blue;
+			color: $white;
+
+			&:focus {
+				background-color: #000093;
+				border: 5px solid $blue;
+			}
+		}
+
+		.sign-up-description {
+			display: inline-block;
+			width: 400px;
+			font-size: 16px;
+			text-align: left;
 		}
 
 	}
