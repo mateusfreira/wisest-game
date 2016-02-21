@@ -4,8 +4,7 @@ var mongoose = require('mongoose'),
 var LevelSchema = new Schema({
 
 	xp_level	: { type: Number, default: 1 },
-	next_level	: { type: Number, default: 1 },
-	user 		: { type: Schema.ObjectId, ref: 'User' },	
+	next_level	: { type: Number, default: 1 },	
 	created_at	: { type: Number, default: Date.now }
 });
 

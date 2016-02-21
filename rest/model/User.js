@@ -22,7 +22,9 @@ var UserSchema = new Schema({
 							ref: 'Theme'
 						},
 						score: Number
-					  }]
+					  }],
+    level 			: { type: Schema.ObjectId, ref: 'Level' },
+    badges 			: [{badge:{type: Schema.ObjectId,ref: 'Badge'}}],
 });
 
 UserSchema.methods.getThemeScore = function(theme) {
