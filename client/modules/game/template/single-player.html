@@ -38,7 +38,7 @@
 			></code>
 		</div>
 
-		<div class="question-options">
+		<div class="question-options" ng-if="!gameCtrl.currentResponse">
 			<button
 				ng-repeat="option in gameCtrl.currentQuestion.options"
 				ng-bind="option"
@@ -48,7 +48,7 @@
 		</div>
 
 		<!-- TO REFACTORY THIS FUCKING SHIT -->
-		<div ng-if="gameCtrl.currentResponse">
+		<div class="question-options" ng-if="gameCtrl.currentResponse">
 			<span
 				ng-bind="gameCtrl.currentResponse.message"
 				ng-class="{

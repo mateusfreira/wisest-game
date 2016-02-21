@@ -32,7 +32,6 @@ QuestionSchema.statics.some = function(user, theme) {
 		})
 		.then(function(_questionToNotDisplay) {
 			questionToNotDisplay = _questionToNotDisplay;
-			console.log(questionToNotDisplay);
 			return self.count({
 				theme: theme,
 				"_id": {
