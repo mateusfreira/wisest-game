@@ -24,7 +24,8 @@ QuestionSchema.statics.some = function(user, theme) {
 	var self = this;
 	var questionToNotDisplay = [];
 	return Score.find({
-			user: user
+			user: user,
+			hit : true
 		}, "question").then(function(scores) {
 			return scores.map(function(score) {
 				return score.question;
