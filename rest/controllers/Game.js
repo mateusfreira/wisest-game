@@ -18,7 +18,7 @@ module.exports = {
   getThemeScore: function(req, res) {
     res.status(200).send(GameService.getThemeScore(req.user, req.session.gameContext.theme));
   },
-  getThemeLevel: function(req, res) {
+  getThemeLevel: function(req, res) {    
     res.status(200).send(GameService.getThemeLevel(req.user, req.session.gameContext.theme));
   }
 };
