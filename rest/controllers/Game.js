@@ -14,5 +14,8 @@ module.exports = {
   },
   checkAnswer: function(req, res) {
     reponseWithPromise(GameService.answerQuestion(req.session.gameContext, req.body.question, req.body.answer, req.body.timeLeft), res);
+  },
+  getThemeScore: function(req, res) {
+    res.status(200).send(GameService.getThemeScore(req.user, req.session.gameContext.theme));
   }
 };

@@ -45,7 +45,7 @@ angular.module("WisestGame").controller('GameController', ['Game','User', '$wind
 		.$promise
 		.then(function(response) {
 			self.currentResponse = response;
-			updateScore();
+			updateScoreAfterRightAnswer();
 		})
 		.catch(function(err) {
 			console.log(err);
@@ -72,11 +72,19 @@ angular.module("WisestGame").controller('GameController', ['Game','User', '$wind
 		});
 	}
 
-	function updateScore() {
+	function updateScoreAfterRightAnswer() {
 		if (self.currentResponse.score) {
 			self.score = self.currentResponse.score;
 		}
 	}
+
+	function getThemeScore() {
+		Game.getThemeScore.query().$promise.then(function(response){
+			self.score = response.score;
+		});
+	}
+
+	getThemeScore();
 	this.nextQuestion();
 	this.getCurrentUserInfo();
 
