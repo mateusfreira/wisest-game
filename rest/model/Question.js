@@ -4,33 +4,16 @@ var mongoose = require('mongoose'),
 	Score = requireModule('Score');
 
 var QuestionSchema = new Schema({
-	description: {
-		type: String,
-		required: true
-	},
-	code: String,
-	theme: {
-		type: Schema.ObjectId,
-		ref: 'Theme',
-		required: true
-	},
-	options: {
-		type: Array,
-		required: true
-	},
-	answer: {
-		type: String,
-		required: true
-	},
-	status: {
-		type: Number,
-		default: 1
-	},
-	created_at: {
-		type: Number,
-		default: Date.now
-	},
-	updated_at: Date
+	description	: { type: String, required: true },
+	code    	: String,
+	theme  		: { type: Schema.ObjectId, ref: 'Theme', required: true },
+	options		: { type: Array, required: true },
+	answer 		: { type: String, required: true },
+	difficulty  : { type: Number, required: true },
+	duration    : { type: Number, default: 30000, required: true },
+	status		: { type: Number, default: 1 },
+	created_at	: { type: Number, default: Date.now },
+	updated_at	: Date
 });
 
 QuestionSchema.methods.checkAnswer = function(answer) {

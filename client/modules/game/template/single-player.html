@@ -27,7 +27,7 @@
 	</aside>
 
 	<main ng-if="gameCtrl.currentQuestion">
-		<div class="timer"> 00:05 </div>
+		<div class="timer" ng-bind="gameCtrl.getTimerValue()"></div>
 
 		<div class="question-text" ng-cloak>
 			{{gameCtrl.currentQuestion.description}}
