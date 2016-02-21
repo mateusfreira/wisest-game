@@ -7,11 +7,14 @@ var QuestionSchema = new Schema({
 	description	: { type: String, required: true },
 	code    	: String,
 	theme  		: { type: Schema.ObjectId, ref: 'Theme', required: true },
+	user  		: { type: Schema.ObjectId, ref: 'Theme' },
 	options		: { type: Array, required: true },
 	answer 		: { type: String, required: true },
-	difficulty  : { type: Number, required: true },
-	duration    : { type: Number, default: 30000, required: true },
-	status		: { type: Number, default: 1 },
+	level		: { type: Schema.ObjectId, ref: 'Theme' },// required: true },
+	difficulty	: { type: Number, required: true },
+	duration	: { type: Number, default: 30000, required: true },
+	approved	: { type: Boolean, default: false },
+	approvedBy	: [{ type: Schema.ObjectId, ref: 'Theme' }],
 	created_at	: { type: Number, default: Date.now },
 	updated_at	: Date
 });

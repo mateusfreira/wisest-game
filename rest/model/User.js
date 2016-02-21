@@ -55,7 +55,8 @@ UserSchema.methods.scoreTheme = function(themeId, question, mode, score) {
 		return user.scoreLog(question._id, themeId, mode, true, scoreBefore, scoreAfter);
 	})
 	.then(function() {
-		return themeScore.score;
+		console.log("themeScore.score", themeScore.score);
+		return themeScore;
 	});
 };
 
