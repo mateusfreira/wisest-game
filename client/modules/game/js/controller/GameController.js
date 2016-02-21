@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('GameController', ['Game','User', '$window', '$scope', function(Game, User, $window, $scope) {
+angular.module("WisestGame").controller('GameController', ['Game', 'User', '$window', '$scope', function(Game, User, $window, $scope) {
 
 	var self = this;
 
@@ -7,14 +7,9 @@ angular.module("WisestGame").controller('GameController', ['Game','User', '$wind
 	this.currentResponse = undefined;
 
 	var interval;
-	this.getCurrentUserInfo = function(){
-		User.current
-			.query()
-			.$promise
-			.then(function(currentUser){
-
-				currentUser.icon = new Identicon(currentUser.id.toString(), 420).toString();
-
+	this.getCurrentUserInfo = function() {
+		User.current()
+			.then(function(currentUser) {
 				self.currentUser = currentUser;
 			});
 	};
@@ -41,25 +36,25 @@ angular.module("WisestGame").controller('GameController', ['Game','User', '$wind
 		clearInterval(interval);
 
 		return Game.checkAnswer.query({
-			question: this.currentQuestion._id,
-			answer: option,
-			timeLeft: this.currentQuestion.timer
-		})
-		.$promise
-		.then(function(response) {
-			self.currentResponse = response;
-			updateScoreAfterRightAnswer();
-		})
-		.catch(function(err) {
-			console.log(err);
-		});
+				question: this.currentQuestion._id,
+				answer: option,
+				timeLeft: this.currentQuestion.timer
+			})
+			.$promise
+			.then(function(response) {
+				self.currentResponse = response;
+				updateScoreAfterRightAnswer();
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
 	};
 
 	this.getTimerValue = function() {
 		var timeAsString;
-		if(this.currentQuestion.timer < 0){
+		if (this.currentQuestion.timer < 0) {
 			timeAsString = "0:00";
-		}else{
+		} else {
 			timeAsString = $window.moment(this.currentQuestion.timer).format("mm:ss");
 		}
 		return timeAsString;
@@ -86,14 +81,14 @@ angular.module("WisestGame").controller('GameController', ['Game','User', '$wind
 	}
 
 	function getThemeScore() {
-		Game.getThemeScore.query().$promise.then(function(response){
+		Game.getThemeScore.query().$promise.then(function(response) {
 			self.score = response.score;
 		});
 	}
 
 	function getThemeLevel() {
 
-		Game.getThemeLevel.query().$promise.then(function(response){			
+		Game.getThemeLevel.query().$promise.then(function(response) {
 			self.level = response.level;
 
 		});
