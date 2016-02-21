@@ -10,8 +10,7 @@
 		</div>
 
 		<div class="player player-1">
-			<div class='player-image' data-ng-if='!gameCtrl.currentUser.icon'>
-				
+			<div class='player-image' data-ng-if='!gameCtrl.currentUser.icon'>		
 			</div>
 			<img data-ng-if='gameCtrl.currentUser.icon' class="player-image" ng-src='{{"data:image/png;base64,"+gameCtrl.currentUser.icon}}'>
 			<!-- Inline block issue-->
