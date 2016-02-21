@@ -32,7 +32,7 @@ UserSchema.methods.getThemeScore = function(theme) {
 	}).shift();
 };
 
-UserSchema.methods.scoreTheme = function(themeId, question, score) {
+UserSchema.methods.scoreTheme = function(themeId, question, mode, score) {
 	var user = this;
 	var themeScore = user.getThemeScore(themeId);
 
@@ -41,13 +41,7 @@ UserSchema.methods.scoreTheme = function(themeId, question, score) {
 	var scoreAfter = themeScore.score;
 
 	return user.save().then(function() {
-		new Score({
-			user: user._id,
-			hit : true,
-			questions: question,
-			scoreBefore: scoreBefore,
-			scoreAfter: scoreAfter
-		}).save();
+		return user.scoreLog(question._id, themeId, mode, true, scoreBefore, scoreAfter)
 	});
 };
 
@@ -63,6 +57,20 @@ function incrementScore(themeScore, user, themeId, score) {
 	}
 	return themeScore;
 }
+
+UserSchema.methods.scoreLog = function(questionId, themeId, mode, hit, scoreBefore, scoreAfter) {
+	return new Score({
+		user: this._id,
+		question: questionId,
+		theme: themeId,
+		mode: mode,
+		hit : hit,
+		scoreBefore: scoreBefore,
+		scoreAfter: scoreAfter
+	}).save().then(null, function(err) {
+		console.log(err);
+	});
+};
 
 UserSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
