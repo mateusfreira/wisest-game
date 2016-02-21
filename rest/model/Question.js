@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	requireModule = require('./').requireModule,
+	Score = requireModule('Score');
 
 var QuestionSchema = new Schema({
 	description	: { type: String, required: true },
@@ -18,11 +20,38 @@ QuestionSchema.methods.checkAnswer = function(answer) {
 	return this.answer === answer;
 };
 
-QuestionSchema.statics.some = function(context) {
+QuestionSchema.statics.some = function(user, theme) {
 	var self = this;
-	return self.count()
+	var questionToNotDisplay = [];
+	return Score.find({
+			user: user
+		}, "question").then(function(scores) {
+			return scores.map(function(score) {
+				return score.question;
+			});
+		})
+		.then(function(_questionToNotDisplay) {
+			questionToNotDisplay = _questionToNotDisplay;
+			console.log(questionToNotDisplay);
+			return self.count({
+				theme: theme,
+				"_id": {
+					$nin: questionToNotDisplay
+				}
+			});
+		})
 		.then(function(count) {
-			return self.findOne().skip(Math.floor(Math.random() * count));
+			console.log(count);
+			return self.findOne({
+					theme: theme,
+					"_id": {
+						$nin: questionToNotDisplay
+					}
+
+				})
+				.skip(Math.floor(Math.random() * count));
+		}).catch(function(e) {
+			console.log(e);
 		});
 };
 

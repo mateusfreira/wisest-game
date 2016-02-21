@@ -17,7 +17,7 @@
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.header('Access-Control-Allow-Credentials', 'true');
-    
+
     next();
   }
 
@@ -26,8 +26,8 @@
       resave: false ,
       httpOnly: true,
       maxAge: 10000,
-      store: new mongoSession({ 
-        uri: 'mongodb://192.168.1.10/wisest-game',
+      store: new mongoSession({
+        uri: 'mongodb://localhost/wisest-game',
         collection: 'wisest-sessions'
       }),
       saveUninitialized: false,
@@ -36,7 +36,7 @@
       cookie: {
         //secure: true @todo see this here
       }
-    }))  
+    }))
     .use(allowCrossDomain)
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({extended: true}))
@@ -65,5 +65,5 @@
     var port = server.address().port;
     console.log('Server started http://%s:%s', host, port);
   });
-  
+
 })();

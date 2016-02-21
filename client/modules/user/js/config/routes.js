@@ -1,6 +1,6 @@
 /* Setup Rounting */
 angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    
+
     $stateProvider
 
         // Profile
