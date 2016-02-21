@@ -1,7 +1,8 @@
 const requireModule = require('../model/index').requireModule,
-	  Question = requireModule("Question"),
-	  User = requireModule("User"),
-	  Score = requireModule("Score");
+	Question = requireModule("Question"),
+	User = requireModule("User"),
+	Score = requireModule("Score"),
+	Promise = require("bluebird");
 
 function GameService() {
 	var self = this;
@@ -27,8 +28,8 @@ function GameService() {
 					description: question.description,
 					code: question.code,
 					duration: question.duration,
-					start : new Date().getTime(),
-					spentTime : 0,
+					start: new Date().getTime(),
+					spentTime: 0,
 					options: question.options
 				};
 				return gameContext.currentQuestion;
@@ -38,11 +39,13 @@ function GameService() {
 	};
 
 	this.score = function(context, questionId, timeLeft) {
+		console.log("Wrere1");
 		return Promise.all([
 				User.findById(context.player),
 				Question.findById(questionId)
 			])
 			.then(function(responses) {
+				console.log("Wrere2");
 				var user = responses[0];
 				var question = responses[1];
 				var score = Math.round(Math.pow(2, question.difficulty) / question.duration * timeLeft);
@@ -59,12 +62,13 @@ function GameService() {
 			])
 			.then(function(responses) {
 				var user = responses[0];
+				questionAnswer = responses[1].answer;
 				var themeScore = user.getThemeScore(context.theme);
 				var score = themeScore ? themeScore.score : 0;
-				questionAnswer = responses[1].answer;
 				return user.scoreLog(questionId, context.theme, context.mode, false, score, score);
 			})
 			.then(function() {
+				console.log("Wrere3");
 				return {
 					success: false,
 					message: questionAnswer
@@ -73,6 +77,7 @@ function GameService() {
 	};
 
 	this.answerQuestion = function(context, question, answer, timeLeft) {
+		console.log("Wrere4");
 		return Question.checkAnswerById(question, answer)
 			.then(function(isItRight) {
 				var result;
@@ -95,7 +100,9 @@ function GameService() {
 
 	this.getThemeLevel = function(user, theme) {
 		var themeLevel = user.getThemeLevel(theme);
-		return { level: (themeLevel ? themeLevel.level : 1) };
+		return {
+			level: (themeLevel ? themeLevel.level : 1)
+		};
 	};
 };
 

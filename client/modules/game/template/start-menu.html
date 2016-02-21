@@ -1,19 +1,70 @@
-<section ng-controller="StartGameController as startGameCtrl">
-	<form>
-		<div>
-			<span>Mode</span>
-			<select name="mode" id="mode"
-		      ng-options="mode.name for mode in startGameCtrl.modes track by mode._id"
-		      ng-model="startGameCtrl.gameContext.mode"></select>
-		</div>
-		<div>
-			<span>Theme</span>
-			<select name="theme" id="theme"
-		      ng-options="theme.name for theme in startGameCtrl.themes track by theme._id"
-		      ng-model="startGameCtrl.gameContext.theme"></select>
-		</div>
-		<div>
-			<button ng-click="startGameCtrl.startGame();">Start game!</button>
-		</div>
+<style>
+	.arcade{
+		font-family: "Arcade", Monaco, consolas, sans-serif;
+	}	
+	.formElemet{
+		position: relative;
+		width: 400px;
+		text-align: center;
+		height: 50px;
+		margin-bottom: 25px;
+		outline: none;
+		border: none;
+		background-color: transparent;
+		color: #ffffff;
+		font-size: 40px;
+		margin-left: 15px;
+		
+	}
+	.border{
+		border-bottom: 2px solid #ffffff;
+	}
+	select option {
+		 margin:40px;
+    	background: rgba(0,0,0,1);
+    	color:#fff;
+    	text-shadow:0 1px 0 rgba(0,0,0,1);
+	}	
+</style>
+<section class="login dashboard" ng-controller="StartGameController as startGameCtrl">
+	<form ng-controller="DashboardController as dashboadCtrl">
+		<aside class="team-one">
+			<div class="player player-1">
+				<div class='player-image' data-ng-if='!dashboadCtrl.currentUser.icon'>		
+				</div>
+				<img data-ng-if='dashboadCtrl.currentUser.icon' class="player-image" ng-src='{{"data:image/png;base64,"+dashboadCtrl.currentUser.icon}}'>
+				<!-- Inline block issue-->
+				<div class="player-info">
+					<span class="player-name" data-ng-bind='dashboadCtrl.currentUser.first_name'></span>
+					<span class="player-level"> Lvl. 27 </span>
+				</div>
+			</div>		
+
+			<div class="level-bar">
+				<div class="xp-text">( 198 / 256 )</div>
+				<div class="needed-xp"></div>
+				<div class="current-xp"></div>
+			</div>
+
+		</aside>
 	</form>
+	<form class="login-form">
+	<header class="dashboard-header"> The Wisest Game </header>
+		<span class='arcade formElemet'> Mode </span>
+		<select class='arcade formElemet border' name="mode" id="mode"
+		ng-options="mode.name for mode in startGameCtrl.modes track by mode._id"
+		ng-model="startGameCtrl.gameContext.mode">
+	</select>
+	<span class='arcade formElemet'>Theme  </span>
+		<select class='arcade formElemet border' name="theme" id="theme"
+		ng-options="theme.name for theme in startGameCtrl.themes track by theme._id"
+		ng-model="startGameCtrl.gameContext.theme">
+		</select>			
+<button class="dashboard-button" ng-click="startGameCtrl.startGame();">
+	Start game!
+</button>
+<button class="dashboard-button logout-button" data-ng-click='dashboadCtrl.logOut()'> 
+	Log Out 
+</button>
+</form>
 </section>
