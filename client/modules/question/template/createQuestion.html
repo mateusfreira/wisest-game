@@ -1,0 +1,63 @@
+<section ng-controller="QuestionController as questionCtrl">
+	 <form>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea ng-model="questionCtrl.question.description" name="description"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Code</label>
+            <textarea ng-model="questionCtrl.question.code" name="code"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Option A</label>
+            <input type="text" class="form-control" ng-model="questionCtrl.question.options[0]" name="firstOption">
+        </div>
+        <div class="form-group">
+            <label>Option B</label>
+            <input type="text" class="form-control" ng-model="questionCtrl.question.options[1]" name="secondOption">
+        </div>
+        <div class="form-group">
+            <label>Option C (Optional)</label>
+            <input type="text" class="form-control" ng-model="questionCtrl.question.options[2]" name="thirdOption">
+        </div>
+        <div class="form-group">
+            <label>Option D (Optional)</label>
+            <input type="text" class="form-control" ng-model="questionCtrl.question.options[3]" name="fourthOption">
+        </div>
+
+        <div class="form-group">
+        	<label>Answer</label>
+        	<select name="theme" id="theme"
+			      ng-options="option as option for option in questionCtrl.question.options track by $index"
+			      ng-model="questionCtrl.question.answer"></select>
+		</div>
+
+		<div class="form-group">
+            <label>Level</label>
+            <input type="text" class="form-control" ng-model="questionCtrl.question.level" name="level">
+        </div>
+
+        <div class="form-group">
+            <label>Difficulty</label>
+            <input type="text" class="form-control" ng-model="questionCtrl.question.difficulty" name="difficulty">
+        </div>
+
+        <div class="form-group">
+            <label>Duration</label>
+            <input type="text" class="form-control" ng-model="questionCtrl.question.duration" name="duration">
+        </div>
+
+        <div class="form-group">
+            <label>Theme</label>
+            <select name="theme" id="theme"
+			      ng-options="theme._id as theme.name for theme in questionCtrl.themes track by theme._id"
+			      ng-model="questionCtrl.question.theme"></select>
+        </div>
+
+        <div class="form-group">
+        	<button type="button" ng-click="questionCtrl.cancel();">Cancel</button>
+            <button type="button" ng-click="questionCtrl.save();">Save</button>
+        </div>
+    </form>
+
+</section>
