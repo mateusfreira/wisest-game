@@ -21,6 +21,7 @@
     "mongoose": "^4.4.4",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.0",
-    "passport-local": "~0.1.6"
+    "passport-local": "~0.1.6",
+    "socket.io-client": "^1.4.5"
   }
 }
