@@ -1,0 +1,19 @@
+<section class="login dashboard" ng-controller="ForgotPasswordController as  forgotCtrl">
+	<form class="login-form" autocomplete="off">
+
+		<header class="login-header"> The Wisest Game </header>
+
+		<div class="login-field" game-login-field>
+			<label>Email</label>
+			<input
+				type="text"
+				name="email"
+				ng-model="forgotCtrl.email"
+				autocomplete="off">
+		</div>
+
+		<button class="login-button" ng-click="forgotCtrl.revover();" >Recover password</button>
+		<button class="dashboard-button back-button" game-back-button> << back </button>
+
+	</form>
+</section>
