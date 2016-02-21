@@ -16,6 +16,10 @@ angular.module("WisestGame").controller('LoginController', ['$state', 'User', 's
 			alert(err.data);
 		});
 	};
+
+	this.goSignup = function(){
+		$state.go("signup", {}, {location: true});
+	};
 	
 
 }]);
