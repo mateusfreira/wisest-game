@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     var mainPath =  "modules/main/**/*.js";
 
     var dependenciesPath = [
-        "bower_components/angular/angular.js",
+        "bower_components/angular/angular.min.js",
         "bower_components/angular-ui-router/release/angular-ui-router.min.js",
         "bower_components/angular-resource/angular-resource.min.js",
         "bower_components/moment/min/moment.min.js"
