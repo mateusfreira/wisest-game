@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('GameController', ['Game', '$window', '$scope', function(Game, $window, $scope) {
+angular.module("WisestGame").controller('GameController', ['Game','User', '$window', '$scope', function(Game, User, $window, $scope) {
 
 	var self = this;
 
@@ -7,7 +7,14 @@ angular.module("WisestGame").controller('GameController', ['Game', '$window', '$
 	this.currentResponse = undefined;
 
 	var interval;
-
+	this.getCurrentUserInfo = function(){
+		User.current
+			.query()
+			.$promise
+			.then(function(currentUser){
+				self.currentUser = currentUser;
+			});
+	};
 	this.nextQuestion = function() {
 		this.pendingAnswer = false;
 		this.currentResponse = undefined;
@@ -63,7 +70,7 @@ angular.module("WisestGame").controller('GameController', ['Game', '$window', '$
 	this.getTimerValue = function() {
 		return $window.moment(this.currentQuestion.timer).format("mm:ss")
 	};
-
+	this.getCurrentUserInfo();
 	this.nextQuestion();
 
 }]);
