@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('GameController', ['Game', function(Game) {
+angular.module("WisestGame").controller('GameController', ['Game','User', '$window', '$scope', function(Game, User, $window, $scope) {
 
 	var self = this;
 
@@ -6,6 +6,16 @@ angular.module("WisestGame").controller('GameController', ['Game', function(Game
 	this.currentQuestion = undefined;
 	this.currentResponse = undefined;
 
+	var interval;
+	this.getCurrentUserInfo = function(){
+		User.current
+			.query()
+			.$promise
+			.then(function(currentUser){
+				currentUser.icon = new Identicon(currentUser.id.toString(), 320).toString();
+				self.currentUser = currentUser;
+			});
+	};
 	this.nextQuestion = function() {
 		this.pendingAnswer = false;
 		this.currentResponse = undefined;
@@ -13,7 +23,10 @@ angular.module("WisestGame").controller('GameController', ['Game', function(Game
 		Game.nextQuestion.query()
 			.$promise
 			.then(function(question) {
+				question.timer = question.duration;
 				self.currentQuestion = question;
+
+				interval = setInterval(descrementTimer, 1000);
 				self.pendingAnswer = true;
 			})
 			.catch(function(err) {
@@ -23,20 +36,64 @@ angular.module("WisestGame").controller('GameController', ['Game', function(Game
 
 	this.sendAnswer = function(option) {
 		this.pendingAnswer = false;
+		clearInterval(interval);
 
-		Game.checkAnswer.query({
+		return Game.checkAnswer.query({
 			question: this.currentQuestion._id,
-			answer: option
+			answer: option,
+			timeLeft: this.currentQuestion.timer
 		})
 		.$promise
 		.then(function(response) {
 			self.currentResponse = response;
+			updateScoreAfterRightAnswer();
 		})
 		.catch(function(err) {
 			console.log(err);
 		});
 	};
 
+	this.getTimerValue = function() {
+		return $window.moment(this.currentQuestion.timer).format("mm:ss");
+	};
+
+	function descrementTimer() {
+		self.currentQuestion.timer -= 1000;
+
+		if (!$scope.$$phase) $scope.$apply();
+
+		if (self.currentQuestion.timer <= 0) {
+			questionTimeout();
+		}
+	}
+
+	function questionTimeout() {
+		self.sendAnswer().then(function() {
+			self.currentResponse.message = "Timeout! " + self.currentResponse.message;
+		});
+	}
+
+	function updateScoreAfterRightAnswer() {
+		if (self.currentResponse.score) {
+			self.score = self.currentResponse.score;
+		}
+	}
+
+	function getThemeScore() {
+		Game.getThemeScore.query().$promise.then(function(response){
+			self.score = response.score;
+		});
+	}
+
+	function getThemeLevel() {
+		Game.getThemeLevel.query().$promise.then(function(response){
+			self.score = response.score;
+		});
+	}
+
+	getThemeScore();
+	getThemeLevel();
 	this.nextQuestion();
+	this.getCurrentUserInfo();
 
 }]);

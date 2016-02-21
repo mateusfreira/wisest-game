@@ -6,13 +6,13 @@
 
 		<div class="team-info">
 			<span class="team-name"> Single player </span>
-			<span class="team-score"> 32768 </span>
+			<span class="team-score" ng-bind="gameCtrl.score || '0'"></span>
 		</div>
 
 		<div class="player player-1">
-			<img class="player-image" src="./assets/images/airtoncbr.png"><!-- Inline block issue
-			--><div class="player-info">
-				<span class="player-name"> airtoncbr </span>
+			<img class="player-image" ng-src='{{"data:image/png;base64,"+gameCtrl.currentUser.icon}}'><!-- Inline block issue
+			--><div class="player-info">Identicon
+				<span class="player-name" data-ng-bind='gameCtrl.currentUser.first_name'></span>
 				<span class="player-level"> Lvl. 27 </span>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 	</aside>
 
 	<main ng-if="gameCtrl.currentQuestion">
-		<div class="timer"> 00:05 </div>
+		<div class="timer" ng-bind="gameCtrl.getTimerValue()"></div>
 
 		<div class="question-text" ng-cloak>
 			{{gameCtrl.currentQuestion.description}}
@@ -38,7 +38,7 @@
 			></code>
 		</div>
 
-		<div class="question-options">
+		<div class="question-options" ng-if="!gameCtrl.currentResponse">
 			<button
 				ng-repeat="option in gameCtrl.currentQuestion.options"
 				ng-bind="option"
@@ -48,7 +48,7 @@
 		</div>
 
 		<!-- TO REFACTORY THIS FUCKING SHIT -->
-		<div ng-if="gameCtrl.currentResponse">
+		<div class="question-options" ng-if="gameCtrl.currentResponse">
 			<span
 				ng-bind="gameCtrl.currentResponse.message"
 				ng-class="{

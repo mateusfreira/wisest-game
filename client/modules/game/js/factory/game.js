@@ -21,6 +21,21 @@ angular.module('WisestGame').factory("Game", ['$resource', 'settings',
           params: {},
           isArray: false
         }
+      }),
+      getThemeScore: $resource(settings.serverUrl + '/game/getThemeScore', {}, {
+        query: {
+          method: 'GET',
+          params: {},
+          isArray: false
+        }
+      }),
+
+      getThemeLevel: $resource(settings.serverUrl + '/game/getThemeLevel', {}, {
+        query: {
+          method: 'GET',
+          params: {},
+          isArray: false
+        }
       })
     };
   }

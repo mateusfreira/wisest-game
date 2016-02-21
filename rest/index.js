@@ -10,6 +10,14 @@
 
   app.passport = require('passport');
   app.strategies = require('./configs/passport')(app.passport);
+  
+  app.publicRoutes = [];
+  app.publicRoute = function(route) {
+    if (app.publicRoutes.indexOf(route) === -1) {
+      app.publicRoutes.push(route);
+    }
+    return app.route(route);
+  }
 
   const allowCrossDomain = function(req, res, next) {
 
@@ -21,13 +29,22 @@
     next();
   }
 
+  const hasAccess = function(req, res, next) {
+    console.log();
+    if (req.user || app.publicRoutes.indexOf(req.url) !== -1  || req.method === 'OPTIONS') {
+      next();
+    } else {
+      res.status(403).send({ error: "Access denied." });
+    }
+  }
+
   app
     .use(session({
       resave: false ,
       httpOnly: true,
       maxAge: 10000,
       store: new mongoSession({
-        uri: 'mongodb://localhost/wisest-game',
+        uri: 'mongodb://192.168.1.10/wisest-game',
         collection: 'wisest-sessions'
       }),
       saveUninitialized: false,
@@ -41,7 +58,8 @@
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({extended: true}))
     .use(app.passport.initialize())
-    .use(app.passport.session());
+    .use(app.passport.session())
+    .use(hasAccess);
     //.use(cookieParser());
 
   app.passport.serializeUser(function(user, done) {

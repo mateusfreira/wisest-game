@@ -4,33 +4,16 @@ var mongoose = require('mongoose'),
 	Score = requireModule('Score');
 
 var QuestionSchema = new Schema({
-	description: {
-		type: String,
-		required: true
-	},
-	code: String,
-	theme: {
-		type: Schema.ObjectId,
-		ref: 'Theme',
-		required: true
-	},
-	options: {
-		type: Array,
-		required: true
-	},
-	answer: {
-		type: String,
-		required: true
-	},
-	status: {
-		type: Number,
-		default: 1
-	},
-	created_at: {
-		type: Number,
-		default: Date.now
-	},
-	updated_at: Date
+	description	: { type: String, required: true },
+	code    	: String,
+	theme  		: { type: Schema.ObjectId, ref: 'Theme', required: true },
+	options		: { type: Array, required: true },
+	answer 		: { type: String, required: true },
+	difficulty  : { type: Number, required: true },
+	duration    : { type: Number, default: 30000, required: true },
+	status		: { type: Number, default: 1 },
+	created_at	: { type: Number, default: Date.now },
+	updated_at	: Date
 });
 
 QuestionSchema.methods.checkAnswer = function(answer) {
@@ -41,7 +24,8 @@ QuestionSchema.statics.some = function(user, theme) {
 	var self = this;
 	var questionToNotDisplay = [];
 	return Score.find({
-			user: user
+			user: user,
+			hit : true
 		}, "question").then(function(scores) {
 			return scores.map(function(score) {
 				return score.question;
@@ -49,7 +33,6 @@ QuestionSchema.statics.some = function(user, theme) {
 		})
 		.then(function(_questionToNotDisplay) {
 			questionToNotDisplay = _questionToNotDisplay;
-			console.log(questionToNotDisplay);
 			return self.count({
 				theme: theme,
 				"_id": {
@@ -58,7 +41,6 @@ QuestionSchema.statics.some = function(user, theme) {
 			});
 		})
 		.then(function(count) {
-			console.log(count);
 			return self.findOne({
 					theme: theme,
 					"_id": {

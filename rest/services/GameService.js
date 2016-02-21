@@ -21,12 +21,13 @@ function GameService() {
 				_id: question._id,
 				description: question.description,
 				code: question.code,
+				duration: question.duration,
 				options: question.options
 			};
 		});
 	};
 	
-	this.score = function(context, questionId) {
+	this.score = function(context, questionId, timeLeft) {
 		return Promise.all([
 			User.findById(context.player),
 			Question.findById(questionId)
@@ -34,14 +35,10 @@ function GameService() {
 		.then(function(responses){
 			var user = responses[0];
 			var question = responses[1];
-			return user.scoreTheme(question.theme.toString(), question, context.mode, 1);
+			var score = Math.round(Math.pow(2, question.difficulty) / question.duration * timeLeft);
+			return user.scoreTheme(question.theme.toString(), question, context.mode, score);
 		})
-		.then(function() {
-			return {
-				success: true,
-				message: "You are the best!"
-			};
-		});
+			
 	};
 
 	this.miss = function(context, questionId, answer) {
@@ -62,17 +59,22 @@ function GameService() {
 		});
 	};
 
-	this.answerQuestion = function(context, question, answer) {
+	this.answerQuestion = function(context, question, answer, timeLeft) {
 		return Question.checkAnswerById(question, answer)
 		.then(function(isItRight) {
 			var result;
 			if (isItRight) {
-				result = self.score(context, question, answer);
+				result = self.score(context, question, timeLeft);
 			} else {
 				result = self.miss(context, question, answer);
 			}
 			return result;
 		});
+	};
+
+	this.getThemeScore = function(user, theme) {
+		var themeScore = user.getThemeScore(theme);
+		return { score: (themeScore ? themeScore.score : 0) };
 	};
 };
 
