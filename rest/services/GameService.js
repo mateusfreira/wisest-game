@@ -21,6 +21,7 @@ function GameService() {
 				_id: question._id,
 				description: question.description,
 				code: question.code,
+				duration: question.duration,
 				options: question.options
 			};
 		});

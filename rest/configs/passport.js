@@ -86,11 +86,9 @@ function Passport(passport) {
             passReqToCallback: true
         },
         function(req, email, password, done) {
-            console.log('Jose');
             User.findOne({
                 'email': email
             }).then(function(user) {
-                console.log(user);
                 if (!user) {
                     done('Incorrect username.', false);
                 } else if (!user.validPassword(password)) {

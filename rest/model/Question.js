@@ -7,6 +7,8 @@ var QuestionSchema = new Schema({
 	theme  		: { type: Schema.ObjectId, ref: 'Theme', required: true },
 	options		: { type: Array, required: true },
 	answer 		: { type: String, required: true },
+	difficulty  : { type: Number, required: true },
+	duration    : { type: Number, default: 30000, required: true },
 	status		: { type: Number, default: 1 },
 	created_at	: { type: Number, default: Date.now },
 	updated_at	: Date
