@@ -39,13 +39,11 @@ function GameService() {
 	};
 
 	this.score = function(context, questionId, timeLeft) {
-		console.log("Wrere1");
 		return Promise.all([
 				User.findById(context.player),
 				Question.findById(questionId)
 			])
 			.then(function(responses) {
-				console.log("Wrere2");
 				var user = responses[0];
 				var question = responses[1];
 				var score = Math.round(Math.pow(2, question.difficulty) / question.duration * timeLeft);
@@ -68,7 +66,6 @@ function GameService() {
 				return user.scoreLog(questionId, context.theme, context.mode, false, score, score);
 			})
 			.then(function() {
-				console.log("Wrere3");
 				return {
 					success: false,
 					message: questionAnswer
@@ -77,7 +74,6 @@ function GameService() {
 	};
 
 	this.answerQuestion = function(context, question, answer, timeLeft) {
-		console.log("Wrere4");
 		return Question.checkAnswerById(question, answer)
 			.then(function(isItRight) {
 				var result;
