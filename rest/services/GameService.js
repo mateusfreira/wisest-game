@@ -34,7 +34,7 @@ function GameService() {
 		.then(function(responses){
 			var user = responses[0];
 			var question = responses[1];
-			return user.scoreTheme(question.theme.toString(), question, 1);
+			return user.scoreTheme(question.theme.toString(), question, context.mode, 1);
 		})
 		.then(function() {
 			return {
@@ -45,20 +45,21 @@ function GameService() {
 	};
 
 	this.miss = function(context, questionId, answer) {
-		// var questionAnswer;
-		// return Promise.all([
-		// 	User.findById(context.player),
-		// 	Question.findById(questionId),
-		// ])
-		// .then(function(responses) {
-		// 	var user = responses[0];
-		// 	var themeScore = user.getThemeScore(themeId)
-		// 	questionAnswer = responses[1].answer;
-		// 	return user.scoreLog(questionId, context.theme, context.mode, false, themeScore.scoreAfter, themeScore.scoreAfter);
-		// })
-		// .then(function() {
-		// 	return { success: false, message: questionAnswer };
-		// });
+		var questionAnswer;
+		return Promise.all([
+			User.findById(context.player),
+			Question.findById(questionId),
+		])
+		.then(function(responses) {
+			var user = responses[0];
+			var themeScore = user.getThemeScore(context.theme);
+			var score = themeScore ? themeScore.score : 0;
+			questionAnswer = responses[1].answer;
+			return user.scoreLog(questionId, context.theme, context.mode, false, score, score);
+		})
+		.then(function() {
+			return { success: false, message: questionAnswer };
+		});
 	};
 
 	this.answerQuestion = function(context, question, answer) {
