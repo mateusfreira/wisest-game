@@ -1,15 +1,15 @@
 <section class="login dashboard" ng-controller="DashboardController as dashboadCtrl">
 	<aside class="team-one">
 		<div class="player player-1">
-			<div class='player-image' data-ng-if='!dashboadCtrl.currentUser.icon'>		
+			<div class='player-image' data-ng-if='!dashboadCtrl.currentUser.icon'>
 			</div>
 			<img data-ng-if='dashboadCtrl.currentUser.icon' class="player-image" ng-src='{{"data:image/png;base64,"+dashboadCtrl.currentUser.icon}}'>
 			<!-- Inline block issue-->
 			<div class="player-info">
 				<span class="player-name" data-ng-bind='dashboadCtrl.currentUser.first_name'></span>
-				<span class="player-level"> Lvl. 27 </span>
+				<span class="player-level"> Lvl. 27 (Jedi) </span>
 			</div>
-		</div>		
+		</div>
 
 		<div class="level-bar">
 			<div class="xp-text">(198 / 256) XP</div>

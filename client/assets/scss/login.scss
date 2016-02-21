@@ -117,6 +117,12 @@
 			}
 		}
 
+		.sign-button {
+			border: none !important;
+			font-family: $font-block;
+			margin-top: 20px;
+		}
+
 		.facebook-button {
 			background-color: $blue;
 			color: $white;
@@ -127,12 +133,20 @@
 			}
 		}
 
+		.back-button {
+			font-size: 30px !important;
+			font-family: $font-block !important;
+			margin-top: 50px;
+		}
+
 		.sign-up-description {
 			display: inline-block;
 			width: 400px;
 			font-size: 16px;
 			text-align: left;
 		}
+
+
 
 	}
 
