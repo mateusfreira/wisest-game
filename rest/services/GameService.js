@@ -1,8 +1,7 @@
 const requireModule = require('../model/index').requireModule,
 	Question = requireModule("Question"),
 	User = requireModule("User"),
-	Score = requireModule("Score"),
-	Promise = require("bluebird");
+	Score = requireModule("Score");
 
 function GameService() {
 	var self = this;
