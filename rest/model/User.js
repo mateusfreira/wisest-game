@@ -2,7 +2,8 @@ const mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
     bcrypt = require('bcrypt-nodejs'),
 	requireModule = require('./').requireModule,
-	Score = requireModule('Score');
+	Score = requireModule('Score')
+	Level = requireModule('Level');
 
 
 var UserSchema = new Schema({
@@ -58,13 +59,35 @@ UserSchema.methods.scoreTheme = function(themeId, question, mode, score) {
 	});
 };
 
-UserSchema.methods.getThemeLevel = function(theme) {
+UserSchema.methods.getThemeLevel = function(user,theme) {
 
 	this.levels = this.levels || [];
-	return this.level;
+
 	return this.levels.filter(function(level) {
+		console.log("levels");
+		console.log(level);
 		return level.theme.toString() === theme.toString();
 	}).shift();
+};
+
+UserSchema.methods.getUserLevel = function(theme) {		
+
+	this.scores.filter(function(score){
+
+		if(score.theme == theme ){
+			return Level.find( "Level")
+				.where({xp_level	: {$lte: score.score}})
+				.where({next_level	: {$gt: score.score}})
+					.then(function(currentLevel) {															
+							console.log(this.scores);
+							this.levels.push(currentLevel);							
+					})
+					.catch(function(e) {
+						console.log(e);
+					});	
+		}
+		return this.levels;
+	});	
 };
 
 UserSchema.methods.upLevel = function(themeId, question, mode, score) {

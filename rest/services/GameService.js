@@ -99,9 +99,15 @@ function GameService() {
 	};
 
 	this.getThemeLevel = function(user, theme) {
-		var themeLevel = user.getThemeLevel(theme);
+
+		var themeLevel = user.getUserLevel(theme);
+		var defaultLevel = {
+			xp_level: 1,
+			next_level: 100,
+			name: "trainee"
+		};
 		return {
-			level: (themeLevel ? themeLevel.level : 1)
+			level: (themeLevel ? themeLevel : defaultLevel)
 		};
 	};
 };

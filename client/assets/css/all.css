@@ -146,6 +146,17 @@ aside.team-two {
       .login .login-form .login-field input::selection {
         background-color: #ffffff;
         color: #000000; }
+      .login .login-form .login-field input.invalid {
+        border-bottom: 2px solid #ff0000;
+        color: #ffffff; }
+  .login .login-form .validation-hint {
+    text-align: left;
+    font-size: 16px;
+    color: #ff0000;
+    margin-top: 5px;
+    display: none; }
+  .login .login-form input.invalid + .validation-hint {
+    display: block; }
   .login .login-form .login-button {
     position: relative;
     width: 400px;
@@ -177,6 +188,17 @@ aside.team-two {
     .login .login-form .forgot-button:focus {
       color: #ffff00;
       border: 2px solid #ffff00; }
+  .login .login-form .facebook-button {
+    background-color: #1d2ccb;
+    color: #ffffff; }
+    .login .login-form .facebook-button:focus {
+      background-color: #000093;
+      border: 5px solid #1d2ccb; }
+  .login .login-form .sign-up-description {
+    display: inline-block;
+    width: 400px;
+    font-size: 16px;
+    text-align: left; }
 
 .dashboard .player {
   margin-bottom: 20px !important; }
