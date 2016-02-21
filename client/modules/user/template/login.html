@@ -1,5 +1,5 @@
 <section class="login" ng-controller="LoginController as loginCtrl">
-	 <form class="login-form">
+	 <form class="login-form" autocomplete="off">
 
 		<header class="login-header"> The Wisest Game </header>
 
@@ -11,8 +11,6 @@
 				ng-model="loginCtrl.userContext.email">
 		</div>
 
-		<br>
-
 		<div class="login-field" game-login-field>
 			<label> Password </label>
 			<input
@@ -20,8 +18,6 @@
 				name="password"
 				ng-model="loginCtrl.userContext.password">
 		</div>
-
-		<br>
 
 		<button class="login-button" ng-click="loginCtrl.login();" >Sign In</button>
 		<button class="forgot-button" ng-click="loginCtrl.login();" >Forgot Password?</button>

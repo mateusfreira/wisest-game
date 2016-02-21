@@ -1,0 +1,71 @@
+.dashboard {
+
+	.player {
+		margin-bottom: 20px !important;
+	}
+
+	.dashboard-header {
+		font-size: 75px;
+		margin-bottom: 80px;
+	}
+
+	.dashboard-button {
+		position: relative;
+
+		width: 400px;
+		height: 50px;
+		margin-bottom: 25px;
+
+		outline: none;
+		border: none;
+		background-color: transparent;
+
+		color: $white;
+		font-size: 40px;
+		font-family: $font-block;
+
+		cursor: pointer;
+
+		&:focus {
+			font-family: $font-bold;
+			font-size: 40px;
+		}
+
+		&.logout-button {
+			margin-top: 90px;
+			color: $yellow;
+		}
+	}
+}
+
+.level-bar {
+	position: relative;
+	width: 200px;
+	height: 6px;
+	background-color: transparent;
+
+	.xp-text {
+		display: inline-block;
+		margin-top: 12px;
+		font-size: 16px;
+	}
+
+	.current-xp {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 45px;
+		bottom: 0;
+		background-color: $pink;
+	}
+
+	.needed-xp {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: $purple;
+	}
+}
+
