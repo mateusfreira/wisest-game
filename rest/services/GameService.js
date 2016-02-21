@@ -76,6 +76,11 @@ function GameService() {
 		var themeScore = user.getThemeScore(theme);
 		return { score: (themeScore ? themeScore.score : 0) };
 	};
+
+	this.getThemeLevel = function(user, theme) {
+		var themeLevel = user.getThemeLevel(theme);
+		return { level: (themeLevel ? themeLevel.level : 1) };
+	};
 };
 
 module.exports = new GameService();
