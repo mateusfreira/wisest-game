@@ -1,15 +1,14 @@
 const requireModule = require('../model/index').requireModule,
 	  Question = requireModule("Question"),
-	  questionSchema = require('mongoose').model("Question").schema;
+	  questionSchema = require('mongoose').model("Question").schema,
+	  _ = require('lodash');
 
 function QuestionService() {
 	var self = this;
 	var questionPublicAPI = ["_id", "duration", "theme", "level", "difficulty", "answer", "description", "code", "options"];
 
 	this.findById = function(id, user) {
-		return Question.findOne({ _id: id, user: user._id}).then(function(question) {
-			return extractPublicAPI(question);
-		});
+		return Question.findOne({ _id: id, user: user._id});
 	};
 
 	this.findAll = function(user) {
@@ -20,16 +19,23 @@ function QuestionService() {
 		var question = new Question(factoryQuestion(question));
 		question.user = user;
 		return question.save().then(function(){
-			return extractPublicAPI(question);
+			return self.extractPublicAPI(question);
 		});
 	};
 
-	function extractPublicAPI(question) {
+	this.update = function(question, data) {
+		question = _.extend(question , data);
+		return question.save().then(function(){
+			return self.extractPublicAPI(question);
+		});
+	};
+
+	this.extractPublicAPI = function(question) {
 		return questionPublicAPI.reduce(function(publicAPI, property) {
 			publicAPI[property] = question[property];
 			return publicAPI;
 		}, {});
-	}
+	};
 
 	function factoryQuestion(question) {
 		return {
