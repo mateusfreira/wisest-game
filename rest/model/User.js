@@ -7,22 +7,22 @@ const mongoose = require('mongoose'),
 
 var UserSchema = new Schema({
 
-	fb_id: String,
-	token: String,
-	email: { type: String, required: true },
-	first_name: { type: String, required: true },
-	last_name: { type: String, required: true },
-	password: { type: String, required: true },
-	score: Number,
-	created_at: { type: Date, default: Date.now },
-	updated_at: { type: Date, default: null },
-	scores: [{
-		theme: {
-			type: Schema.ObjectId,
-			ref: 'Theme'
-		},
-		score: Number
-	}]
+	fb_id			: String,
+	token			: String,
+	email			: { type: String, required: true },
+	first_name 		: { type: String, required: true },
+	last_name 		: { type: String, required: true },
+	password 		: { type: String, required: true },
+	score 			: Number,
+	created_at 		: { type: Date, default: Date.now },
+	updated_at 		: { type: Date, default: null },
+	scores 			: [{
+						theme: {
+							type: Schema.ObjectId,
+							ref: 'Theme'
+						},
+						score: Number
+					  }]
 });
 
 UserSchema.methods.getThemeScore = function(theme) {
