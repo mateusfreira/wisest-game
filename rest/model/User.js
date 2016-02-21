@@ -126,7 +126,7 @@ function setRigthLevel(user, themeScore) {
 				$gte: themeScore.score
 			}
 		}).then(function(level) {
-console.log('return user.123123123', level)
+
 			themeScore.level = level._id;
 		
 			return user.save().then(function(){
