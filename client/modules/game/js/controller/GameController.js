@@ -75,7 +75,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 		$timeout(function() {
 			self.answerHighlight = "";
 			self.nextQuestion();
-		}, 3000);
+		}, 10000);
 
 	}
 
