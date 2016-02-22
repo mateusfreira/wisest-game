@@ -87,6 +87,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 			this.question[method](function(response) {
 				self.question = response;
 				this.edit(response._id);
+				$location.path('questions');
 			}, function(error) {
 				console.error(error);
 			});
@@ -112,6 +113,10 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 
 	this.backToList = function() {
 		$location.path('questions');
+	};
+
+	this.backToMenu = function() {
+		$location.path('dashboard');
 	};
 
 }]);
