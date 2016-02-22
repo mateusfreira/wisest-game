@@ -42,6 +42,14 @@ main {
     display: block;
     margin: 15px 0;
     font-family: "Free Pixel", Monaco, consolas, sans-serif; }
+  main .answer-highlight {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -100px;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-family: "Arcade", Monaco, consolas, sans-serif; }
   main .question-options {
     position: absolute;
     bottom: 15px;
@@ -61,8 +69,14 @@ main {
       color: black;
       font-size: 22px;
       font-family: "Free Pixel", Monaco, consolas, sans-serif; }
-      main .question-options button.active {
+      main .question-options button.focus {
         background-color: #ffff00; }
+      main .question-options button.right {
+        background-color: #00ff00;
+        color: #ffffff; }
+      main .question-options button.wrong {
+        background-color: #ff0000;
+        color: #ffffff; }
 
 aside[class^="team-"] {
   position: fixed;

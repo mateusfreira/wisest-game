@@ -45,6 +45,16 @@ main {
 		font-family: $font-light;
 	}
 
+	.answer-highlight {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-top: -100px;
+		transform: translate(-50%, -50%);
+		font-size: 60px;
+		font-family: $font-bold;
+	}
+
 	.question-options {
 		position: absolute;
 		bottom: 15px;
@@ -68,9 +78,12 @@ main {
 			font-size: 22px;
 			font-family: $font-light;
 
-			&.active {
+			&.focus {
 				background-color: $yellow;
 			}
+
+			&.right { background-color: $green; color: $white; }
+			&.wrong { background-color: $red; color: $white; }
 		}
 	}
 }

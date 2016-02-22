@@ -16,17 +16,23 @@
 			></code>
 		</div>
 
-		<div class="question-options" ng-if="!gameCtrl.currentResponse">
+		<div class="question-options">
 			<button
 				ng-repeat="option in gameCtrl.currentQuestion.options"
 				ng-bind="option"
+				ng-class="{
+					'right':  gameCtrl.currentResponse && gameCtrl.currentResponse.message == option,
+					'wrong':  gameCtrl.currentResponse && gameCtrl.currentResponse.message != option && gameCtrl.selectedOption == option,
+				}"
 				ng-click="gameCtrl.sendAnswer(option);"
 				ng-disabled="!gameCtrl.pendingAnswer"
 			></button>
 		</div>
 
+		<div class="answer-highlight" ng-bind="gameCtrl.answerHighlight"></div>
+
 		<!-- TO REFACTORY -->
-		<div class="question-options" ng-if="gameCtrl.currentResponse">
+		 <!-- <div class="question-options" ng-if="gameCtrl.currentResponse">
 			<span
 				ng-bind="gameCtrl.currentResponse.message"
 				ng-class="{
@@ -34,7 +40,7 @@
 					'error': !gameCtrl.currentResponse.success
 				}"></span>
 			<button ng-click="gameCtrl.nextQuestion();"> Next question </button>
-		</div>
+		</div> -->
 
 	</main>
 
