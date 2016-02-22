@@ -22,7 +22,11 @@ angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', fun
             templateUrl: "modules/user/template/login.html",
             data: {pageTitle: 'Login'}
         })
-
+        .state('login-as-anonymous', {
+            url: "/login-as-anonymous",
+            templateUrl: "modules/user/template/login-as-anonymous.html",
+            data: {pageTitle: 'Well come'}
+        })        
         .state('forgot', {
             url: "/user/forgot",
             templateUrl: "modules/user/template/forgot.html",
