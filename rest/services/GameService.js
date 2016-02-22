@@ -23,7 +23,6 @@ function GameService() {
 			questionPromise = Promise.resolve(gameContext.currentQuestion);
 		} else {
 			questionPromise = Question.some(gameContext.player, gameContext.theme).then(function(question) {
-				console.log('Here');
 				gameContext.currentQuestion = {
 					_id: question._id,
 					description: question.description,
@@ -93,7 +92,6 @@ function GameService() {
 		var themeScore = user.getThemeScore(theme);
 		if (themeScore) {
 			promiseResult = Level.findById(themeScore.level).then(function(level) {
-				console.log(themeScore);
 				return {
 					score: themeScore.score,
 					level: { name : level.name, xp_level: level.xp_level, next_level: level.next_level }
