@@ -1,72 +1,98 @@
-<header> The Wisest Game </header>
+<style>
+    .arcade{
+        font-family: "Arcade", Monaco, consolas, sans-serif;
+    }    
+    .formElemet{
+        position: relative;
+        width: 400px;
+        text-align: center;
+        height: 50px;
+        margin-bottom: 25px;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        color: #ffffff ;
+        font-size: 40px;
+        margin-left: 15px;    
+    }
+    .border{
+        border-bottom: 2px solid #ffffff ;
+    }
+    select option {
+        margin:40px;
+        background: rgba(0,0,0,1);
+        color:#fff;
+        text-shadow:0 1px 0 rgba(0,0,0,1);
+    }    
+</style>
+
 <span data-ng-include="'/modules/main/template/sidebar.html'"></span>
-<main>
-<section ng-controller="QuestionController as questionCtrl">
-     <form ng-init="questionCtrl.findOne();questionCtrl.inEditMode();">
-        <div class="form-group">
-            <label>Description</label>
-            <textarea ng-model="questionCtrl.question.description" name="description"></textarea>
-        </div>
-        <div class="form-group">
-            <label>Code</label>
-            <textarea ng-model="questionCtrl.question.code" name="code"></textarea>
-        </div>
-        <div class="form-group">
-            <label>Option A</label>
+<header class="login-header"> The Wisest Game </header>
+<section class="login"  ng-controller="QuestionController as questionCtrl">
+     <form class="login-form create-question-form" ng-init="questionCtrl.findOne();questionCtrl.inEditMode();">
+        <div class="login-field" game-login-field>
+            <!-- <label>Description</label> -->
+            <input type="text" ng-model="questionCtrl.question.description" name="description"></input >
+        </div><br><br>
+        <div class="login-field" game-login-field>
+            <!-- <label>Code</label> -->
+            <input type="text" ng-model="questionCtrl.question.code" name="code"></input >
+        </div><br>
+        <div class="login-field" game-login-field>
+            <!-- <label>Option A</label> -->
             <input type="text" class="form-control" ng-model="questionCtrl.question.options[0]" name="firstOption">
         </div>
-        <div class="form-group">
-            <label>Option B</label>
+        <div class="login-field" game-login-field>
+            <!-- <label>Option B</label> -->
             <input type="text" class="form-control" ng-model="questionCtrl.question.options[1]" name="secondOption">
         </div>
-        <div class="form-group">
-            <label>Option C (Optional)</label>
+        <div class="login-field" game-login-field>
+            <!-- <label>Option C (Optional)</label> -->
             <input type="text" class="form-control" ng-model="questionCtrl.question.options[2]" name="thirdOption">
         </div>
-        <div class="form-group">
-            <label>Option D (Optional)</label>
+        <div class="login-field" game-login-field>
+            <!-- <label>Option D (Optional)</label> -->
             <input type="text" class="form-control" ng-model="questionCtrl.question.options[3]" name="fourthOption">
         </div>
 
-        <div class="form-group">
-            <label>Answer</label>
-            <select name="answer" id="answer"
+        <div class="login-field" game-login-field>
+            <!-- <label>Answer</label> -->
+            <select class="arcade formElemet border" name="answer" id="answer"
                   ng-options="option as option for option in questionCtrl.question.options"
                   ng-model="questionCtrl.question.answer"></select>
-        </div>
+        </div><br>
 
         <div class="form-group">
-            <label>Level</label>
-            <select name="level" id="level" 
+            <!-- <label>Level</label> -->
+            <select class="arcade formElemet border" name="level" id="level" 
             ng-options="level._id as level.name for level in questionCtrl.levels" 
             ng-model="questionCtrl.question.level"
             >
             </select>
-        </div>
+        </div><br>
 
-        <div class="form-group">
-            <label>Difficulty</label>
+        <div class="login-field" game-login-field>
+            <!-- <label>Difficulty</label> -->
             <input type="text" class="form-control" ng-model="questionCtrl.question.difficulty" name="difficulty">
         </div>
 
-        <div class="form-group">
-            <label>Duration</label>
+        <div class="login-field" game-login-field>
+            <!-- <label>Duration</label> -->
             <input type="text" class="form-control" ng-model="questionCtrl.question.duration" name="duration">
         </div>
 
-        <div class="form-group">
-            <label>Theme</label>
-            <select name="theme" id="theme" ng-options="theme._id as theme.name for theme in questionCtrl.themes" ng-model="questionCtrl.question.theme">
+        <div class="login-field" game-login-field>
+            <!-- <label>Theme</label> -->
+            <select class="arcade formElemet border" name="theme" id="theme" ng-options="theme._id as theme.name for theme in questionCtrl.themes" ng-model="questionCtrl.question.theme">
                 
             </select>
         </div>
-
-        <div class="form-group">
-            <button type="button" ng-click="questionCtrl.backToView();">Cancel</button>
-            <button type="button" ng-click="questionCtrl.persist('$update');">Update</button>
-        </div>
+<br>
+        
+            <button class="login-button" type="button" ng-click="questionCtrl.backToView();">Cancel</button>
+            <button class="login-button" type="button" ng-click="questionCtrl.persist('$update');">Update</button>
+        
     </form>
 
 </section>
     
-</main>

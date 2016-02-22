@@ -6,6 +6,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 	this.currentQuestion = undefined;
 	this.currentResponse = undefined;
 	this.answerHighlight = "";
+	this.answerHighlightClass = "";
 
 	var interval;
 
@@ -26,7 +27,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 			.catch(function(err) {
 				if(err.status == 500){
 					alert('There is no more question in this theme for you!');
-					$location.path('dashboard');					
+					$location.path('dashboard');
 				}
 			});
 	};
