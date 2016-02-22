@@ -137,6 +137,10 @@
 			font-size: 30px !important;
 			font-family: $font-block !important;
 			margin-top: 50px;
+
+			&:focus {
+				color: $yellow;
+			}
 		}
 
 		.sign-up-description {

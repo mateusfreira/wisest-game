@@ -201,6 +201,8 @@ aside.team-two {
     font-size: 30px !important;
     font-family: "Blocko", Monaco, consolas, sans-serif !important;
     margin-top: 50px; }
+    .login .login-form .back-button:focus {
+      color: #ffff00; }
   .login .login-form .sign-up-description {
     display: inline-block;
     width: 400px;
@@ -254,5 +256,22 @@ aside.team-two {
     right: 0;
     bottom: 0;
     background-color: #b300b3; }
+
+.start-game header.start-menu-header {
+  margin-bottom: 20px !important; }
+.start-game .hint-text {
+  display: block;
+  color: #ffff00;
+  font-family: "Blocko", Monaco, consolas, sans-serif;
+  font-size: 40px;
+  margin-bottom: 80px; }
+.start-game .dashboard-button:focus {
+  font-size: 35px !important; }
+.start-game .start-button {
+  font-family: "Arcade", Monaco, consolas, sans-serif;
+  font-size: 35px; }
+  .start-game .start-button:focus {
+    color: #00ff00;
+    font-size: 45px !important; }
 
 /*# sourceMappingURL=all.css.map */
