@@ -5,22 +5,22 @@
 	<aside class="team-one">
 
 		<div class="team-info">
-			<span class="team-name"> Single player </span>
+			<span class="team-name"> Versus </span>
 			<span class="team-score" ng-bind="gameCtrl.score || '0'"></span>
 		</div>
 
 		<div class="player player-1">
-			<div class='player-image' data-ng-if='!gameCtrl.currentUser.icon'>		
+			<div class='player-image' data-ng-if='!gameCtrl.playerOne.icon'>		
 			</div>
-			<img data-ng-if='gameCtrl.currentUser.icon' class="player-image" ng-src='{{"data:image/png;base64,"+gameCtrl.currentUser.icon}}'>
+			<img data-ng-if='gameCtrl.playerOne.icon' class="player-image" ng-src='{{"data:image/png;base64,"+gameCtrl.playerOne.icon}}'>
 			<!-- Inline block issue-->
 			<div class="player-info">
-				<span class="player-name" data-ng-bind='gameCtrl.currentUser.first_name'></span>
-				<span class="player-level"> {{gameCtrl.level.name}} </span>
+				<span class="player-name" data-ng-bind='gameCtrl.playerOne.first_name'></span>
+				<span class="player-level" data-ng-bind='gameCtrl.playerOne.level.name'></span>
 				<div class="level-bar">
-					<div class="xp-text">( {{gameCtrl.score}} / {{gameCtrl.level.next_level}}) XP</div>
+					<div class="xp-text" ng-cloak>( {{gameCtrl.score}} / {{gameCtrl.playerOne.level.next_level}}) XP</div>
 					<div class="needed-xp"></div>
-					<div class="current-xp" style="width : {{ (gameCtrl.currentPrecent || 0)}}%"></div>
+					<div class="current-xp" style="width : {{ (gameCtrl.playerOne.level.currentPrecent || 0)}}%"></div>
 				</div>				
 			</div>
 		</div>
@@ -34,18 +34,15 @@
 
 		<div class="player player-1">
 			<div class="player-info">
-				<span class="player-name"> airtoncbr </span>
-				<span class="player-level"> Lvl. 27 </span>
+				<span class="player-name" data-ng-bind='gameCtrl.playerTwo.first_name'></span>
+				<span class="player-level" data-ng-bind='gameCtrl.playerTwo.level.name'></span>
+				<div class="level-bar">
+					<div class="xp-text" ng-cloak>( {{gameCtrl.score}} / {{gameCtrl.playerTwo.level.next_level}}) XP</div>
+					<div class="needed-xp"></div>
+					<div class="current-xp" style="width : {{ (gameCtrl.playerTwo.level.currentPrecent || 0)}}%"></div>
+				</div>
 			</div><!-- Inline-block issue
-			--><img class="player-image" src="./assets/images/airtoncbr.png">
-		</div>
-
-		<div class="player player-2">
-			<div class="player-info">
-				<span class="player-name"> bbagins </span>
-				<span class="player-level"> Lvl. 99+ </span>
-			</div><!-- Inline-block issue
-			--><img class="player-image" src="./assets/images/bbagins.png">
+			--><img data-ng-if='gameCtrl.playerTwo.icon' class="player-image" ng-src='{{"data:image/png;base64,"+gameCtrl.playerTwo.icon}}'>
 		</div>
 	</aside>
 

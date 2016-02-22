@@ -23,6 +23,7 @@
 			});
 
 			gameServer.on("updateGameInfo", function(data) {
+				console.log("updateGameInfo");
 				if (rooms[data.room]) {
 					io.to(data.room).emit("gameInfo", { startTime: data.startTime, context: data.context });
 				}
@@ -30,6 +31,8 @@
 		});
 
 		socket.on('subscribe', function (data) {
+			console.log("subscribe");
+			console.log(data);
 			try {
 				if (rooms[data.room]) {
 					rooms[data.room].addPlayer(socket);

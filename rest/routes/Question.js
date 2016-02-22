@@ -11,8 +11,12 @@ module.exports = function(app) {
        .delete(Question.delete);
 
     app
-       .route('/questions/:questionId/ideverythingOk')
-       .get(Question.ideverythingOk);
+       .route('/questions/:questionId/everythingOk')
+       .get(Question.everythingOk);
+    app
+       .route('/questions/:questionId/somethingWrong')
+       .get(Question.somethingWrong);       
+
     app
        .route('/questions/nextToApprove')
        .post(Question.nextToApprove);

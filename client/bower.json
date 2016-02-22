@@ -17,6 +17,7 @@
     "angular-ui-router": "~0.2.18",
     "angular-resource": "^1.5.0",
     "moment": "^2.11.2",
-    "identicon.js": "identicon#*"
+    "identicon.js": "identicon#*",
+    "socket.io.client": "^1.3.5"
   }
 }

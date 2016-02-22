@@ -7,8 +7,7 @@ angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', fun
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "modules/dashboard/template/dashboard.html",
-            data: {pageTitle: 'Dashboard'},
-            controller: "DashboardController"
+            data: {pageTitle: 'Dashboard'}
         });
 
 }]);

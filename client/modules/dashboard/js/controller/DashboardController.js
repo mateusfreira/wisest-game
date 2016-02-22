@@ -9,6 +9,18 @@ angular.module("WisestGame").controller('DashboardController', ["User", "$locati
 		$location.path('game/start');
 	};
 
+	this.createQuestions = function(){
+		$location.path('questions/create');
+	};
+
+	this.listQuestions = function(){
+		$location.path('questions');
+	};	
+
+	this.moderateQuestions = function(){
+		$location.path('questions/correct');
+	};	
+
 	this.logOut = function(){
 		User.logOut().then(function(){
 			$location.path('user/login');

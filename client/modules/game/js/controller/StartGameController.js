@@ -25,7 +25,6 @@ angular.module("WisestGame")
 			};
 
 			this.startGame = function() {
-
 				this.gameContext.mode = $scope.selectedMode;
 				this.gameContext.theme = $scope.selectedTheme;
 

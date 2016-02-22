@@ -5,5 +5,6 @@ module.exports = function(app) {
      .post('/game/next', Game.next)
      .post('/game/checkAnswer', Game.checkAnswer)
      .get('/game/getThemeScore', Game.getThemeScore)
-     .get('/game/getThemeLevel', Game.getThemeLevel);
+     .get('/game/getThemeLevel', Game.getThemeLevel)
+     .get('/game/getRoom', Game.getRoom);
 };

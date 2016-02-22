@@ -10,22 +10,22 @@ function GameService() {
 	var self = this;
 	var deviationPercentage = 0.5;
 
-	this.start = function(contextContainer, owner, modeId, themeId, socketService) {
+	this.start = function(contextContainer, user, modeId, themeId, socketService) {
 		if (shouldResetContext(contextContainer.gameContext, modeId, themeId)) {
 			var mode;
 			return Mode.findById(modeId)
 			.then(function(rs){
 				mode = rs;
 				if (mode.isSingle) {
-					return findSinglePlayer(owner._id, modeId, themeId);
+					return findSinglePlayer(user._id, modeId, themeId);
 				} else {
-					return findGameToPlay(themeId, modeId, owner, socketService);
+					return findGameToPlay(themeId, modeId, user, socketService);
 				}
 			})
 			.then(function(game){
 				var gameContext = {
 					room: game._id,
-					owner: owner._id,
+					player: user._id,
 					isSingle: mode.isSingle,
 					isPvP: mode.isPvP,
 					theme: themeId,
@@ -140,6 +140,7 @@ function GameService() {
 				Question.findById(questionId)
 			])
 			.then(function(responses) {
+				console.log(" responses responses responses ",responses);
 				var user = responses[0];
 				var question = responses[1];
 				var score = Math.round(Math.pow(2, question.difficulty) / question.duration * timeLeft);

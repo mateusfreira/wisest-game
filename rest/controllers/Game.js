@@ -18,8 +18,11 @@ module.exports = function(app) {
     getThemeScore: function(req, res) {
       reponseWithPromise(GameService.getThemeScore(req.user, req.session.gameContext.theme), res);
     },
-    getThemeLevel: function(req, res) {    
+    getThemeLevel: function(req, res) {
       res.status(200).send(GameService.getThemeLevel(req.user, req.session.gameContext.theme));
+    },
+    getRoom: function(req, res) {
+      res.status(200).send({ room: req.session.gameContext.room });
     }
   };
 };

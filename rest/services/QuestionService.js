@@ -20,17 +20,26 @@ function QuestionService() {
 				};
 			});
 	};
-	this.ideverythingOk = function(id, user) {
+
+	this.addReviewer = function(id, user, approve){
 		return Question.findOne({
 			_id: id
 		}).then(function(question) {
-			question.addReviewer(user, true);
+			question.addReviewer(user, approve);
 		}).then(function() {
 			return {
 				status: "Ok"
 			};
-		});
+		});		
 	};
+
+	this.everythingOk = function(id, user) {
+		return this.addReviewer(id, user, true);
+	};
+	this.somethingWrong = function(id, user) {
+		
+		return this.addReviewer(id, user, false);
+	};	
 
 	this.findById = function(id, user) {
 		return Question.findOne({
