@@ -66,7 +66,7 @@ QuestionSchema.methods.addReviewer = function(userId, approved) {
 	});
 	if (this.reviewers.filter(function(reviewer) {
 			return reviewer.approved;
-		}).length >= 3) {
+		}).length >= 1) {
 		this.approved = true;
 	}
 	return this.save();
@@ -101,7 +101,7 @@ QuestionSchema.statics.some = function(user, theme) {
 		.then(function(questionToDontDisplay) {
 			return self.someRandon({
 				theme: theme,
-				//approved: true,
+				approved: true,
 				"_id": {
 					$nin: questionToDontDisplay
 				}

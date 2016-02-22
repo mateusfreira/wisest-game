@@ -21,9 +21,11 @@
 					ng-disabled="!controller.pendingAnswer"
 				></li>
 			</ul>
+			Answer : <span>{{controller.currentQuestion.answer}}</span>
+			<br/>
+			<hr/>
 			Time : <span>{{controller.currentQuestion.duration}}</span>
-			Level : <span>{{controller.currentQuestion.level}}</span>
-			Theme : <span>{{controller.currentQuestion.theme}}</span>
+			<br/>		
 			</div>
 	
 			<div class="question-options" ng-if="!controller.currentResponse">
