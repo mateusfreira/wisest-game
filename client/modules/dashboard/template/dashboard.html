@@ -1,14 +1,15 @@
-<section class="login dashboard" ng-controller="DashboardController as dashboadCtrl">
+<section class="login dashboard" ng-controller="DashboardController as dashboadCtrl" game-tab-helper>
 	<span data-ng-include="'/modules/main/template/sidebar.html'"></span>
 	<form class="login-form">
 		<header class="dashboard-header"> The Wisest Game </header>
 
-		<button class="dashboard-button" data-ng-click='dashboadCtrl.startGame()'>
-		 Start	</button>
+		<button class="dashboard-button" game-tab data-ng-click='dashboadCtrl.startGame()'> Start	</button>
+		 <!--
 		<button class="dashboard-button" > Ranking </button>
-		<button class="dashboard-button" data-ng-click='dashboadCtrl.listQuestions()'> Edit Questions </button>
-		<button class="dashboard-button" data-ng-click='dashboadCtrl.createQuestions()'> Create Questions </button>
-		<button class="dashboard-button" data-ng-click='dashboadCtrl.moderateQuestions()'> Moderate Questions </button>
-		<button class="dashboard-button logout-button" data-ng-click='dashboadCtrl.logOut()'> Log Out </button>
+		-->
+		<button class="dashboard-button big" game-tab data-ng-click='dashboadCtrl.listQuestions()'> Edit Questions </button>
+		<button class="dashboard-button big" game-tab data-ng-click='dashboadCtrl.createQuestions()'> Create Questions </button>
+		<button class="dashboard-button big" game-tab data-ng-click='dashboadCtrl.moderateQuestions()'> Moderate Questions </button>
+		<button class="dashboard-button logout-button" game-tab data-ng-click='dashboadCtrl.logOut()'> Log Out </button>
 	</form>
 </section>

@@ -30,8 +30,12 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 	};
 
 	this.findOne = function() {
-		this.question = Question.crud.get({
+		Question.crud.get({
 			questionId: $stateParams.questionId
+		}).$promise.then(function(question){
+			self.question = question;
+			question.duration = question.duration / 1000;
+			return question;
 		});
 	};
 
@@ -60,6 +64,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 		this.currentResponse = undefined;
 		Question.nextQuestion()
 			.then(function(question) {
+				question.duration = question.duration / 1000;
 				self.currentQuestion = question;
 				self.pendingAnswer = true;
 			})
@@ -74,23 +79,27 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 			if (!this.question._id) {
 				this.question = new Question.crud(this.question);
 			}
+
+			this.question.duration = this.question.duration * 1000 ;
+
 			this.question[method](function(response) {
 				self.question = response;
-				$location.path('questions/' + response._id);
+				this.edit(response._id);
 			}, function(error) {
 				console.error(error);
 			});
 		} else {
-			alert("fill all required properties");
+			alert("Fill all required properties");
 		}
 	};
 
 	this.view = function(question) {
-		$location.path('questions/' + question);
+		this.edit(question);
 	};
 
-	this.edit = function() {
-		$location.path('questions/' + this.question._id + "/edit");
+	this.edit = function(question) {
+		var id =  question || this.question._id;
+		$location.path('questions/' + id + "/edit");
 	};
 
 	this.backToView = function() {

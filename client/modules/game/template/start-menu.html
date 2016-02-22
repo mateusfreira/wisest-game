@@ -3,32 +3,34 @@
 	<form class="login-form">
 		<header class="dashboard-header start-menu-header"> The Wisest Game </header>
 
-		<div class="mode-selection" ng-show="!selectedMode">
+		<div class="mode-selection" ng-show="!selectedMode" game-tab-helper>
 			<span class="hint-text"> Select the game mode </span>
 			<button
+				game-tab
 				class="dashboard-button"
 				ng-bind="mode.name"
 				ng-repeat="mode in startGameCtrl.modes"
 				ng-click="startGameCtrl.chooseMode(mode)"
 			></button>
-			<button class="dashboard-button back-button" game-back-button> << back </button>
+			<button game-tab class="dashboard-button back-button" game-back-button> << back </button>
 		</div>
 
-		<div class="theme-selection" ng-show="selectedMode && !selectedTheme">
+		<div class="theme-selection" ng-if="selectedMode && !selectedTheme" game-tab-helper>
 			<span class="hint-text"> Select the question themes </span>
 			<button
 				class="dashboard-button"
 				ng-bind="theme.name"
+				game-tab
 				ng-repeat="theme in startGameCtrl.themes"
 				ng-click="startGameCtrl.chooseTheme(theme)"
 			></button>
-			<button class="dashboard-button back-button" ng-click="startGameCtrl.backToMode()"> << back </button>
+			<button game-tab class="dashboard-button back-button" ng-click="startGameCtrl.backToMode()"> << back </button>
 		</div>
 
-		<div class="theme-selection" ng-show="selectedMode && selectedTheme">
+		<div class="theme-selection" ng-if="selectedMode && selectedTheme" game-tab-helper>
 			<span class="hint-text"> Select the question themes </span>
-			<button class="dashboard-button start-button animated infinite tada" ng-click="startGameCtrl.startGame()"> Start Game </button>
-			<button class="dashboard-button back-button" ng-click="startGameCtrl.backToTheme()"> << back </button>
+			<button game-tab class="dashboard-button start-button animated infinite tada" ng-click="startGameCtrl.startGame()"> Start Game </button>
+			<button game-tab class="dashboard-button back-button" ng-click="startGameCtrl.backToTheme()"> << back </button>
 		</div>
 
 	</form>

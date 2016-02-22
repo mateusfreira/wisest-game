@@ -42,6 +42,20 @@ main {
     display: block;
     margin: 15px 0;
     font-family: "Free Pixel", Monaco, consolas, sans-serif; }
+  main .answer-highlight {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -100px;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-family: "Arcade", Monaco, consolas, sans-serif; }
+    main .answer-highlight.red {
+      color: #ff0000; }
+    main .answer-highlight.green {
+      color: #00ff00; }
+    main .answer-highlight.yellow {
+      color: #ffff00; }
   main .question-options {
     position: absolute;
     bottom: 15px;
@@ -53,6 +67,7 @@ main {
       height: 45px;
       margin: 10px 5px;
       padding: 0;
+      outline: none;
       border: none;
       background-color: #ffffff;
       border-left: 15px solid transparent;
@@ -61,8 +76,14 @@ main {
       color: black;
       font-size: 22px;
       font-family: "Free Pixel", Monaco, consolas, sans-serif; }
-      main .question-options button.active {
+      main .question-options button:focus {
         background-color: #ffff00; }
+      main .question-options button.right {
+        background-color: #00ff00;
+        color: #ffffff; }
+      main .question-options button.wrong {
+        background-color: #ff0000;
+        color: #ffffff; }
 
 aside[class^="team-"] {
   position: fixed;
@@ -120,6 +141,13 @@ aside.team-two {
   left: 50%;
   text-align: center;
   transform: translate(-50%, -50%); }
+  .login .login-form.create-question-form {
+    position: relative;
+    top: initial;
+    left: initial;
+    transform: initial;
+    max-width: 1024px;
+    margin: 100px auto; }
   .login .login-form .login-field {
     position: relative;
     display: inline-block;
@@ -226,6 +254,8 @@ aside.team-two {
   font-size: 40px;
   font-family: "Blocko", Monaco, consolas, sans-serif;
   cursor: pointer; }
+  .dashboard .dashboard-button.big {
+    width: 600px; }
   .dashboard .dashboard-button:focus {
     font-family: "Arcade", Monaco, consolas, sans-serif;
     font-size: 40px; }

@@ -45,6 +45,20 @@ main {
 		font-family: $font-light;
 	}
 
+	.answer-highlight {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-top: -100px;
+		transform: translate(-50%, -50%);
+		font-size: 60px;
+		font-family: $font-bold;
+
+		&.red { color: $red; }
+		&.green { color: $green; }
+		&.yellow { color: $yellow; }
+	}
+
 	.question-options {
 		position: absolute;
 		bottom: 15px;
@@ -58,6 +72,7 @@ main {
 			margin: 10px 5px;
 			padding: 0;
 
+			outline: none;
 			border: none;
 			background-color: $white;
 			border-left: 15px solid transparent;
@@ -68,9 +83,12 @@ main {
 			font-size: 22px;
 			font-family: $font-light;
 
-			&.active {
+			&:focus {
 				background-color: $yellow;
 			}
+
+			&.right { background-color: $green; color: $white; }
+			&.wrong { background-color: $red; color: $white; }
 		}
 	}
 }

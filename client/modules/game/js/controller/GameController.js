@@ -1,16 +1,19 @@
-angular.module("WisestGame").controller('GameController', ['Game', 'User', '$window', '$scope', function(Game, User, $window, $scope) {
+angular.module("WisestGame").controller('GameController', ['Game', 'User', '$window', '$scope', '$timeout', '$location', function(Game, User, $window, $scope, $timeout, $location) {
 
 	var self = this;
 
 	this.pendingAnswer = false;
 	this.currentQuestion = undefined;
 	this.currentResponse = undefined;
+	this.answerHighlight = "";
+	this.answerHighlightClass = "";
 
 	var interval;
 
 	this.nextQuestion = function() {
 		this.pendingAnswer = false;
 		this.currentResponse = undefined;
+		this.answerHighlight = "";
 
 		Game.nextQuestion.query()
 			.$promise
@@ -22,11 +25,15 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 				self.pendingAnswer = true;
 			})
 			.catch(function(err) {
-				console.error(err);
+				if(err.status == 500){
+					alert('There is no more question in this theme for you!');
+					$location.path('dashboard');
+				}
 			});
 	};
 
 	this.sendAnswer = function(option) {
+		this.selectedOption = option;
 		this.pendingAnswer = false;
 		clearInterval(interval);
 
@@ -38,6 +45,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 			.$promise
 			.then(function(response) {
 				self.currentResponse = response;
+				setAnswerHighlight();
 				updateScoreAfterRightAnswer();
 				getThemeScore();
 			})
@@ -56,6 +64,29 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 		return timeAsString;
 	};
 
+	function setAnswerHighlight(timeoutFlag) {
+		if(timeoutFlag) {
+			self.answerHighlight = "TIMEOUT!";
+			self.answerHighlightClass = "yellow";
+			$("#timeout-sound")[0].play();
+		} else if(self.currentResponse.score) {
+			self.currentResponse.message = self.selectedOption;
+			self.answerHighlight = "CORRECT!";
+			self.answerHighlightClass = "green";
+			$("#correct-sound")[0].play();
+		} else {
+			self.answerHighlight = "WRONG!";
+			self.answerHighlightClass = "red";
+			$("#wrong-sound")[0].play();
+		}
+
+		$timeout(function() {
+			self.answerHighlight = "";
+			self.nextQuestion();
+		}, 3000);
+
+	}
+
 	function descrementTimer() {
 		self.currentQuestion.timer -= 1000;
 		if (self.currentQuestion.timer <= 0) {
@@ -67,6 +98,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 	function questionTimeout() {
 		self.sendAnswer().then(function() {
 			self.currentResponse.message = "Timeout! " + self.currentResponse.message;
+			// setAnswerHighlight(true);
 		});
 	}
 
