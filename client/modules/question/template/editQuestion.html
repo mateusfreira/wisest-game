@@ -27,14 +27,18 @@
 
         <div class="form-group">
         	<label>Answer</label>
-        	<select name="theme" id="theme"
-			      ng-options="option as option for option in questionCtrl.question.options track by $index"
+        	<select name="answer" id="answer"
+			      ng-options="option as option for option in questionCtrl.question.options"
 			      ng-model="questionCtrl.question.answer"></select>
 		</div>
 
 		<div class="form-group">
             <label>Level</label>
-            <input type="text" class="form-control" ng-model="questionCtrl.question.level" name="level">
+            <select name="level" id="level" 
+            ng-options="level._id as level.name for level in questionCtrl.levels" 
+            ng-model="questionCtrl.question.level"
+            >
+            </select>
         </div>
 
         <div class="form-group">
@@ -49,9 +53,9 @@
 
         <div class="form-group">
             <label>Theme</label>
-            <select name="theme" id="theme"
-			      ng-options="theme._id as theme.name for theme in questionCtrl.themes"
-			      ng-model="questionCtrl.question.theme"></select>
+            <select name="theme" id="theme" ng-options="theme._id as theme.name for theme in questionCtrl.themes" ng-model="questionCtrl.question.theme">
+                
+            </select>
         </div>
 
         <div class="form-group">

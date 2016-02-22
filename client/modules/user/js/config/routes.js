@@ -18,10 +18,18 @@ angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', fun
             data: {pageTitle: 'Sign Up'},
             controller: "SignupController"
         })
+
         .state('login', {
             url: "/user/login",
             templateUrl: "modules/user/template/login.html",
             data: {pageTitle: 'Login'},
+            controller: "LoginController"
+        })
+
+        .state('forgot', {
+            url: "/user/forgot",
+            templateUrl: "modules/user/template/forgot.html",
+            data: {pageTitle: 'Recover password'},
             controller: "LoginController"
         });
 

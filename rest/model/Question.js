@@ -28,7 +28,7 @@ var QuestionSchema = new Schema({
 	},
 	level: {
 		type: Schema.ObjectId,
-		ref: 'Theme'
+		ref: 'Leveu'
 	}, // required: true },
 	difficulty: {
 		type: Number,
@@ -89,10 +89,10 @@ QuestionSchema.statics.someToApprove = function(user) {
 QuestionSchema.statics.some = function(user, theme) {
 	var self = this;
 	var questionToDontDisplay = [];
+	console.log("asdnklasjdflkasdkajsldkasjd aksd ka dslka sdkj asd", user);
 	return Score.find({
 			user: user,
-			hit: true,
-			approved: false
+			hit: true
 		}, "question").then(function(scores) {
 			return scores.map(function(score) {
 				return score.question;
@@ -101,6 +101,7 @@ QuestionSchema.statics.some = function(user, theme) {
 		.then(function(questionToDontDisplay) {
 			return self.someRandon({
 				theme: theme,
+				//approved: true,
 				"_id": {
 					$nin: questionToDontDisplay
 				}

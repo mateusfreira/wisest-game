@@ -21,7 +21,6 @@ function QuestionService() {
 			});
 	};
 	this.ideverythingOk = function(id, user) {
-		console.log(id);
 		return Question.findOne({
 			_id: id
 		}).then(function(question) {

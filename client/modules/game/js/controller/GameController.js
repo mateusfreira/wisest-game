@@ -83,19 +83,14 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 	function getThemeScore() {
 		Game.getThemeScore.query().$promise.then(function(response) {
 			self.score = response.score;
-		});
-	}
-
-	function getThemeLevel() {
-
-		Game.getThemeLevel.query().$promise.then(function(response) {
 			self.level = response.level;
-
+			var leveSize = self.level.next_level - self.level.xp_level;
+			var diff = leveSize - (self.level.next_level - self.score);
+			self.currentPrecent = (diff / leveSize)*100;
+			
 		});
 	}
-
 	getThemeScore();
-	getThemeLevel();
 	this.nextQuestion();
 	this.getCurrentUserInfo();
 

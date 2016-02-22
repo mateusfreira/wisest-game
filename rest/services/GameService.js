@@ -3,7 +3,8 @@ const requireModule = require('../model/index').requireModule,
 	User = requireModule("User"),
 	Score = requireModule("Score"),
 	Game = requireModule("Game"),
-	Mode = requireModule("Mode");
+	Mode = requireModule("Mode"),
+	Level = requireModule("Level");
 
 function GameService() {
 	var self = this;
@@ -163,11 +164,22 @@ function GameService() {
 	};
 
 	this.getThemeScore = function(user, theme) {
-
+		var promiseResult;
 		var themeScore = user.getThemeScore(theme);
-		return {
-			score: (themeScore ? themeScore.score : 0)
-		};
+		if (themeScore) {
+			promiseResult = Level.findById(themeScore.level).then(function(level) {
+				console.log(themeScore);
+				return {
+					score: themeScore.score,
+					level: { name : level.name, xp_level: level.xp_level, next_level: level.next_level }
+				};
+			});
+		} else {
+			promiseResult = Promise.resolve({
+				score : 0
+			});
+		}
+		return promiseResult;
 	};
 
 	this.getThemeLevel = function(user, theme) {
@@ -178,7 +190,9 @@ function GameService() {
 			next_level: 100,
 			name: "trainee"
 		};
-		return {level:defaultLevel};
+		return {
+			level: defaultLevel
+		};
 	};
 };
 

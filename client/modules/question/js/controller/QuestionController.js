@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Question', function($location, $stateParams, Themes, Question) {
+angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Levels','Question', function($location, $stateParams, Themes, Levels,Question) {
 
 	var requiredProperties = ["description", "options", "answer", "level", "difficulty", "theme"];
 	var self = this;
@@ -21,6 +21,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 	this.inEditMode = function() {
 		if (!this.themes.length) {
 			this.themes = Themes.query();
+			this.levels = Levels.query();
 		}
 	};
 
@@ -62,7 +63,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 		if (isValid(this.question)) {
 			var question;
 			if (!this.question._id) {
-				this.question = new Question(this.question);
+				this.question = new Question.crud(this.question);
 			}
 			this.question[method](function(response) {
 				self.question = response;
