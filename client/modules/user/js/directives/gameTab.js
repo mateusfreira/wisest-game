@@ -1,9 +1,8 @@
-Mousetrap.bind("up", function() {
-	function focusCurrent() {
-		$(window.currentItem).focus();
-	}
+Mousetrap.bind("enter", function() {
+	$("#enter-sound")[0].play();
+});
 
-	// $(window.currentItem).off();
+Mousetrap.bind("up", function() {
 	var currentItem = $(window.currentItem)[0];
 	var items = $("[game-tab]").toArray();
 	var currentIndex = items.indexOf(currentItem);
@@ -13,18 +12,12 @@ Mousetrap.bind("up", function() {
 		if(i == nextIndex) {
 			window.currentItem = items[i];
 			$(window.currentItem).focus();
-			// $(window.currentItem).on("blur", focusCurrent);
+			$("#menu-sound")[0].play();
 		}
 	}
 });
 
 Mousetrap.bind("down", function() {
-
-	function focusCurrent() {
-		// $(window.currentItem).focus();
-	}
-
-	// $(window.currentItem).off();
 	var currentItem = $(window.currentItem)[0];
 	var items = $("[game-tab]").toArray();
 	var currentIndex = items.indexOf(currentItem);
@@ -34,7 +27,7 @@ Mousetrap.bind("down", function() {
 		if(i == nextIndex) {
 			window.currentItem = items[i];
 			$(window.currentItem).focus();
-			// $(window.currentItem).on("blur", focusCurrent);
+			$("#menu-sound")[0].play();
 		}
 	}
 });
