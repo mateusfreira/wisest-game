@@ -34,6 +34,13 @@ angular.module('WisestGame').factory("User", ['$resource', 'settings',
           isArray: false
         }
       }),
+      facebook: $resource(settings.serverUrl + '/user/auth/facebook', {}, {
+        query: {
+          method: 'GET',
+          params: {},
+          isArray: false
+        }
+      }),
       login: $resource(settings.serverUrl + '/user/login', {}, {
         query: {
           method: 'POST',

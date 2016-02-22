@@ -12,14 +12,15 @@ module.exports = function(app, passport) {
       })
     );
 
+
   app
     .publicRoute('/user/auth/facebook/callback')
     .get(
-      app.passport.authenticate('facebook', {
-        successRedirect: '/profile',
-        failureRedirect: '/error',
-        scope: ['email']
-      })
+      app.passport.authenticate('facebook'),
+      function(req, res, user) {
+      
+       res.redirect('http://169.53.129.27/wisest-game/client/#/dashboard');
+      }
     );
 
   app
