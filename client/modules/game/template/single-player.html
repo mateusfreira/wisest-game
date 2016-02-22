@@ -29,7 +29,10 @@
 			></button>
 		</div>
 
-		<div class="answer-highlight" ng-bind="gameCtrl.answerHighlight"></div>
+		<div
+			class="answer-highlight {{answerHighlightClass}}"
+			ng-bind="gameCtrl.answerHighlight"
+		></div>
 
 		<!-- TO REFACTORY -->
 		 <!-- <div class="question-options" ng-if="gameCtrl.currentResponse">
