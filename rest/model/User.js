@@ -119,13 +119,12 @@ function setRigthLevel(user, themeScore) {
 	return Level
 		.findOne({
 			xp_level: {
-				$lt: themeScore.score
+				$lte: themeScore.score
 			},
 			next_level: {
 				$gte: themeScore.score
 			}
 		}).then(function(level) {
-
 			themeScore.level = level._id;
 		
 			return user.save().then(function(){

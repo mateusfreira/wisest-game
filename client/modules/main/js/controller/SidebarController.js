@@ -1,4 +1,5 @@
-angular.module("WisestGame").controller('SidebarController', [function() {
+angular.module("WisestGame").controller('SidebarController', ['User',function(User) {
+	var self = this;
 	this.menus = [
 		{
 			"label": "Dashboard",
@@ -21,4 +22,12 @@ angular.module("WisestGame").controller('SidebarController', [function() {
 			"href": "#/game/start"
 		}
 	];
+
+	this.getCurrentUserInfo = function() {
+		User.current()
+			.then(function(currentUser) {
+				self.currentUser = currentUser;
+			});
+	};
+	this.getCurrentUserInfo();
 }]);

@@ -1,7 +1,25 @@
 <section ng-controller="SidebarController as sidebarCtrl">
-    <ul >
-        <li ng-repeat="menu in sidebarCtrl.menus">
-            <a href="{{menu.href}}" ng-bind="menu.label"></a>
-        </li>
-    </ul>
+	<aside class="team-one">
+
+		<div class="team-info" data-ng-if='gameCtrl'>
+			<span class="team-name"> Single player </span>
+			<span  class="team-score" data-ng-if='gameCtrl' data-ng-bind="gameCtrl.score || '0'"></span>
+		</div>
+
+		<div class="player player-1">
+			<div class='player-image' data-ng-if='!sidebarCtrl.currentUser.icon'>		
+			</div>
+			<img data-ng-if='sidebarCtrl.currentUser.icon' class="player-image" ng-src='{{"data:image/png;base64,"+sidebarCtrl.currentUser.icon}}'>
+			<!-- Inline block issue-->
+			<div class="player-info">
+				<span class="player-name" data-ng-bind='sidebarCtrl.currentUser.first_name'></span>
+				<span class="player-level" data-ng-if='gameCtrl'> {{gameCtrl.level.name}} </span>
+				<div class="level-bar" data-ng-if='gameCtrl'>
+					<div class="xp-text">( {{gameCtrl.score}} / {{gameCtrl.level.next_level}}) XP</div>
+					<div class="needed-xp"></div>
+					<div class="current-xp" style="width : {{ (gameCtrl.currentPrecent || 0)}}%"></div>
+				</div>				
+			</div>
+		</div>
+	</aside>
 </div>  
