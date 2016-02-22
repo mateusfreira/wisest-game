@@ -23,7 +23,15 @@ angular.module('WisestGame').factory('Question', ['$resource', 'settings',
 					questionId: questionId
 				}).$promise;
 			},
-			doEverythingOk: $resource(settings.serverUrl + '/questions/:questionId/ideverythingOk', {
+			somethingWrong: function(questionId) {
+				return this.doSomethingWrong.get({
+					questionId: questionId
+				}).$promise;
+			},
+			doSomethingWrong: $resource(settings.serverUrl + '/questions/:questionId/somethingWrong', {
+				questionId: '@_id'
+			}),
+			doEverythingOk: $resource(settings.serverUrl + '/questions/:questionId/everythingOk', {
 				questionId: '@_id'
 			})
 		};

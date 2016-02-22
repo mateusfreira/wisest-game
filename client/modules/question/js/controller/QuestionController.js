@@ -35,8 +35,17 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 		});
 	};
 
+	this.somethingWrong = function(question) {
+		Question.somethingWrong(question).then(function() {
+			alert("Thank you!");
+			self.checkSomeQuestion();
+		}).catch(function() {
+			alert("Some problem happened trying to approve, Please try again!");
+		});
+		
+	};
+	
 	this.everyThingIsOk = function(question) {
-		//everyThingIsOk			
 		Question.everythingOk(question).then(function() {
 			alert("Thank you!");
 			self.checkSomeQuestion();

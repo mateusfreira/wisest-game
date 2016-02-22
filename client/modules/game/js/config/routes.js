@@ -7,16 +7,14 @@ angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', fun
         .state('startGame', {
             url: "/game/start",
             templateUrl: "modules/game/template/start-menu.html",
-            data: {pageTitle: 'Start game'},
-            controller: "StartGameController"
+            data: {pageTitle: 'Start game'}
         })
 
          // Play game
         .state('playGame', {
             url: "/game/play",
             templateUrl: "modules/game/template/single-player.html",
-            data: {pageTitle: 'Game'},
-            controller: "GameController"
+            data: {pageTitle: 'Game'}
         });
 
 }]);
