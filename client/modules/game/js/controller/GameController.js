@@ -26,7 +26,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 			})
 			.catch(function(err) {
 				if(err.status == 500){
-					alert('There is no more questions for this theme to you.');
+					alert('There is no more question in this theme for you!');
 					$location.path('dashboard');
 				}
 			});
