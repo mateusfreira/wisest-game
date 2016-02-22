@@ -50,6 +50,12 @@ main {
     transform: translate(-50%, -50%);
     font-size: 60px;
     font-family: "Arcade", Monaco, consolas, sans-serif; }
+    main .answer-highlight.red {
+      color: #ff0000; }
+    main .answer-highlight.green {
+      color: #00ff00; }
+    main .answer-highlight.yellow {
+      color: #ffff00; }
   main .question-options {
     position: absolute;
     bottom: 15px;
