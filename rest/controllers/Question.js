@@ -21,9 +21,12 @@ module.exports = {
 	create: function(req, res) {
 		reponseWithPromise(QuestionService.create(req.body, req.user), res);
 	},
-	ideverythingOk : function(req, res){
-		reponseWithPromise(QuestionService.ideverythingOk(req.question, req.user), res);
+	everythingOk : function(req, res){
+		reponseWithPromise(QuestionService.everythingOk(req.question, req.user), res);
 	},
+	somethingWrong : function(req, res){
+		reponseWithPromise(QuestionService.somethingWrong(req.question, req.user), res);
+	},	
 	update: function(req, res) {
 		reponseWithPromise(QuestionService.update(req.question, req.body, req.user), res);
 	},
