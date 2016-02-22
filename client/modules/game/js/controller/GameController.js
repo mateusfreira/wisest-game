@@ -39,7 +39,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 			.then(function(response) {
 				self.currentResponse = response;
 				updateScoreAfterRightAnswer();
-				self.getThemeScore()
+				self.getThemeScore();
 			})
 			.catch(function(err) {
 				console.log(err);
@@ -83,7 +83,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 			var leveSize = self.level.next_level - self.level.xp_level;
 			var diff = leveSize - (self.level.next_level - self.score);
 			self.currentPrecent = (diff / leveSize)*100;
-			
+
 		});
 	}
 	getThemeScore();
