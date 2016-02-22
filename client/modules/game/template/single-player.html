@@ -16,15 +16,12 @@
 			<!-- Inline block issue-->
 			<div class="player-info">
 				<span class="player-name" data-ng-bind='gameCtrl.currentUser.first_name'></span>
-				<span class="player-level"> Lvl. 27 </span>
-			</div>
-		</div>
-
-		<div class="player player-2" ng-if="false">
-			<img class="player-image" src="./assets/images/bbagins.png"><!-- Inline block issue
-			--><div class="player-info">
-				<span class="player-name"> bbagins </span>
-				<span class="player-level"> Lvl. 99+ </span>
+				<span class="player-level"> {{gameCtrl.level.name}} </span>
+				<div class="level-bar">
+					<div class="xp-text">( {{gameCtrl.score}} / {{gameCtrl.level.next_level}}) XP</div>
+					<div class="needed-xp"></div>
+					<div class="current-xp" style="width : {{ (gameCtrl.currentPrecent || 0)}}%"></div>
+				</div>				
 			</div>
 		</div>
 	</aside>

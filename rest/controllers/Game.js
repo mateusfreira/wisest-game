@@ -16,7 +16,7 @@ module.exports = {
     reponseWithPromise(GameService.answerQuestion(req.session.gameContext, req.body.question, req.body.answer, req.body.timeLeft), res);
   },
   getThemeScore: function(req, res) {
-    res.status(200).send(GameService.getThemeScore(req.user, req.session.gameContext.theme));
+    reponseWithPromise(GameService.getThemeScore(req.user, req.session.gameContext.theme), res);
   },
   getThemeLevel: function(req, res) {    
     res.status(200).send(GameService.getThemeLevel(req.user, req.session.gameContext.theme));
