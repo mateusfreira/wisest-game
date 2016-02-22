@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('SignupController', ['$state', 'User', function($state, User) {
+angular.module("WisestGame").controller('SignupController', ['$state', 'User','settings', function($state, User,settings) {
 	
 
 	this.userContext = {};
@@ -15,6 +15,12 @@ angular.module("WisestGame").controller('SignupController', ['$state', 'User', f
 		.catch(function(err){
 			console.error(err);
 		});
+	};
+
+	this.signupFacebook = function (){
+		window.location.href   = settings.serverUrl+'/user/auth/facebook';
+		return;
+		
 	};
 	
 
