@@ -1,5 +1,8 @@
+<header> The Wisest Game </header>
+<span data-ng-include="'/modules/main/template/sidebar.html'"></span>
+<main>
 <section ng-controller="QuestionController as questionCtrl">
-	 <form ng-init="questionCtrl.findOne();questionCtrl.inEditMode();">
+     <form ng-init="questionCtrl.findOne();questionCtrl.inEditMode();">
         <div class="form-group">
             <label>Description</label>
             <textarea ng-model="questionCtrl.question.description" name="description"></textarea>
@@ -26,13 +29,13 @@
         </div>
 
         <div class="form-group">
-        	<label>Answer</label>
-        	<select name="answer" id="answer"
-			      ng-options="option as option for option in questionCtrl.question.options"
-			      ng-model="questionCtrl.question.answer"></select>
-		</div>
+            <label>Answer</label>
+            <select name="answer" id="answer"
+                  ng-options="option as option for option in questionCtrl.question.options"
+                  ng-model="questionCtrl.question.answer"></select>
+        </div>
 
-		<div class="form-group">
+        <div class="form-group">
             <label>Level</label>
             <select name="level" id="level" 
             ng-options="level._id as level.name for level in questionCtrl.levels" 
@@ -59,9 +62,11 @@
         </div>
 
         <div class="form-group">
-        	<button type="button" ng-click="questionCtrl.backToView();">Cancel</button>
+            <button type="button" ng-click="questionCtrl.backToView();">Cancel</button>
             <button type="button" ng-click="questionCtrl.persist('$update');">Update</button>
         </div>
     </form>
 
 </section>
+    
+</main>

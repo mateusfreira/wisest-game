@@ -1,5 +1,8 @@
+<header> The Wisest Game </header>
+<span data-ng-include="'/modules/main/template/sidebar.html'"></span>
+<main>
 <section ng-controller="QuestionController as questionCtrl">
-	 <form ng-init="questionCtrl.findOne();">
+     <form ng-init="questionCtrl.findOne();">
         <div class="form-group">
             <label>Description</label>
             <label ng-bind="questionCtrl.question.description"></label>
@@ -14,11 +17,11 @@
         </div>
 
         <div class="form-group">
-        	<label>Answer</label>
-        	<label ng-bind="questionCtrl.question.answer"></label>
-		</div>
+            <label>Answer</label>
+            <label ng-bind="questionCtrl.question.answer"></label>
+        </div>
 
-		<div class="form-group">
+        <div class="form-group">
             <label>Level</label>
             <label ng-bind="questionCtrl.question.level"></label>
         </div>
@@ -39,9 +42,10 @@
         </div>
 
         <div class="form-group">
-        	<button type="button" ng-click="questionCtrl.backToList();">Back</button>
+            <button type="button" ng-click="questionCtrl.backToList();">Back</button>
             <button type="button" ng-click="questionCtrl.edit();">Edit</button>
         </div>
     </form>
 
-</section>
+</section>    
+</main>

@@ -7,12 +7,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 	this.currentResponse = undefined;
 
 	var interval;
-	this.getCurrentUserInfo = function() {
-		User.current()
-			.then(function(currentUser) {
-				self.currentUser = currentUser;
-			});
-	};
+
 	this.nextQuestion = function() {
 		this.pendingAnswer = false;
 		this.currentResponse = undefined;
@@ -92,6 +87,5 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 	}
 	getThemeScore();
 	this.nextQuestion();
-	this.getCurrentUserInfo();
 
 }]);

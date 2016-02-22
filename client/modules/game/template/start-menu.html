@@ -27,27 +27,7 @@
 	}	
 </style>
 <section class="login dashboard" ng-controller="StartGameController as startGameCtrl">
-	<form ng-controller="DashboardController as dashboadCtrl">
-		<aside class="team-one">
-			<div class="player player-1">
-				<div class='player-image' data-ng-if='!dashboadCtrl.currentUser.icon'>		
-				</div>
-				<img data-ng-if='dashboadCtrl.currentUser.icon' class="player-image" ng-src='{{"data:image/png;base64,"+dashboadCtrl.currentUser.icon}}'>
-				<!-- Inline block issue-->
-				<div class="player-info">
-					<span class="player-name" data-ng-bind='dashboadCtrl.currentUser.first_name'></span>
-					<span class="player-level"> Lvl. 27 </span>
-				</div>
-			</div>		
-
-			<div class="level-bar">
-				<div class="xp-text">( 198 / 256 )</div>
-				<div class="needed-xp"></div>
-				<div class="current-xp"></div>
-			</div>
-
-		</aside>
-	</form>
+	<span data-ng-include="'/modules/main/template/sidebar.html'"></span>
 	<form class="login-form">
 		<header class="dashboard-header"> The Wisest Game </header>
 		<span class='arcade formElemet'> Mode </span>

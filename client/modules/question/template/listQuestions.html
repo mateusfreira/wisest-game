@@ -1,5 +1,9 @@
-<section ng-controller="QuestionController as questionCtrl">
-    <div ng-init="questionCtrl.inListMode();">
-	   <div ng-repeat="question in questionCtrl.questions" ng-click="questionCtrl.view(question._id)"><label ng-bind="question.description"></label><br/><hr/><div>
-    </div>
-</section>
+<header> The Wisest Game </header>
+<span data-ng-include="'/modules/main/template/sidebar.html'"></span>
+<main>
+	<section ng-controller="QuestionController as questionCtrl">
+		<div ng-init="questionCtrl.inListMode();">
+			<div ng-repeat="question in questionCtrl.questions" ng-click="questionCtrl.view(question._id)"><label ng-bind="question.description"></label><br/><hr/><div>
+			</div>
+		</section>
+	</main>
