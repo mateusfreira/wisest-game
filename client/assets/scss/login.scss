@@ -15,6 +15,16 @@
 		text-align: center;
 		transform: translate(-50%, -50%);
 
+		&.create-question-form {
+			position: relative;
+			top: initial;
+			left: initial;
+			transform: initial;
+			max-width: 1024px;
+			margin: 100px auto;
+
+		}
+
 		.login-field {
 			position: relative;
 			display: inline-block;

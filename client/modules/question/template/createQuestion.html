@@ -1,23 +1,23 @@
-
 <span data-ng-include="'/modules/main/template/sidebar.html'"></span>
 <header class="login-header"> The Wisest Game </header>
 <section  class="login" ng-controller="QuestionController as questionCtrl">
-     <form class="login-form" autocomplete="off" ng-init="questionCtrl.inEditMode();">     
-     
+     <form class="login-form create-question-form" autocomplete="off" ng-init="questionCtrl.inEditMode();">
+
         <div class="login-field" game-login-field>
             <label>Description</label>
             <textarea ng-model="questionCtrl.question.description" name="description"></textarea>
-        </div>
+        </div> <br>
         <div class="login-field" game-login-field>
             <label>Code</label>
             <textarea ng-model="questionCtrl.question.code" name="code"></textarea>
-        </div>
+        </div> <br>
         <div class="login-field" game-login-field>
             <label>Option A</label>
             <input type="text" class="form-control" ng-model="questionCtrl.question.options[0]" name="firstOption">
         </div>
         <div class="login-field" game-login-field>
-            
+            <label>Option B</label>
+            <input type="text" class="form-control" ng-model="questionCtrl.question.options[1]" name="secondOption">
         </div>
         <div class="login-field" game-login-field>
             <label>Option C (Optional)</label>
@@ -33,16 +33,16 @@
             <select name="theme" id="theme"
                   ng-options="option as option for option in questionCtrl.question.options"
                   ng-model="questionCtrl.question.answer"></select>
-        </div>
+        </div> <br>
 
         <div class="login-field" game-login-field
             <label>Level</label>
-            <select name="level" id="level" 
-            ng-options="level._id as level.name for level in questionCtrl.levels" 
+            <select name="level" id="level"
+            ng-options="level._id as level.name for level in questionCtrl.levels"
             ng-model="questionCtrl.question.level"
             >
             </select>
-        </div>
+        </div> <br>
 
         <div class="login-field" game-login-field>
             <label>Difficulty</label>
@@ -59,7 +59,7 @@
             <select name="theme" id="theme"
                   ng-options="theme._id as theme.name for theme in questionCtrl.themes track by theme._id"
                   ng-model="questionCtrl.question.theme"></select>
-        </div>
+        </div> <br>
 
         <!-- <div>             -->
             <button class="login-button" type="button" ng-click="questionCtrl.persist('$save');">Save</button>
@@ -67,4 +67,4 @@
         <!-- </div> -->
     </form>
 
-</section>    
+</section>
