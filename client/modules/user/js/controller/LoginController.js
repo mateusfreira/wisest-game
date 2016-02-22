@@ -2,7 +2,7 @@ angular.module("WisestGame").controller('LoginController', ['$state', 'User', 's
 
 	this.userContext = {};
 	this.loginAnonymous = function() {
-		var i = parseInt((Math.random(1) * 100));
+		var i = parseInt((Math.random(1) * 92));
 
 		return User.signup.query({
 				email: randUsers[i]+(new Date().getTime())+"@starwars.com",
