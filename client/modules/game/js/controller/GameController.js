@@ -1,16 +1,18 @@
-angular.module("WisestGame").controller('GameController', ['Game', 'User', '$window', '$scope', function(Game, User, $window, $scope) {
+angular.module("WisestGame").controller('GameController', ['Game', 'User', '$window', '$scope', '$timeout', function(Game, User, $window, $scope, $timeout) {
 
 	var self = this;
 
 	this.pendingAnswer = false;
 	this.currentQuestion = undefined;
 	this.currentResponse = undefined;
+	this.answerHighlight = "";
 
 	var interval;
 
 	this.nextQuestion = function() {
 		this.pendingAnswer = false;
 		this.currentResponse = undefined;
+		this.answerHighlight = "";
 
 		Game.nextQuestion.query()
 			.$promise
@@ -27,6 +29,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 	};
 
 	this.sendAnswer = function(option) {
+		this.selectedOption = option;
 		this.pendingAnswer = false;
 		clearInterval(interval);
 
@@ -38,6 +41,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 			.$promise
 			.then(function(response) {
 				self.currentResponse = response;
+				setAnswerHighlight();
 				updateScoreAfterRightAnswer();
 				getThemeScore();
 			})
@@ -56,6 +60,22 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 		return timeAsString;
 	};
 
+	function setAnswerHighlight(timeoutFlag) {
+		if(timeoutFlag) {
+			self.answerHighlight = "TIMEOUT!";
+		} else if(self.currentResponse.score) {
+			self.answerHighlight = "CORRECT!";
+		} else {
+			self.answerHighlight = "WRONG!";
+		}
+
+		$timeout(function() {
+			self.answerHighlight = "";
+			self.nextQuestion();
+		}, 3000);
+
+	}
+
 	function descrementTimer() {
 		self.currentQuestion.timer -= 1000;
 		if (self.currentQuestion.timer <= 0) {
@@ -67,6 +87,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 	function questionTimeout() {
 		self.sendAnswer().then(function() {
 			self.currentResponse.message = "Timeout! " + self.currentResponse.message;
+			// setAnswerHighlight(true);
 		});
 	}
 
