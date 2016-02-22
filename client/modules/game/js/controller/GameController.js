@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('GameController', ['Game', 'User', '$window', '$scope', '$timeout', function(Game, User, $window, $scope, $timeout) {
+angular.module("WisestGame").controller('GameController', ['Game', 'User', '$window', '$scope', '$timeout', '$location', function(Game, User, $window, $scope, $timeout, $location) {
 
 	var self = this;
 
@@ -24,7 +24,10 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 				self.pendingAnswer = true;
 			})
 			.catch(function(err) {
-				console.error(err);
+				if(err.status == 500){
+					alert('There is no more questions for this theme to you.');
+					$location.path('dashboard');					
+				}
 			});
 	};
 
