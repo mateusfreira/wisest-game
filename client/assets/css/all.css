@@ -253,6 +253,8 @@ aside.team-two {
   font-size: 40px;
   font-family: "Blocko", Monaco, consolas, sans-serif;
   cursor: pointer; }
+  .dashboard .dashboard-button.big {
+    width: 600px; }
   .dashboard .dashboard-button:focus {
     font-family: "Arcade", Monaco, consolas, sans-serif;
     font-size: 40px; }
