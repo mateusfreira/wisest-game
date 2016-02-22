@@ -263,6 +263,7 @@ function GameService() {
 			);
 		})
 		.then(function(players){
+			console.log(players.length);
 			players.forEach(function(player){
 				gameInfo[player._id]._id = player._id;
 				gameInfo[player._id].first_name = player.first_name;

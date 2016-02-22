@@ -19,7 +19,7 @@ angular.module("WisestGame").controller('VersusGameController', ['Game', 'User',
 			.then(function(question) {
 				question.timer = question.duration - question.spentTime;
 				self.currentQuestion = question;
-
+				clearInterval(interval);
 				interval = setInterval(descrementTimer, 1000);
 				self.pendingAnswer = true;
 			})
