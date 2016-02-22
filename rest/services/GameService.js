@@ -139,15 +139,23 @@ function GameService() {
 	this.score = function(context, questionId, timeLeft) {
 		return Promise.all([
 				User.findById(context.player),
-				Question.findById(questionId)
+				Question.findById(questionId),
+				Game.findById(context.room)
 			])
 			.then(function(responses) {
 				console.log(" responses responses responses ",responses);
 				var user = responses[0];
 				var question = responses[1];
+				var game = responses[2];
 				var score = Math.round(Math.pow(2, question.difficulty) / question.duration * timeLeft);
-				return user.scoreTheme(question.theme.toString(), question, context.mode, score);
-			})
+
+				return Promise.all([
+					user.scoreTheme(question.theme.toString(), question, context.mode, score),
+					game.scorePlayer(user._id, score)
+				]).then(function(responses){
+					return responses[0];
+				});
+			});
 
 	};
 
@@ -184,6 +192,13 @@ function GameService() {
 				}
 				return result;
 			});
+	};
+
+	this.answerVersusQuestion = function(context, question, answer, timeLeft, socketService) {
+		return this.answerQuestion(context, question, answer, timeLeft).then(function(response){
+			socketService.updateGameInfo(context.room);
+			return response;
+		});
 	};
 
 	this.getThemeScore = function(user, theme) {

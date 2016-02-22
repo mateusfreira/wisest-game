@@ -75,10 +75,9 @@ UserSchema.methods.scoreTheme = function(themeId, question, mode, score) {
 			
 				return themeScore;
 			});
-	})
+	});
 
 };
-
 
 UserSchema.methods.getUserLevel = function(theme) {
 

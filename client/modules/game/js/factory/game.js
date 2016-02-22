@@ -22,6 +22,13 @@ angular.module('WisestGame').factory("Game", ['$resource', 'settings',
           isArray: false
         }
       }),
+      checkVersusAnswer: $resource(settings.serverUrl + '/game/checkVersusAnswer', {}, {
+        query: {
+          method: 'POST',
+          params: {},
+          isArray: false
+        }
+      }),
       getThemeScore: $resource(settings.serverUrl + '/game/getThemeScore', {}, {
         query: {
           method: 'GET',

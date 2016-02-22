@@ -4,7 +4,9 @@ module.exports = function(app) {
   app.post('/game/start', Game.start)
      .post('/game/next', Game.next)
      .post('/game/checkAnswer', Game.checkAnswer)
+     .post('/game/checkVersusAnswer', Game.checkVersusAnswer)
      .get('/game/getThemeScore', Game.getThemeScore)
      .get('/game/getThemeLevel', Game.getThemeLevel)
      .get('/game/getGameInfo', Game.getGameInfo);
+     
 };

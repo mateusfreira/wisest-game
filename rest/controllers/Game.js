@@ -15,6 +15,9 @@ module.exports = function(app) {
     checkAnswer: function(req, res) {
       reponseWithPromise(GameService.answerQuestion(req.session.gameContext, req.body.question, req.body.answer, req.body.timeLeft), res);
     },
+    checkVersusAnswer: function(req, res) {
+      reponseWithPromise(GameService.answerVersusQuestion(req.session.gameContext, req.body.question, req.body.answer, req.body.timeLeft, app.socket), res);
+    },
     getThemeScore: function(req, res) {
       reponseWithPromise(GameService.getThemeScore(req.user, req.session.gameContext.theme), res);
     },

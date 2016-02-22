@@ -13,4 +13,18 @@ var GameSchema = new Schema({
 	created_at	: { type: Number, default: Date.now, required: true }
 });
 
+
+GameSchema.methods.getPlayerScore = function(userId) {
+	this.players = this.players || [];
+	return this.players.filter(function(player) {
+		return player.user.toString() === userId.toString();
+	}).shift();
+};
+
+GameSchema.methods.scorePlayer = function(userId, score) {
+	var userScore = this.getPlayerScore(userId);
+	userScore.score = (userScore.score || 0) + score;
+	return this.save();
+};
+
 module.exports = mongoose.model('Game', GameSchema);

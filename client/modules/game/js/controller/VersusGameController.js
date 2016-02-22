@@ -32,7 +32,7 @@ angular.module("WisestGame").controller('VersusGameController', ['Game', 'User',
 		this.pendingAnswer = false;
 		clearInterval(interval);
 
-		return Game.checkAnswer.query({
+		return Game.checkVersusAnswer.query({
 				question: this.currentQuestion._id,
 				answer: option,
 				timeLeft: this.currentQuestion.timer
@@ -40,8 +40,6 @@ angular.module("WisestGame").controller('VersusGameController', ['Game', 'User',
 			.$promise
 			.then(function(response) {
 				self.currentResponse = response;
-				updateScoreAfterRightAnswer();
-				getThemeScore();
 			})
 			.catch(function(err) {
 				console.log(err);
@@ -72,26 +70,6 @@ angular.module("WisestGame").controller('VersusGameController', ['Game', 'User',
 		});
 	}
 
-	function updateScoreAfterRightAnswer() {
-		if (self.currentResponse.score) {
-			self.score = self.currentResponse.score;
-		}
-	}
-
-	function getThemeScore() {
-		Game.getThemeScore.query().$promise.then(function(response) {
-			self.score = response.score;
-			self.level = response.level || {next_level : 100, xp_level : 0};
-			var leveSize = self.level.next_level - self.level.xp_level;
-			var diff = leveSize - (self.level.next_level - self.score);
-			self.currentPrecent = (diff / leveSize)*100;
-
-		});
-	}
-
-	// getThemeScore();
-	// this.nextQuestion();
-
 	function getGameInfo() {
 		Game.getGameInfo.query().$promise.then(function(result){
 			self.currentPlayer = result.player;
@@ -118,13 +96,11 @@ angular.module("WisestGame").controller('VersusGameController', ['Game', 'User',
 				self.playerTwo = player;
 			}
 		});
-		if (!$scope.$$phase) $scope.$apply();
 	}
 
 	socketClient.addListener("startGame", function() {
 		self.waitingForPlayers = false;
 		if (!$scope.$$phase) $scope.$apply();
-
 		self.nextQuestion();
 	});
 
