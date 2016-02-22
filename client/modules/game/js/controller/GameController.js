@@ -68,13 +68,16 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 		if(timeoutFlag) {
 			self.answerHighlight = "TIMEOUT!";
 			self.answerHighlightClass = "yellow";
+			$("#timeout-sound")[0].play();
 		} else if(self.currentResponse.score) {
 			self.currentResponse.message = self.selectedOption;
 			self.answerHighlight = "CORRECT!";
 			self.answerHighlightClass = "green";
+			$("#correct-sound")[0].play();
 		} else {
 			self.answerHighlight = "WRONG!";
 			self.answerHighlightClass = "red";
+			$("#wrong-sound")[0].play();
 		}
 
 		$timeout(function() {
