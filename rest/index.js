@@ -44,7 +44,7 @@
       httpOnly: true,
       maxAge: 10000,
       store: new mongoSession({
-        uri: 'mongodb://192.168.1.10/wisest-game',
+        uri: 'mongodb://localhost/wisest-game',
         collection: 'wisest-sessions'
       }),
       saveUninitialized: false,
