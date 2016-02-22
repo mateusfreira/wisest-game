@@ -1,4 +1,4 @@
-angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Levels','Question', function($location, $stateParams, Themes, Levels,Question) {
+angular.module("WisestGame").controller('QuestionController', ['$location', '$stateParams', 'Themes', 'Levels', 'Question', function($location, $stateParams, Themes, Levels, Question) {
 
 	var requiredProperties = ["description", "options", "answer", "level", "difficulty", "theme"];
 	var self = this;
@@ -32,7 +32,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 	this.findOne = function() {
 		Question.crud.get({
 			questionId: $stateParams.questionId
-		}).$promise.then(function(question){
+		}).$promise.then(function(question) {
 			self.question = question;
 			question.duration = question.duration / 1000;
 			return question;
@@ -46,9 +46,9 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 		}).catch(function() {
 			alert("Some problem happened trying to approve, Please try again!");
 		});
-		
+
 	};
-	
+
 	this.everyThingIsOk = function(question) {
 		Question.everythingOk(question).then(function() {
 			alert("Thank you!");
@@ -67,9 +67,11 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 				question.duration = question.duration / 1000;
 				self.currentQuestion = question;
 				self.pendingAnswer = true;
-			})
-			.catch(function(err) {
-				console.error(err);
+			}).catch(function(err) {
+				if (err.status == 500) {
+					alert('There is no more question in this theme for you!');
+					$location.path('dashboard');
+				}
 			});
 	};
 
@@ -80,7 +82,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 				this.question = new Question.crud(this.question);
 			}
 
-			this.question.duration = this.question.duration * 1000 ;
+			this.question.duration = this.question.duration * 1000;
 
 			this.question[method](function(response) {
 				self.question = response;
@@ -98,7 +100,7 @@ angular.module("WisestGame").controller('QuestionController', ['$location', '$st
 	};
 
 	this.edit = function(question) {
-		var id =  question || this.question._id;
+		var id = question || this.question._id;
 		$location.path('questions/' + id + "/edit");
 	};
 
