@@ -13,7 +13,10 @@ angular.module("WisestGame").controller('SignupController', ['$state', 'User','s
 			$state.go("dashboard", {}, {location: true});
 		})
 		.catch(function(err){
-			
+			//shoud use {err.data}  in future
+			if(err.data == 'Unauthorized'){
+				err.data = "Some error happened, check the form instructions to register!";
+			}
 			alert(err.data);
 		});
 	};
