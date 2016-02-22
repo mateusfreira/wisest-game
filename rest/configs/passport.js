@@ -48,9 +48,11 @@ function Passport(passport) {
                 'email': email
             }).then(function(user) {
                 if (user) {
-                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                    console.log("NEW USER",done);
+                    done('That email is already taken.', false);                    
                 } else {
-                    var newUser = new User();
+
+                    var newUser = new User();                    
                     newUser.email = email;
                     newUser.password = newUser.generateHash(password);
                     newUser.first_name = req.body.first_name;
@@ -60,7 +62,8 @@ function Passport(passport) {
                     });
                 }
             }).catch(function(err) {
-                throw err;
+                console.log(err);
+                return err;
             });
 
         });

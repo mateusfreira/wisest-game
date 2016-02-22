@@ -14,6 +14,7 @@ angular.module("WisestGame").controller('SignupController', ['$state', 'User','s
 		})
 		.catch(function(err){
 			console.error(err);
+			alert(err.data);
 		});
 	};
 
