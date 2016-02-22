@@ -1,22 +1,86 @@
-<aside class="team-two" ng-if="false">
-	<div class="team-info">
-		<span class="team-name"> The New Fellowship </span>
-		<span class="team-score"> 32768 </span>
-	</div>
+<section ng-controller="GameController as gameCtrl">
 
-	<div class="player player-1">
-		<div class="player-info">
-			<span class="player-name"> airtoncbr </span>
-			<span class="player-level"> Lvl. 27 </span>
-		</div><!-- Inline-block issue
-		--><img class="player-image" src="./assets/images/airtoncbr.png">
-	</div>
+	<header> The Wisest Game </header>
 
-	<div class="player player-2">
-		<div class="player-info">
-			<span class="player-name"> bbagins </span>
-			<span class="player-level"> Lvl. 99+ </span>
-		</div><!-- Inline-block issue
-		--><img class="player-image" src="./assets/images/bbagins.png">
-	</div>
-</aside>
+	<aside class="team-one">
+
+		<div class="team-info">
+			<span class="team-name"> Single player </span>
+			<span class="team-score" ng-bind="gameCtrl.score || '0'"></span>
+		</div>
+
+		<div class="player player-1">
+			<div class='player-image' data-ng-if='!gameCtrl.currentUser.icon'>		
+			</div>
+			<img data-ng-if='gameCtrl.currentUser.icon' class="player-image" ng-src='{{"data:image/png;base64,"+gameCtrl.currentUser.icon}}'>
+			<!-- Inline block issue-->
+			<div class="player-info">
+				<span class="player-name" data-ng-bind='gameCtrl.currentUser.first_name'></span>
+				<span class="player-level"> {{gameCtrl.level.name}} </span>
+				<div class="level-bar">
+					<div class="xp-text">( {{gameCtrl.score}} / {{gameCtrl.level.next_level}}) XP</div>
+					<div class="needed-xp"></div>
+					<div class="current-xp" style="width : {{ (gameCtrl.currentPrecent || 0)}}%"></div>
+				</div>				
+			</div>
+		</div>
+	</aside>
+
+	<aside class="team-two">
+		<div class="team-info">
+			<span class="team-name"> The New Fellowship </span>
+			<span class="team-score"> 32768 </span>
+		</div>
+
+		<div class="player player-1">
+			<div class="player-info">
+				<span class="player-name"> airtoncbr </span>
+				<span class="player-level"> Lvl. 27 </span>
+			</div><!-- Inline-block issue
+			--><img class="player-image" src="./assets/images/airtoncbr.png">
+		</div>
+
+		<div class="player player-2">
+			<div class="player-info">
+				<span class="player-name"> bbagins </span>
+				<span class="player-level"> Lvl. 99+ </span>
+			</div><!-- Inline-block issue
+			--><img class="player-image" src="./assets/images/bbagins.png">
+		</div>
+	</aside>
+
+	<main ng-if="gameCtrl.currentQuestion">
+		<div class="timer" ng-bind="gameCtrl.getTimerValue()"></div>
+
+		<div class="question-text" ng-cloak>
+			{{gameCtrl.currentQuestion.description}}
+			<code
+				class="question-code"
+				ng-if="gameCtrl.currentQuestion.code"
+				ng-bind="gameCtrl.currentQuestion.code"
+			></code>
+		</div>
+
+		<div class="question-options" ng-if="!gameCtrl.currentResponse">
+			<button
+				ng-repeat="option in gameCtrl.currentQuestion.options"
+				ng-bind="option"
+				ng-click="gameCtrl.sendAnswer(option);"
+				ng-disabled="!gameCtrl.pendingAnswer"
+			></button>
+		</div>
+
+		<!-- TO REFACTORY -->
+		<div class="question-options" ng-if="gameCtrl.currentResponse">
+			<span
+				ng-bind="gameCtrl.currentResponse.message"
+				ng-class="{
+					'success': gameCtrl.currentResponse.success,
+					'error': !gameCtrl.currentResponse.success
+				}"></span>
+			<button ng-click="gameCtrl.nextQuestion();"> Next question </button>
+		</div>
+
+	</main>
+
+</section>

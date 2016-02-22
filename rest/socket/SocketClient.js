@@ -20,7 +20,6 @@ module.exports = function(app) {
 	}
 
 	app.socket = new SocketClient();
-	console.log(app.socket);
 
 	return app.socket;
 };

@@ -11,9 +11,11 @@ function GameService() {
 	var deviationPercentage = 0.5;
 
 	this.start = function(contextContainer, owner, modeId, themeId, socketService) {
-		if (!contextContainer.gameContext) {
+		if (shouldResetContext(contextContainer.gameContext, modeId, themeId)) {
+			var mode;
 			return Mode.findById(modeId)
-			.then(function(mode){
+			.then(function(rs){
+				mode = rs;
 				if (mode.isSingle) {
 					return findSinglePlayer(owner._id, modeId, themeId);
 				} else {
@@ -24,6 +26,8 @@ function GameService() {
 				var gameContext = {
 					room: game._id,
 					owner: owner._id,
+					isSingle: mode.isSingle,
+					isPvP: mode.isPvP,
 					theme: themeId,
 					mode: modeId
 				};
@@ -33,6 +37,10 @@ function GameService() {
 		}
 		return Promise.resolve(contextContainer.gameContext);
 	};
+
+	function shouldResetContext(gameContext, modeId, themeId) {
+		return !gameContext || gameContext.theme !== themeId || gameContext.mode !== modeId;
+	}
 
 	function findSinglePlayer(ownerId, modeId, themeId){
 		return Game.findOne({ owner: ownerId, mode: modeId, themeId: themeId })
@@ -45,6 +53,19 @@ function GameService() {
 	}
 
 	function findGameToPlay(themeId, modeId, user, socketService) {
+		return findOwnGame(themeId, modeId, user).then(function(game) {
+			if (!game) {
+				game = matchGame(themeId, modeId, user, socketService);
+			}
+			return game;
+		});
+	}
+
+	function findOwnGame(themeId, modeId, user) {
+		return Game.findOne({ theme: themeId, mode: modeId, owner: user._id, inProgress: true });
+	}
+
+	function matchGame(themeId, modeId, user, socketService) {
 		var themeScore = user.getThemeScore(themeId);
 		var xp = themeScore ? themeScore.score : 0;
 		return Game.find({ theme: themeId, mode: modeId })

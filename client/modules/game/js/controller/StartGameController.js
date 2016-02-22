@@ -12,7 +12,12 @@ angular.module("WisestGame").controller('StartGameController', ['$state', 'Theme
 			theme: this.gameContext.theme._id
 		}).$promise
 		.then(function(response) {
-			$state.go("playGame", {}, {location: true});
+			var state;
+			if (response.isSingle)
+				state = "singlePlayer";
+			else
+				state = "versus";
+			$state.go(state, {}, {location: true});
 		})
 		.catch(function(err){
 			console.log(err);

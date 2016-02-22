@@ -8,6 +8,7 @@ var GameSchema = new Schema({
 		user: { type: Schema.ObjectId, ref: 'User', required: true },
 		score:{ type: Number, default: 0, required: true }
 	}],
+	inProgress  : { type: Boolean, default: false },
 	owner 		: { type: Schema.ObjectId, ref: 'User', required: true },
 	created_at	: { type: Number, default: Date.now, required: true }
 });

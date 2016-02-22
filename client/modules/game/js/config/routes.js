@@ -11,11 +11,19 @@ angular.module("WisestGame").config(['$stateProvider', '$urlRouterProvider', fun
             controller: "StartGameController"
         })
 
-         // Play game
-        .state('playGame', {
-            url: "/game/play",
+         // Single player
+        .state('singlePlayer', {
+            url: "/game/singlePlayer",
             templateUrl: "modules/game/template/single-player.html",
-            data: {pageTitle: 'Game'},
+            data: {pageTitle: 'Single player'},
+            controller: "GameController"
+        })
+
+        // Versus
+        .state('versus', {
+            url: "/game/versus",
+            templateUrl: "modules/game/template/versus.html",
+            data: {pageTitle: 'Versus'},
             controller: "GameController"
         });
 
