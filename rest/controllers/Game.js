@@ -21,8 +21,8 @@ module.exports = function(app) {
     getThemeLevel: function(req, res) {
       res.status(200).send(GameService.getThemeLevel(req.user, req.session.gameContext.theme));
     },
-    getRoom: function(req, res) {
-      res.status(200).send({ room: req.session.gameContext.room });
+    getGameInfo: function(req, res) {
+      res.status(200).send({ room: req.session.gameContext.room, player: req.session.gameContext.player });
     }
   };
 };

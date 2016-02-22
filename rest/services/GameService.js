@@ -74,18 +74,20 @@ function GameService() {
 		    	var game;
 		    	for (var i = 0; i < games.length; i++) {
 		    		var gameThemeScore = games[i].owner.getThemeScore(themeId);
-		    		var gameXp = themeScore ? themeScore.score : 1;
+		    		var gameXp = themeScore ? themeScore.score : 0;
 		    		games[i].ownerXp = gameXp;
 		    		games[i].difference = Math.abs(xp - gameXp);
 		    		if (isFair(xp, games[i].difference) && (!game || game.difference > games[i].difference)) {
 		    			game = games[i];
 		    		}
 		    	}
+
 		    	if (game) {
 		    		game.players.push({
 		    			user: user._id,
 		    			score: 0
-		    		}).save();
+		    		});
+		    		game = game.save();
 		    	} else {
 		    		game = factoryGame(user._id, modeId, themeId).then(function(game){
 						socketService.createRoom(game._id, modeId);
@@ -213,6 +215,65 @@ function GameService() {
 		return {
 			level: defaultLevel
 		};
+	};
+
+	this.startGame = function(gameId){
+		return Game.findById(gameId).then(function(game){
+			game.startTime = new Date().getTime();
+			game.inProgress = true;
+			return game.save();
+		});
+	};
+
+	this.getGameInfo = function(gameId) {
+		var gameInfo = {};
+		var theme;
+		var levelMap = {};
+		return Level.find().then(function(levels){
+			levels.reduce(function(levelMap, level){
+				levelMap[level._id] = level;
+				return levelMap;
+			}, levelMap);
+		})
+		.then(function(){
+			return Game.findById(gameId);
+		})
+		.then(function(game){
+			theme = game.theme;
+			return Promise.all(
+				game.players.map(function(player){
+					gameInfo[player.user] = { score : player.score };
+					return User.findById(player.user);
+				})
+			);
+		})
+		.then(function(players){
+			players.forEach(function(player){
+				gameInfo[player._id]._id = player._id;
+				gameInfo[player._id].first_name = player.first_name;
+				gameInfo[player._id].last_name = player.last_name;
+
+				var themeScore = player.getThemeScore(theme);
+				themeScore = themeScore || {};
+				var level = levelMap[themeScore.level || "56c9a885738db6ce8f303f90"];
+				var score = themeScore.score || 0;
+
+				var levelSize = level.next_level - level.xp_level;
+				var diff = levelSize - (level.next_level - score);
+				var currentPrecent = Math.round((diff / levelSize) * 100);
+
+				gameInfo[player._id].level = {
+					next_level: level.next_level,
+					name: level.name,
+					currentPercent: currentPrecent,
+					score: score
+				};
+			});
+
+			return Object.keys(gameInfo).map(function(key){
+				return gameInfo[key];
+			});
+		});
 	};
 };
 

@@ -1,3 +1,5 @@
+var GameService = require('../services/GameService');
+
 module.exports = function(app) {
 
 	function SocketClient() {
@@ -10,13 +12,22 @@ module.exports = function(app) {
 			socket.emit("createRoom", { room: room, mode: mode });
 		};
 
-		this.updateGameInfo = function(room, startTime, context) {
-			socket.emit("updateGameInfo", { room: room, startTime: startTime, context: context });
+		this.updateGameInfo = function(room) {
+			return GameService.getGameInfo(room).then(function(gameInfo){
+				socket.emit("updateGameInfo", { room: room, gameInfo: gameInfo });
+			});
 		};
 
 		socket.on("startGame", function(data){
-			self.updateGameInfo(data.room, new Date().getTime(), {});
+			GameService.startGame(data.room);
+			self.updateGameInfo(data.room).then(function(){
+				socket.emit("startGame", { room: data.room });
+			})
 		});
+
+		socket.on("updateGameInfo", function(data) {
+			self.updateGameInfo(data.room);
+		})
 	}
 
 	app.socket = new SocketClient();

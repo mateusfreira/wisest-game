@@ -10,8 +10,9 @@ module.exports = (function(argument) {
 	}
 
 	PvP.prototype.addPlayer = function(socket) {
-		if (this.isReady()) throw new Error("This room is full");
+		//if (this.isReady()) throw new Error("This room is full");
 		this.players.push(socket);
+		this.gameServer.emit("updateGameInfo", { room: this.room });
 	};
 
 	PvP.prototype.startGame = function() {

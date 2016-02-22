@@ -1,83 +1,88 @@
-<section ng-controller="GameController as gameCtrl">
+<section ng-controller="VersusGameController as versusGameCtrl">
 
 	<header> The Wisest Game </header>
 
-	<aside class="team-one">
+	<div ng-if="!versusGameCtrl.waitingForPlayers">
+		<aside class="team-one">
 
-		<div class="team-info">
-			<span class="team-name"> Versus </span>
-			<span class="team-score" ng-bind="gameCtrl.score || '0'"></span>
-		</div>
-
-		<div class="player player-1">
-			<div class='player-image' data-ng-if='!gameCtrl.playerOne.icon'>		
+			<div class="team-info">
+				<span class="team-name"> Score </span>
+				<span class="team-score" ng-bind="versusGameCtrl.playerOne.score || '0'"></span>
 			</div>
-			<img data-ng-if='gameCtrl.playerOne.icon' class="player-image" ng-src='{{"data:image/png;base64,"+gameCtrl.playerOne.icon}}'>
-			<!-- Inline block issue-->
-			<div class="player-info">
-				<span class="player-name" data-ng-bind='gameCtrl.playerOne.first_name'></span>
-				<span class="player-level" data-ng-bind='gameCtrl.playerOne.level.name'></span>
-				<div class="level-bar">
-					<div class="xp-text" ng-cloak>( {{gameCtrl.score}} / {{gameCtrl.playerOne.level.next_level}}) XP</div>
-					<div class="needed-xp"></div>
-					<div class="current-xp" style="width : {{ (gameCtrl.playerOne.level.currentPrecent || 0)}}%"></div>
-				</div>				
-			</div>
-		</div>
-	</aside>
 
-	<aside class="team-two">
-		<div class="team-info">
-			<span class="team-name"> The New Fellowship </span>
-			<span class="team-score"> 32768 </span>
-		</div>
-
-		<div class="player player-1">
-			<div class="player-info">
-				<span class="player-name" data-ng-bind='gameCtrl.playerTwo.first_name'></span>
-				<span class="player-level" data-ng-bind='gameCtrl.playerTwo.level.name'></span>
-				<div class="level-bar">
-					<div class="xp-text" ng-cloak>( {{gameCtrl.score}} / {{gameCtrl.playerTwo.level.next_level}}) XP</div>
-					<div class="needed-xp"></div>
-					<div class="current-xp" style="width : {{ (gameCtrl.playerTwo.level.currentPrecent || 0)}}%"></div>
+			<div class="player player-1">
+				<div class='player-image' data-ng-if='!versusGameCtrl.playerOne.icon'>		
 				</div>
-			</div><!-- Inline-block issue
-			--><img data-ng-if='gameCtrl.playerTwo.icon' class="player-image" ng-src='{{"data:image/png;base64,"+gameCtrl.playerTwo.icon}}'>
-		</div>
-	</aside>
+				<img data-ng-if='versusGameCtrl.playerOne.icon' class="player-image" ng-src='{{"data:image/png;base64,"+versusGameCtrl.playerOne.icon}}'>
+				<!-- Inline block issue-->
+				<div class="player-info">
+					<span class="player-name" data-ng-bind='versusGameCtrl.playerOne.first_name'></span>
+					<span class="player-level" data-ng-bind='versusGameCtrl.playerOne.level.name'></span>
+					<div class="level-bar">
+						<div class="xp-text" ng-cloak>( {{versusGameCtrl.playerOne.level.score}} / {{versusGameCtrl.playerOne.level.next_level}}) XP</div>
+						<div class="needed-xp"></div>
+						<div class="current-xp" style="width : {{ (versusGameCtrl.playerOne.level.currentPercent || 0)}}%"></div>
+					</div>				
+				</div>
+			</div>
+		</aside>
 
-	<main ng-if="gameCtrl.currentQuestion">
-		<div class="timer" ng-bind="gameCtrl.getTimerValue()"></div>
+		<aside class="team-two">
+			<div class="team-info">
+				<span class="team-name"> Score </span>
+				<span class="team-score" ng-bind="versusGameCtrl.playerTwo.score || '0'"> </span>
+			</div>
 
-		<div class="question-text" ng-cloak>
-			{{gameCtrl.currentQuestion.description}}
-			<code
-				class="question-code"
-				ng-if="gameCtrl.currentQuestion.code"
-				ng-bind="gameCtrl.currentQuestion.code"
-			></code>
-		</div>
+			<div class="player player-1">
+				<div class="player-info">
+					<span class="player-name" data-ng-bind='versusGameCtrl.playerTwo.first_name'></span>
+					<span class="player-level" data-ng-bind='versusGameCtrl.playerTwo.level.name'></span>
+					<div class="level-bar">
+						<div class="xp-text" ng-cloak>( {{versusGameCtrl.playerTwo.level.score}} / {{versusGameCtrl.playerTwo.level.next_level}}) XP</div>
+						<div class="needed-xp"></div>
+						<div class="current-xp" style="width : {{ (versusGameCtrl.playerTwo.level.currentPercent || 0)}}%"></div>
+					</div>
+				</div><!-- Inline-block issue
+				--><img data-ng-if='versusGameCtrl.playerTwo.icon' class="player-image" ng-src='{{"data:image/png;base64,"+versusGameCtrl.playerTwo.icon}}'>
+			</div>
+		</aside>
 
-		<div class="question-options" ng-if="!gameCtrl.currentResponse">
-			<button
-				ng-repeat="option in gameCtrl.currentQuestion.options"
-				ng-bind="option"
-				ng-click="gameCtrl.sendAnswer(option);"
-				ng-disabled="!gameCtrl.pendingAnswer"
-			></button>
-		</div>
+		<main ng-if="versusGameCtrl.currentQuestion">
+			<div class="timer" ng-bind="versusGameCtrl.getTimerValue()"></div>
 
-		<!-- TO REFACTORY -->
-		<div class="question-options" ng-if="gameCtrl.currentResponse">
-			<span
-				ng-bind="gameCtrl.currentResponse.message"
-				ng-class="{
-					'success': gameCtrl.currentResponse.success,
-					'error': !gameCtrl.currentResponse.success
-				}"></span>
-			<button ng-click="gameCtrl.nextQuestion();"> Next question </button>
-		</div>
+			<div class="question-text" ng-cloak>
+				{{versusGameCtrl.currentQuestion.description}}
+				<code
+					class="question-code"
+					ng-if="versusGameCtrl.currentQuestion.code"
+					ng-bind="versusGameCtrl.currentQuestion.code"
+				></code>
+			</div>
 
-	</main>
+			<div class="question-options" ng-if="!versusGameCtrl.currentResponse">
+				<button
+					ng-repeat="option in versusGameCtrl.currentQuestion.options"
+					ng-bind="option"
+					ng-click="versusGameCtrl.sendAnswer(option);"
+					ng-disabled="!versusGameCtrl.pendingAnswer"
+				></button>
+			</div>
+
+			<!-- TO REFACTORY -->
+			<div class="question-options" ng-if="versusGameCtrl.currentResponse">
+				<span
+					ng-bind="versusGameCtrl.currentResponse.message"
+					ng-class="{
+						'success': versusGameCtrl.currentResponse.success,
+						'error': !versusGameCtrl.currentResponse.success
+					}"></span>
+				<button ng-click="versusGameCtrl.nextQuestion();"> Next question </button>
+			</div>
+		</main>
+	</div>
+
+	<div ng-if="versusversusGameCtrl.waitingForPlayers">
+		<div class="question-text">Waiting for your opponent </div>
+	</div>
 
 </section>

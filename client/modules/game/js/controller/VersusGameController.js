@@ -1,6 +1,8 @@
-angular.module("WisestGame").controller('GameController', ['Game', 'User', '$window', '$scope', 'socketClient', function(Game, User, $window, $scope, socketClient) {
+angular.module("WisestGame").controller('VersusGameController', ['Game', 'User', '$window', '$scope', 'socketClient', function(Game, User, $window, $scope, socketClient) {
 
 	var self = this;
+
+	this.waitingForPlayers = true;
 
 	this.pendingAnswer = false;
 	this.currentQuestion = undefined;
@@ -90,16 +92,40 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 	// getThemeScore();
 	// this.nextQuestion();
 
-	function getRoomAndSubscribe() {
-		Game.getRoom.query().$promise.then(function(result){
-			console.log(result);
-			socketClient.subscribe(result.room);
+	function getGameInfo() {
+		Game.getGameInfo.query().$promise.then(function(result){
+			self.currentPlayer = result.player;
+			subscribe(result.room);
 		});
 	}
-	getRoomAndSubscribe();
+
+	function subscribe(room) {
+		socketClient.subscribe(room);
+	}
+
+	getGameInfo();
 
 	socketClient.addListener("gameInfo", function(data) {
-		console.warn(data);
+		updatePlayersInfo(data.gameInfo);
+	});
+
+	function updatePlayersInfo(players) {
+		players.forEach(function(player){
+			player.icon = new Identicon(player._id.toString(), 420).toString();
+			if (self.currentPlayer.toString() === player._id.toString()) {
+				self.playerOne = player;
+			} else {
+				self.playerTwo = player;
+			}
+		});
+		if (!$scope.$$phase) $scope.$apply();
+	}
+
+	socketClient.addListener("startGame", function() {
+		self.waitingForPlayers = false;
+		if (!$scope.$$phase) $scope.$apply();
+
+		self.nextQuestion();
 	});
 
 }]);

@@ -37,7 +37,7 @@ angular.module('WisestGame').factory("Game", ['$resource', 'settings',
           isArray: false
         }
       }),
-      getRoom: $resource(settings.serverUrl + '/game/getRoom', {}, {
+      getGameInfo: $resource(settings.serverUrl + '/game/getGameInfo', {}, {
         query: {
           method: 'GET',
           params: {},
