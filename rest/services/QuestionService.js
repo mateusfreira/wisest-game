@@ -16,6 +16,7 @@ function QuestionService() {
 					description: question.description,
 					code: question.code,
 					duration: question.duration,
+					answer: question.answer,
 					options: question.options
 				};
 			});
