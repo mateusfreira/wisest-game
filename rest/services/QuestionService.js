@@ -55,7 +55,6 @@ function QuestionService() {
 
 	this.update = function(question, data, user) {
 		question = _.extend(question, data);
-		console.log(user);
 		if (user._id.toString() == question.user.toString()) {
 			return question.save().then(function() {
 				return self.extractPublicAPI(question);

@@ -1,19 +1,94 @@
 const requireModule = require('../model/index').requireModule,
 	Question = requireModule("Question"),
 	User = requireModule("User"),
-	Score = requireModule("Score");
+	Score = requireModule("Score"),
+	Game = requireModule("Game"),
+	Mode = requireModule("Mode");
 
 function GameService() {
 	var self = this;
+	var deviationPercentage = 0.5;
 
-	this.start = function(contextContainer, player, mode, theme) {
-		contextContainer.gameContext = {
-			player: player,
-			theme: theme,
-			mode: mode
-		};
-		return contextContainer.gameContext;
+	this.start = function(contextContainer, owner, modeId, themeId, socketService) {
+		if (!contextContainer.gameContext) {
+			return Mode.findById(modeId)
+			.then(function(mode){
+				if (mode.isSingle) {
+					return findSinglePlayer(owner._id, modeId, themeId);
+				} else {
+					return findGameToPlay(themeId, modeId, owner, socketService);
+				}
+			})
+			.then(function(game){
+				var gameContext = {
+					room: game._id,
+					owner: owner._id,
+					theme: themeId,
+					mode: modeId
+				};
+				contextContainer.gameContext = gameContext;
+				return contextContainer.gameContext;
+			});
+		}
+		return Promise.resolve(contextContainer.gameContext);
 	};
+
+	function findSinglePlayer(ownerId, modeId, themeId){
+		return Game.findOne({ owner: ownerId, mode: modeId, themeId: themeId })
+			.then(function(game){
+				if (!game) {
+					return factoryGame(ownerId, modeId, themeId);
+				}
+				return game;
+			});
+	}
+
+	function findGameToPlay(themeId, modeId, user, socketService) {
+		var themeScore = user.getThemeScore(themeId);
+		var xp = themeScore ? themeScore.score : 0;
+		return Game.find({ theme: themeId, mode: modeId })
+		    .populate([{path:'owner', select:'_id scores'}])
+		    .then(function(games){
+		    	var game;
+		    	for (var i = 0; i < games.length; i++) {
+		    		var gameThemeScore = games[i].owner.getThemeScore(themeId);
+		    		var gameXp = themeScore ? themeScore.score : 1;
+		    		games[i].ownerXp = gameXp;
+		    		games[i].difference = Math.abs(xp - gameXp);
+		    		if (isFair(xp, games[i].difference) && (!game || game.difference > games[i].difference)) {
+		    			game = games[i];
+		    		}
+		    	}
+		    	if (game) {
+		    		game.players.push({
+		    			user: user._id,
+		    			score: 0
+		    		}).save();
+		    	} else {
+		    		game = factoryGame(user._id, modeId, themeId).then(function(game){
+						socketService.createRoom(game._id, modeId);
+		    			return game;
+		    		});
+		    	}
+		    	return game;
+		    });
+	}
+
+	function isFair(xp, difference){
+		return xp * deviationPercentage >= difference;
+	}
+
+	function factoryGame(ownerId, modeId, themeId) {
+		return new Game({
+			theme: themeId,
+			mode: modeId,
+			players: [{
+				user: ownerId,
+				score: 0
+			}],
+			owner: ownerId
+		}).save();
+	}
 
 	this.nextQuestion = function(gameContext) {
 		var questionPromise;

@@ -74,7 +74,8 @@
     res.send('!');
   });
 
-  load('controllers')
+  load('socket')
+    .then('controllers')
     .then('routes')
     .into(app);
 

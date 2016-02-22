@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 var ModeSchema = new Schema({
 	name: { type: String, required: true },
+	isSingle: { type: Boolean, default: false },
 	created_at: { type: Date, default: Date.now }
 });
 

@@ -3,17 +3,18 @@
 	var PvP = require('./PvP');
 
 	var rooms = {};
-	var gameServerSocket;
+	var gameServer;
 
 	io.on('connection', function (socket) {
 		
-		socket.on("wisestGameServer", function() {
-			gameServerSocket = socket;
+		socket.on("connectServer", function() {
+			gameServer = socket;
 
-			gameServerSocket.on("createRoom", function(data){
+			gameServer.on("createRoom", function(data){
+				console.log("createRoom", data.room);
 				if (!rooms[data.room]) {
 					if (data.pvp)
-						rooms[data.room] = new PvP(gameServerSocket, data.room);
+						rooms[data.room] = new PvP(gameServer, data.room);
 					else if (data.tvt)
 						console.log("not implemented yet"); // tvt game
 				}
@@ -21,7 +22,7 @@
 					socket.emit("createRoomError", {message: "The room " + room + " already exists."});
 			});
 
-			gameServerSocket.on("updateGameInfo", function(data) {
+			gameServer.on("updateGameInfo", function(data) {
 				if (rooms[data.room]) {
 					io.to(data.room).emit("gameInfo", { startTime: data.startTime, context: data.context });
 				}
