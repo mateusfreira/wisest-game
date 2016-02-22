@@ -39,7 +39,7 @@ angular.module("WisestGame").controller('GameController', ['Game', 'User', '$win
 			.then(function(response) {
 				self.currentResponse = response;
 				updateScoreAfterRightAnswer();
-				self.getThemeScore();
+				getThemeScore();
 			})
 			.catch(function(err) {
 				console.log(err);
