@@ -1,0 +1,29 @@
+.start-game {
+
+	header.start-menu-header {
+		margin-bottom: 20px !important;
+	}
+
+	.hint-text {
+		display: block;
+		color: $yellow;
+		font-family: $font-block;
+		font-size: 40px;
+		margin-bottom: 80px;
+	}
+
+	.dashboard-button:focus {
+		font-size: 35px !important;
+	}
+
+	.start-button {
+		font-family: $font-bold;
+		font-size: 35px;
+
+		&:focus {
+			color: $green;
+			font-size: 45px !important;
+		}
+	}
+
+}
