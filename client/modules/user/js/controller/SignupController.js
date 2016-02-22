@@ -13,7 +13,7 @@ angular.module("WisestGame").controller('SignupController', ['$state', 'User','s
 			$state.go("dashboard", {}, {location: true});
 		})
 		.catch(function(err){
-			console.error(err);
+			
 			alert(err.data);
 		});
 	};

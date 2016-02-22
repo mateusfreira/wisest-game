@@ -11,8 +11,7 @@ angular.module("WisestGame").controller('LoginController', ['$state', 'User', 's
 			settings.user = response;
 			$state.go("dashboard", {}, {location: true});
 		})
-		.catch(function(err){
-			console.error(err);
+		.catch(function(err){			
 			alert(err.data);
 		});
 	};
