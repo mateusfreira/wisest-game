@@ -1,3 +1,30 @@
+<style>
+    .arcade{
+        font-family: "Arcade", Monaco, consolas, sans-serif;
+    }    
+    .formElemet{
+        position: relative;
+        width: 400px;
+        text-align: center;
+        height: 50px;
+        margin-bottom: 25px;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        color: #ffffff ;
+        font-size: 40px;
+        margin-left: 15px;    
+    }
+    .border{
+        border-bottom: 2px solid #ffffff ;
+    }
+    select option {
+        margin:40px;
+        background: rgba(0,0,0,1);
+        color:#fff;
+        text-shadow:0 1px 0 rgba(0,0,0,1);
+    }    
+</style>
 <span data-ng-include="'/modules/main/template/sidebar.html'"></span>
 <header class="login-header"> The Wisest Game </header>
 <section  class="login" ng-controller="QuestionController as questionCtrl">
@@ -30,14 +57,14 @@
 
         <div class="login-field" game-login-field>
             <label>Answer</label>
-            <select name="theme" id="theme"
+            <select class="arcade formElemet border" name="theme" id="theme"
                   ng-options="option as option for option in questionCtrl.question.options"
                   ng-model="questionCtrl.question.answer"></select>
         </div> <br>
 
         <div class="login-field" game-login-field
             <label>Level</label>
-            <select name="level" id="level"
+            <select class="arcade formElemet border" name="level" id="level"
             ng-options="level._id as level.name for level in questionCtrl.levels"
             ng-model="questionCtrl.question.level"
             >
@@ -56,7 +83,7 @@
 
         <div class="login-field" game-login-field>
             <label>Theme</label>
-            <select name="theme" id="theme"
+            <select class="arcade formElemet border" name="theme" id="theme"
                   ng-options="theme._id as theme.name for theme in questionCtrl.themes track by theme._id"
                   ng-model="questionCtrl.question.theme"></select>
         </div> <br>
