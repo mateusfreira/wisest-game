@@ -67,6 +67,7 @@ main {
       height: 45px;
       margin: 10px 5px;
       padding: 0;
+      outline: none;
       border: none;
       background-color: #ffffff;
       border-left: 15px solid transparent;
@@ -75,7 +76,7 @@ main {
       color: black;
       font-size: 22px;
       font-family: "Free Pixel", Monaco, consolas, sans-serif; }
-      main .question-options button.focus {
+      main .question-options button:focus {
         background-color: #ffff00; }
       main .question-options button.right {
         background-color: #00ff00;

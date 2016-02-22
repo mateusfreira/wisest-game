@@ -1,4 +1,4 @@
-<section ng-controller="GameController as gameCtrl">
+<section ng-controller="GameController as gameCtrl" class="playing-game">
 
 	<header> The Wisest Game </header>
 
@@ -16,10 +16,11 @@
 			></code>
 		</div>
 
-		<div class="question-options">
+		<div class="question-options" game-tab-helper>
 			<button
 				ng-repeat="option in gameCtrl.currentQuestion.options"
 				ng-bind="option"
+				game-tab
 				ng-class="{
 					'right':  gameCtrl.currentResponse && gameCtrl.currentResponse.message == option,
 					'wrong':  gameCtrl.currentResponse && gameCtrl.currentResponse.message != option && gameCtrl.selectedOption == option,

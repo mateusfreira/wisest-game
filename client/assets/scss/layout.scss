@@ -72,6 +72,7 @@ main {
 			margin: 10px 5px;
 			padding: 0;
 
+			outline: none;
 			border: none;
 			background-color: $white;
 			border-left: 15px solid transparent;
@@ -82,7 +83,7 @@ main {
 			font-size: 22px;
 			font-family: $font-light;
 
-			&.focus {
+			&:focus {
 				background-color: $yellow;
 			}
 
